@@ -1,0 +1,5 @@
+# O analisador (analisador_metricas_st.py) usa apenas a biblioteca padrão do Python 3.10+.
+# A dependência abaixo é necessária somente para rodar os testes unitários:
+#   pip install -r requirements.txt
+#   python -m pytest -v
+pytest>=7.0

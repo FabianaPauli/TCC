@@ -1,0 +1,2025 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2026-10-23T14:23:04.4730788" />
+  <contentHeader name="DeepSeek2.project" modificationDateTime="2026-10-23T14:22:43.1151021">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+      <resource name="Application">
+        <task name="MainTask" interval="PT0.02S" priority="1">
+          <pouInstance name="PRG_Main" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+              <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+              </TaskSettings>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>fe829c7c-7030-481e-9c84-c28a35e67d74</ObjectId>
+            </data>
+          </addData>
+        </task>
+        <globalVars name="GVL_Main">
+          <variable name="xSensorEntrada">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa presente na zona de entrada </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSensorMontagem">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa presente na zona de montagem </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSensorSaida">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa presente na zona de saída </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSMEMA_BoardAvailIn">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Board Available do vizinho a montante </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSMEMA_MachineReadyOut">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Machine Ready para o vizinho a montante </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSMEMA_MachineReadyIn">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Machine Ready do vizinho a jusante </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSMEMA_BoardAvailOut">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Board Available para o vizinho a jusante </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xCilindroRecolhido">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sensor fim de curso recolhido </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xCilindroAvancado">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sensor fim de curso avançado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xPressostatoVacuo">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Confirmação de pega por vácuo </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xEmergencia">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botão de emergência - NF </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xPortaProtecao">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Porta de proteção - NF </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xMotorEntrada">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ========== SAÍDAS FÍSICAS ========== 
+ Esteira </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xMotorMontagem">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xMotorSaida">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xValvulaCilindro">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Válvula direcional cilindro </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xValvulaVacuo">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Válvula de vácuo </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSMEMA_BoardAvailToDownstream">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA - Sinais físicos de saída </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSMEMA_MachineReadyToUpstream">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xAxisX_Ref">
+            <type>
+              <derived name="AXIS_REF_SM3" />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ========== EIXOS (referências PLCopen) ========== </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAxisY_Ref">
+            <type>
+              <derived name="AXIS_REF_SM3" />
+            </type>
+          </variable>
+          <variable name="xAxisZ_Ref">
+            <type>
+              <derived name="AXIS_REF_SM3" />
+            </type>
+          </variable>
+          <variable name="xAxisTheta_Ref">
+            <type>
+              <derived name="AXIS_REF_SM3" />
+            </type>
+          </variable>
+          <variable name="dwHeartbeatIHM">
+            <type>
+              <DWORD />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Contador enviado pela IHM </xhtml>
+            </documentation>
+          </variable>
+          <variable name="dwHeartbeatLocal">
+            <type>
+              <DWORD />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cópia local do último valor recebido </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xIHMComOK">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE se heartbeat válido </xhtml>
+            </documentation>
+          </variable>
+          <variable name="udiPlacasProduzidas">
+            <type>
+              <UDINT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ========== CONTADORES ========== </xhtml>
+            </documentation>
+          </variable>
+          <variable name="udiPlacasRejeitadas">
+            <type>
+              <UDINT />
+            </type>
+          </variable>
+          <variable name="iReceitaSelecionada">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="1" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> 1..3 </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xReceitaCarregada">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="iQtdComponentes">
+            <type>
+              <INT />
+            </type>
+          </variable>
+          <variable name="aPosicoes">
+            <type>
+              <array>
+                <dimension lower="1" upper="50" />
+                <baseType>
+                  <derived name="ST_PosicaoComponente" />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAlarmeAtivo">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ========== ALARMES ========== </xhtml>
+            </documentation>
+          </variable>
+          <variable name="udiCodigoAlarme">
+            <type>
+              <UDINT />
+            </type>
+          </variable>
+          <variable name="xAlarmeReconhecido">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xResetAlarmes">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCicloAutomatico">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ========== ESTADO GLOBAL ========== </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xHomingConcluido">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xParadaSegura">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>35e434c1-8dea-4f50-b22b-487f926a2c8d</ObjectId>
+            </data>
+          </addData>
+        </globalVars>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="ST_PosicaoComponente">
+              <baseType>
+                <struct>
+                  <variable name="lrX">
+                    <type>
+                      <LREAL />
+                    </type>
+                  </variable>
+                  <variable name="lrY">
+                    <type>
+                      <LREAL />
+                    </type>
+                  </variable>
+                  <variable name="lrZ">
+                    <type>
+                      <LREAL />
+                    </type>
+                  </variable>
+                  <variable name="lrTheta">
+                    <type>
+                      <LREAL />
+                    </type>
+                  </variable>
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>1d690c0d-8762-4c36-a011-3a5b3fc06947</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_SMEMA" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xBoardAvailableIn">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Do vizinho a montante </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMachineReadyIn">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Do vizinho a jusante </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xPlacaDisponivel">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Interno: placa pronta para enviar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xProntoParaReceber">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Interno: máquina pronta para receber </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xBoardAvailableOut">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Para vizinho a montante </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMachineReadyOut">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Para vizinho a jusante </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xTransferenciaOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Handshake completo </xhtml>
+                    </documentation>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="tonTimeout">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Handshake SMEMA simplificado: 
+   Board Available (saída) + Machine Ready (entrada) para envio
+   Machine Ready (saída) + Board Available (entrada) para recebimento *)
+
+(* Saída: sinaliza placa disponível se há placa e não estamos em falha *)
+xBoardAvailableOut := xPlacaDisponivel AND NOT GVL_Main.xParadaSegura;
+
+(* Saída: sinaliza pronto para receber se estivermos prontos e sem falha *)
+xMachineReadyOut := xProntoParaReceber AND NOT GVL_Main.xParadaSegura;
+
+(* Lógica de transferência *)
+CASE iState OF
+    0: (* Aguardando condições *)
+        xTransferenciaOK := FALSE;
+        IF xBoardAvailableOut AND xMachineReadyIn THEN
+            iState := 10;
+            tonTimeout(IN := TRUE, PT := T#5S);
+        END_IF;
+        
+    10: (* Transferência em andamento - aguarda timeout ou confirmação *)
+        IF NOT xBoardAvailableOut THEN
+            (* Placa saiu da zona *)
+            xTransferenciaOK := TRUE;
+            iState := 20;
+            tonTimeout(IN := FALSE);
+        ELSIF tonTimeout.Q THEN
+            (* Timeout de transferência *)
+            GVL_Main.udiCodigoAlarme := 1001; (* SMEMA timeout *)
+            GVL_Main.xAlarmeAtivo := TRUE;
+            iState := 0;
+            tonTimeout(IN := FALSE);
+        END_IF;
+        
+    20: (* Transferência concluída *)
+        xTransferenciaOK := TRUE;
+        IF NOT xMachineReadyIn THEN
+            iState := 0;
+        END_IF;
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>f43ae7fa-8f54-4218-8c8b-88cdf981b3d5</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_PneumaticActuator" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xComandoAvancar">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Comando para avançar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xComandoRecuar">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Comando para recuar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensorRecolhido">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Fim de curso recolhido </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensorAvancado">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Fim de curso avançado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tTimeoutMovimento">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#2s0ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xValvulaAvancar">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xValvulaRecuar">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xPosicaoAvancada">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xPosicaoRecolhida">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xErroTimeout">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xErroDuplaConfirma">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sensores inconsistentes </xhtml>
+                    </documentation>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="tonTimeout">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonInconsistencia">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Detecção de inconsistência: ambos os sensores ativos ou nenhum *)
+tonInconsistencia(IN := (xSensorRecolhido AND xSensorAvancado) OR 
+                        (NOT xSensorRecolhido AND NOT xSensorAvancado),
+                  PT := T#500MS);
+xErroDuplaConfirma := tonInconsistencia.Q;
+
+IF xErroDuplaConfirma THEN
+    GVL_Main.udiCodigoAlarme := 2001;
+    GVL_Main.xAlarmeAtivo := TRUE;
+END_IF;
+
+(* Atualização de estados *)
+xPosicaoAvancada := xSensorAvancado;
+xPosicaoRecolhida := xSensorRecolhido;
+
+(* Lógica de controle *)
+CASE iState OF
+    0: (* Repouso *)
+        xValvulaAvancar := FALSE;
+        xValvulaRecuar := FALSE;
+        xErroTimeout := FALSE;
+        tonTimeout(IN := FALSE);
+        
+        IF xComandoAvancar AND NOT xSensorAvancado THEN
+            iState := 10;
+            xValvulaAvancar := TRUE;
+            tonTimeout(IN := TRUE, PT := tTimeoutMovimento);
+        ELSIF xComandoRecuar AND NOT xSensorRecolhido THEN
+            iState := 20;
+            xValvulaRecuar := TRUE;
+            tonTimeout(IN := TRUE, PT := tTimeoutMovimento);
+        END_IF;
+        
+    10: (* Avançando *)
+        xValvulaAvancar := TRUE;
+        IF xSensorAvancado THEN
+            xValvulaAvancar := FALSE;
+            iState := 0;
+            tonTimeout(IN := FALSE);
+        ELSIF tonTimeout.Q THEN
+            xValvulaAvancar := FALSE;
+            xErroTimeout := TRUE;
+            GVL_Main.udiCodigoAlarme := 2002;
+            GVL_Main.xAlarmeAtivo := TRUE;
+            iState := 0;
+            tonTimeout(IN := FALSE);
+        END_IF;
+        
+    20: (* Recuando *)
+        xValvulaRecuar := TRUE;
+        IF xSensorRecolhido THEN
+            xValvulaRecuar := FALSE;
+            iState := 0;
+            tonTimeout(IN := FALSE);
+        ELSIF tonTimeout.Q THEN
+            xValvulaRecuar := FALSE;
+            xErroTimeout := TRUE;
+            GVL_Main.udiCodigoAlarme := 2003;
+            GVL_Main.xAlarmeAtivo := TRUE;
+            iState := 0;
+            tonTimeout(IN := FALSE);
+        END_IF;
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>549fdfa4-fd3c-4ab7-a24d-c9356924547d</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_VacuumGripper" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xComandoSoprar">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Liberar vácuo / soprar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xComandoAspirar">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Aplicar vácuo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xPressostato">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Confirmação de vácuo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tTimeoutPega">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#1s0ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xValvulaVacuo">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xPegaConfirmada">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xErroPega">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="tonTimeout">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">CASE iState OF
+    0: (* Repouso *)
+        xValvulaVacuo := FALSE;
+        xPegaConfirmada := FALSE;
+        xErroPega := FALSE;
+        tonTimeout(IN := FALSE);
+        
+        IF xComandoAspirar THEN
+            iState := 10;
+            xValvulaVacuo := TRUE;
+            tonTimeout(IN := TRUE, PT := tTimeoutPega);
+        END_IF;
+        
+    10: (* Aspirando - aguarda confirmação *)
+        xValvulaVacuo := TRUE;
+        
+        IF xPressostato THEN
+            xPegaConfirmada := TRUE;
+            xErroPega := FALSE;
+            iState := 20;
+            tonTimeout(IN := FALSE);
+        ELSIF tonTimeout.Q THEN
+            xValvulaVacuo := FALSE;
+            xPegaConfirmada := FALSE;
+            xErroPega := TRUE;
+            GVL_Main.udiCodigoAlarme := 3001;
+            GVL_Main.xAlarmeAtivo := TRUE;
+            iState := 0;
+            tonTimeout(IN := FALSE);
+        END_IF;
+        
+    20: (* Pega confirmada - aguarda comando de liberar *)
+        xValvulaVacuo := TRUE;
+        
+        IF xComandoSoprar THEN
+            xValvulaVacuo := FALSE;
+            xPegaConfirmada := FALSE;
+            iState := 30;
+        END_IF;
+        
+    30: (* Liberando - aguarda pressostato cair *)
+        xValvulaVacuo := FALSE;
+        
+        IF NOT xPressostato THEN
+            iState := 0;
+        END_IF;
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>034a78cb-eec2-43f4-8a7d-6e6fadaa942e</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AxisHoming" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xExecute">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReferencia">
+                    <type>
+                      <derived name="AXIS_REF_SM3" />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xError">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="udiErrorID">
+                    <type>
+                      <UDINT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="fbHome">
+                    <type>
+                      <derived name="MC_Home" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Wrapper de homing PLCopen *)
+fbHome(Axis := xReferencia,
+       Execute := xExecute,
+       Position := 0.0);
+
+xDone  := fbHome.Done;
+xBusy  := fbHome.Busy;
+xError := fbHome.Error;
+udiErrorID := fbHome.ErrorID;
+
+IF fbHome.Error THEN
+    GVL_Main.udiCodigoAlarme := 4001;
+    GVL_Main.xAlarmeAtivo := TRUE;
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>7aeee605-98a8-4704-8b41-7fcafa4596da</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AxisMove" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xExecute">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReferencia">
+                    <type>
+                      <derived name="AXIS_REF_SM3" />
+                    </type>
+                  </variable>
+                  <variable name="lrPosicao">
+                    <type>
+                      <LREAL />
+                    </type>
+                  </variable>
+                  <variable name="xAbsoluto">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TRUE" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE=absoluto, FALSE=relativo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="lrVelocidade">
+                    <type>
+                      <LREAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="100.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="lrAceleracao">
+                    <type>
+                      <LREAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="500.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="lrDesaceleracao">
+                    <type>
+                      <LREAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="500.0" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xError">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="udiErrorID">
+                    <type>
+                      <UDINT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="fbMoveAbs">
+                    <type>
+                      <derived name="MC_MoveAbsolute" />
+                    </type>
+                  </variable>
+                  <variable name="fbMoveRel">
+                    <type>
+                      <derived name="MC_MoveRelative" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">IF xAbsoluto THEN
+    fbMoveRel(Axis := xReferencia, Execute := FALSE);
+    fbMoveAbs(Axis := xReferencia,
+              Execute := xExecute,
+              Position := lrPosicao,
+              Velocity := lrVelocidade,
+              Acceleration := lrAceleracao,
+              Deceleration := lrDesaceleracao);
+    xDone  := fbMoveAbs.Done;
+    xBusy  := fbMoveAbs.Busy;
+    xError := fbMoveAbs.Error;
+    udiErrorID := fbMoveAbs.ErrorID;
+ELSE
+    fbMoveAbs(Axis := xReferencia, Execute := FALSE);
+    fbMoveRel(Axis := xReferencia,
+              Execute := xExecute,
+              Distance := lrPosicao,
+              Velocity := lrVelocidade,
+              Acceleration := lrAceleracao,
+              Deceleration := lrDesaceleracao);
+    xDone  := fbMoveRel.Done;
+    xBusy  := fbMoveRel.Busy;
+    xError := fbMoveRel.Error;
+    udiErrorID := fbMoveRel.ErrorID;
+END_IF;
+
+IF xError THEN
+    GVL_Main.udiCodigoAlarme := 4002;
+    GVL_Main.xAlarmeAtivo := TRUE;
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>1b7eba78-35f3-4cc6-a099-acc74bdc36b5</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_PickPlaceCycle" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xIniciar">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="stPosicao">
+                    <type>
+                      <derived name="ST_PosicaoComponente" />
+                    </type>
+                  </variable>
+                  <variable name="xReferenciaX">
+                    <type>
+                      <derived name="AXIS_REF_SM3" />
+                    </type>
+                  </variable>
+                  <variable name="xReferenciaY">
+                    <type>
+                      <derived name="AXIS_REF_SM3" />
+                    </type>
+                  </variable>
+                  <variable name="xReferenciaZ">
+                    <type>
+                      <derived name="AXIS_REF_SM3" />
+                    </type>
+                  </variable>
+                  <variable name="xReferenciaTheta">
+                    <type>
+                      <derived name="AXIS_REF_SM3" />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xCicloCompleto">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xErro">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iEtapa">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="fbMoveX">
+                    <type>
+                      <derived name="FB_AxisMove" />
+                    </type>
+                  </variable>
+                  <variable name="fbMoveY">
+                    <type>
+                      <derived name="FB_AxisMove" />
+                    </type>
+                  </variable>
+                  <variable name="fbMoveZ">
+                    <type>
+                      <derived name="FB_AxisMove" />
+                    </type>
+                  </variable>
+                  <variable name="fbMoveTheta">
+                    <type>
+                      <derived name="FB_AxisMove" />
+                    </type>
+                  </variable>
+                  <variable name="fbVacuo">
+                    <type>
+                      <derived name="FB_VacuumGripper" />
+                    </type>
+                  </variable>
+                  <variable name="fbCilindro">
+                    <type>
+                      <derived name="FB_PneumaticActuator" />
+                    </type>
+                  </variable>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="tonTimeout">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Ciclo pick-and-place:
+   1. Mover X,Y,Theta para posição
+   2. Descer Z
+   3. Aspirar (confirmar pressostato)
+   4. Subir Z
+   5. Mover para posição de liberação (mesma posição para simplificar)
+   6. Descer Z
+   7. Liberar vácuo
+   8. Subir Z
+*)
+
+CASE iState OF
+    0: (* Repouso *)
+        xCicloCompleto := FALSE;
+        xErro := FALSE;
+        iEtapa := 0;
+        IF xIniciar AND NOT GVL_Main.xParadaSegura THEN
+            iState := 10;
+        END_IF;
+        
+    10: (* Mover X,Y,Theta para posição *)
+        iEtapa := 10;
+        fbMoveX(xExecute := TRUE, xReferencia := xReferenciaX, 
+                lrPosicao := stPosicao.lrX, xAbsoluto := TRUE);
+        fbMoveY(xExecute := TRUE, xReferencia := xReferenciaY,
+                lrPosicao := stPosicao.lrY, xAbsoluto := TRUE);
+        fbMoveTheta(xExecute := TRUE, xReferencia := xReferenciaTheta,
+                    lrPosicao := stPosicao.lrTheta, xAbsoluto := TRUE);
+        
+        IF fbMoveX.xDone AND fbMoveY.xDone AND fbMoveTheta.xDone THEN
+            fbMoveX(xExecute := FALSE, xReferencia := xReferenciaX);
+            fbMoveY(xExecute := FALSE, xReferencia := xReferenciaY);
+            fbMoveTheta(xExecute := FALSE, xReferencia := xReferenciaTheta);
+            iState := 20;
+        ELSIF fbMoveX.xError OR fbMoveY.xError OR fbMoveTheta.xError THEN
+            xErro := TRUE;
+            iState := 0;
+        END_IF;
+        
+    20: (* Descer Z para pegar *)
+        iEtapa := 20;
+        fbMoveZ(xExecute := TRUE, xReferencia := xReferenciaZ,
+                lrPosicao := stPosicao.lrZ - 10.0, xAbsoluto := TRUE);
+        
+        IF fbMoveZ.xDone THEN
+            fbMoveZ(xExecute := FALSE, xReferencia := xReferenciaZ);
+            iState := 30;
+        ELSIF fbMoveZ.xError THEN
+            xErro := TRUE;
+            iState := 0;
+        END_IF;
+        
+    30: (* Aspirar componente *)
+        iEtapa := 30;
+        fbVacuo(xComandoAspirar := TRUE, xPressostato := GVL_Main.xPressostatoVacuo);
+        
+        IF fbVacuo.xPegaConfirmada THEN
+            iState := 40;
+        ELSIF fbVacuo.xErroPega THEN
+            xErro := TRUE;
+            iState := 0;
+        END_IF;
+        
+    40: (* Subir Z *)
+        iEtapa := 40;
+        fbVacuo(xComandoAspirar := TRUE, xPressostato := GVL_Main.xPressostatoVacuo);
+        fbMoveZ(xExecute := TRUE, xReferencia := xReferenciaZ,
+                lrPosicao := stPosicao.lrZ + 20.0, xAbsoluto := TRUE);
+        
+        IF fbMoveZ.xDone THEN
+            fbMoveZ(xExecute := FALSE, xReferencia := xReferenciaZ);
+            iState := 50;
+        ELSIF fbMoveZ.xError THEN
+            xErro := TRUE;
+            iState := 0;
+        END_IF;
+        
+    50: (* Mover para posição de liberação - usa mesma posição *)
+        iEtapa := 50;
+        (* Já está na posição correta para simplificar *)
+        iState := 60;
+        
+    60: (* Descer Z para liberar *)
+        iEtapa := 60;
+        fbVacuo(xComandoAspirar := TRUE, xPressostato := GVL_Main.xPressostatoVacuo);
+        fbMoveZ(xExecute := TRUE, xReferencia := xReferenciaZ,
+                lrPosicao := stPosicao.lrZ - 10.0, xAbsoluto := TRUE);
+        
+        IF fbMoveZ.xDone THEN
+            fbMoveZ(xExecute := FALSE, xReferencia := xReferenciaZ);
+            iState := 70;
+        ELSIF fbMoveZ.xError THEN
+            xErro := TRUE;
+            iState := 0;
+        END_IF;
+        
+    70: (* Liberar componente *)
+        iEtapa := 70;
+        fbVacuo(xComandoSoprar := TRUE, xPressostato := GVL_Main.xPressostatoVacuo);
+        
+        IF NOT fbVacuo.xPegaConfirmada THEN
+            iState := 80;
+        END_IF;
+        
+    80: (* Subir Z *)
+        iEtapa := 80;
+        fbMoveZ(xExecute := TRUE, xReferencia := xReferenciaZ,
+                lrPosicao := stPosicao.lrZ + 30.0, xAbsoluto := TRUE);
+        
+        IF fbMoveZ.xDone THEN
+            fbMoveZ(xExecute := FALSE, xReferencia := xReferenciaZ);
+            xCicloCompleto := TRUE;
+            iState := 0;
+        ELSIF fbMoveZ.xError THEN
+            xErro := TRUE;
+            iState := 0;
+        END_IF;
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>d028d217-5b0d-47f5-b621-84251beb297a</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AOI_Inspection" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xIniciarInspecao">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xResultadoInspecao">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = aprovado (simulado) </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xAprovado">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xRejeitado">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iTentativas">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xInspecaoCompleta">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="tonAtraso">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">CASE iState OF
+    0: (* Aguardando início *)
+        xInspecaoCompleta := FALSE;
+        xAprovado := FALSE;
+        xRejeitado := FALSE;
+        iTentativas := 0;
+        
+        IF xIniciarInspecao AND NOT GVL_Main.xParadaSegura THEN
+            iState := 10;
+            iTentativas := 1;
+            tonAtraso(IN := TRUE, PT := T#500MS);
+        END_IF;
+        
+    10: (* Aguardando resultado da inspeção *)
+        IF tonAtraso.Q THEN
+            IF xResultadoInspecao THEN
+                xAprovado := TRUE;
+                xInspecaoCompleta := TRUE;
+                iState := 0;
+            ELSE
+                IF iTentativas &lt; 2 THEN
+                    (* Nova tentativa *)
+                    iTentativas := iTentativas + 1;
+                    tonAtraso(IN := FALSE);
+                    tonAtraso(IN := TRUE, PT := T#500MS);
+                ELSE
+                    (* Falha após 2 tentativas *)
+                    xRejeitado := TRUE;
+                    xInspecaoCompleta := TRUE;
+                    GVL_Main.udiPlacasRejeitadas := GVL_Main.udiPlacasRejeitadas + 1;
+                    iState := 0;
+                END_IF;
+            END_IF;
+        END_IF;
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>bf2b3f70-26bf-45af-bea1-924831685dae</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_RecipeManager" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="iNovaReceita">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> 1..3 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xCarregar">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xMaquinaParada">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xCarregada">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iReceitaAtiva">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xErro">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">CASE iState OF
+    0: (* Aguardando comando *)
+        xCarregada := FALSE;
+        xErro := FALSE;
+        
+        IF xCarregar AND xMaquinaParada THEN
+            IF iNovaReceita &gt;= 1 AND iNovaReceita &lt;= 3 THEN
+                iReceitaAtiva := iNovaReceita;
+                iState := 10;
+            ELSE
+                xErro := TRUE;
+                GVL_Main.udiCodigoAlarme := 5001;
+                GVL_Main.xAlarmeAtivo := TRUE;
+            END_IF;
+        END_IF;
+        
+    10: (* Carregando receita *)
+           CASE iReceitaAtiva OF
+        1:
+            GVL_Main.iQtdComponentes := 5;
+            
+            GVL_Main.aPosicoes[1].lrX := 100.0; GVL_Main.aPosicoes[1].lrY := 50.0; GVL_Main.aPosicoes[1].lrZ := 0.0; GVL_Main.aPosicoes[1].lrTheta := 0.0;
+            GVL_Main.aPosicoes[2].lrX := 150.0; GVL_Main.aPosicoes[2].lrY := 50.0; GVL_Main.aPosicoes[2].lrZ := 0.0; GVL_Main.aPosicoes[2].lrTheta := 0.0;
+            GVL_Main.aPosicoes[3].lrX := 200.0; GVL_Main.aPosicoes[3].lrY := 50.0; GVL_Main.aPosicoes[3].lrZ := 0.0; GVL_Main.aPosicoes[3].lrTheta := 0.0;
+            GVL_Main.aPosicoes[4].lrX := 100.0; GVL_Main.aPosicoes[4].lrY := 100.0; GVL_Main.aPosicoes[4].lrZ := 0.0; GVL_Main.aPosicoes[4].lrTheta := 90.0;
+            GVL_Main.aPosicoes[5].lrX := 150.0; GVL_Main.aPosicoes[5].lrY := 100.0; GVL_Main.aPosicoes[5].lrZ := 0.0; GVL_Main.aPosicoes[5].lrTheta := 90.0;
+            
+        2:
+            GVL_Main.iQtdComponentes := 3;
+            
+            GVL_Main.aPosicoes[1].lrX := 80.0;  GVL_Main.aPosicoes[1].lrY := 60.0; GVL_Main.aPosicoes[1].lrZ := 0.0; GVL_Main.aPosicoes[1].lrTheta := 0.0;
+            GVL_Main.aPosicoes[2].lrX := 130.0; GVL_Main.aPosicoes[2].lrY := 80.0; GVL_Main.aPosicoes[2].lrZ := 0.0; GVL_Main.aPosicoes[2].lrTheta := 180.0;
+            GVL_Main.aPosicoes[3].lrX := 180.0; GVL_Main.aPosicoes[3].lrY := 60.0; GVL_Main.aPosicoes[3].lrZ := 0.0; GVL_Main.aPosicoes[3].lrTheta := 0.0;
+            
+        3:
+            GVL_Main.iQtdComponentes := 8;
+            
+            GVL_Main.aPosicoes[1].lrX := 60.0;  GVL_Main.aPosicoes[1].lrY := 40.0; GVL_Main.aPosicoes[1].lrZ := 0.0; GVL_Main.aPosicoes[1].lrTheta := 0.0;
+            GVL_Main.aPosicoes[2].lrX := 100.0; GVL_Main.aPosicoes[2].lrY := 40.0; GVL_Main.aPosicoes[2].lrZ := 0.0; GVL_Main.aPosicoes[2].lrTheta := 0.0;
+            GVL_Main.aPosicoes[3].lrX := 140.0; GVL_Main.aPosicoes[3].lrY := 40.0; GVL_Main.aPosicoes[3].lrZ := 0.0; GVL_Main.aPosicoes[3].lrTheta := 0.0;
+            GVL_Main.aPosicoes[4].lrX := 180.0; GVL_Main.aPosicoes[4].lrY := 40.0; GVL_Main.aPosicoes[4].lrZ := 0.0; GVL_Main.aPosicoes[4].lrTheta := 0.0;
+            
+            GVL_Main.aPosicoes[5].lrX := 60.0;  GVL_Main.aPosicoes[5].lrY := 80.0; GVL_Main.aPosicoes[5].lrZ := 0.0; GVL_Main.aPosicoes[5].lrTheta := 90.0;
+            GVL_Main.aPosicoes[6].lrX := 100.0; GVL_Main.aPosicoes[6].lrY := 80.0; GVL_Main.aPosicoes[6].lrZ := 0.0; GVL_Main.aPosicoes[6].lrTheta := 90.0;
+            GVL_Main.aPosicoes[7].lrX := 140.0; GVL_Main.aPosicoes[7].lrY := 80.0; GVL_Main.aPosicoes[7].lrZ := 0.0; GVL_Main.aPosicoes[7].lrTheta := 90.0;
+            GVL_Main.aPosicoes[8].lrX := 180.0; GVL_Main.aPosicoes[8].lrY := 80.0; GVL_Main.aPosicoes[8].lrZ := 0.0; GVL_Main.aPosicoes[8].lrTheta := 90.0;
+    END_CASE;
+        
+        GVL_Main.xReceitaCarregada := TRUE;
+        xCarregada := TRUE;
+        iState := 20;
+        
+    20: (* Receita carregada *)
+        IF NOT xCarregar THEN
+            iState := 0;
+        END_IF;
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>123276d9-76a4-4869-a3db-888ab2e844d2</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AlarmManager" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xReconhecer">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xAlarmeAtivo">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAlarmeReconhecido">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="udiCodigoAtivo">
+                    <type>
+                      <UDINT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="xAlarmePendente">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Alarme pendente = condição de falha presente *)
+xAlarmePendente := GVL_Main.xAlarmeAtivo;
+
+(* Alarme ativo = pendente E não reconhecido *)
+xAlarmeAtivo := xAlarmePendente AND NOT xAlarmeReconhecido;
+
+(* Reconhecimento *)
+IF xReconhecer AND xAlarmePendente THEN
+    xAlarmeReconhecido := TRUE;
+END_IF;
+
+(* Reset - só permite se condição desapareceu *)
+IF xReset AND NOT xAlarmePendente THEN
+    xAlarmeReconhecido := FALSE;
+    udiCodigoAtivo := 0;
+    GVL_Main.udiCodigoAlarme := 0;
+    GVL_Main.xAlarmeAtivo := FALSE;
+END_IF;
+
+(* Atualiza saídas globais *)
+udiCodigoAtivo := GVL_Main.udiCodigoAlarme;
+GVL_Main.xAlarmeReconhecido := xAlarmeReconhecido;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>c052ab97-5c58-4429-baab-6300032ff095</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_HeartbeatMonitor" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="dwHeartbeatIHM">
+                    <type>
+                      <DWORD />
+                    </type>
+                  </variable>
+                  <variable name="tTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#3s0ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xComOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xTimeout">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="dwUltimoValor">
+                    <type>
+                      <DWORD />
+                    </type>
+                  </variable>
+                  <variable name="tonTimeout">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Detecta mudança no contador de heartbeat *)
+IF dwHeartbeatIHM &lt;&gt; dwUltimoValor THEN
+    dwUltimoValor := dwHeartbeatIHM;
+    tonTimeout(IN := FALSE);
+    tonTimeout(IN := TRUE, PT := tTimeout);
+    xComOK := TRUE;
+    xTimeout := FALSE;
+ELSE
+    tonTimeout(IN := TRUE, PT := tTimeout);
+    IF tonTimeout.Q THEN
+        xComOK := FALSE;
+        xTimeout := TRUE;
+    END_IF;
+END_IF;
+
+(* Timeout força parada segura *)
+IF xTimeout THEN
+    GVL_Main.xParadaSegura := TRUE;
+    GVL_Main.udiCodigoAlarme := 6001;
+    GVL_Main.xAlarmeAtivo := TRUE;
+END_IF;
+
+(* Atualiza GVL *)
+GVL_Main.xIHMComOK := xComOK;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>a8973b42-2fe7-44cf-898a-0260e520327e</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Main" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="fbSMEMAEntrada">
+                    <type>
+                      <derived name="FB_SMEMA" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Instâncias dos FBs </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="fbSMEMASaida">
+                    <type>
+                      <derived name="FB_SMEMA" />
+                    </type>
+                  </variable>
+                  <variable name="fbZonaEntrada">
+                    <type>
+                      <derived name="FB_ConveyorZone" />
+                    </type>
+                  </variable>
+                  <variable name="fbZonaMontagem">
+                    <type>
+                      <derived name="FB_ConveyorZone" />
+                    </type>
+                  </variable>
+                  <variable name="fbZonaSaida">
+                    <type>
+                      <derived name="FB_ConveyorZone" />
+                    </type>
+                  </variable>
+                  <variable name="fbHomingX">
+                    <type>
+                      <derived name="FB_AxisHoming" />
+                    </type>
+                  </variable>
+                  <variable name="fbHomingY">
+                    <type>
+                      <derived name="FB_AxisHoming" />
+                    </type>
+                  </variable>
+                  <variable name="fbHomingZ">
+                    <type>
+                      <derived name="FB_AxisHoming" />
+                    </type>
+                  </variable>
+                  <variable name="fbHomingTheta">
+                    <type>
+                      <derived name="FB_AxisHoming" />
+                    </type>
+                  </variable>
+                  <variable name="fbPickPlace">
+                    <type>
+                      <derived name="FB_PickPlaceCycle" />
+                    </type>
+                  </variable>
+                  <variable name="fbAOI">
+                    <type>
+                      <derived name="FB_AOI_Inspection" />
+                    </type>
+                  </variable>
+                  <variable name="fbReceita">
+                    <type>
+                      <derived name="FB_RecipeManager" />
+                    </type>
+                  </variable>
+                  <variable name="fbAlarme">
+                    <type>
+                      <derived name="FB_AlarmManager" />
+                    </type>
+                  </variable>
+                  <variable name="fbHeartbeat">
+                    <type>
+                      <derived name="FB_HeartbeatMonitor" />
+                    </type>
+                  </variable>
+                  <variable name="iEstadoPrincipal">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Estado do ciclo principal </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iComponenteAtual">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="tonTimeoutCiclo">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="xIniciarCiclo">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Flags de controle </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xHomingSolicitado">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReceitaSelecionada">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* ============================================ *)
+(* 1. VERIFICAÇÕES DE SEGURANÇA - PRIORIDADE MÁXIMA *)
+(* ============================================ *)
+
+(* Emergência e porta - sobrepõem qualquer estado *)
+IF NOT GVL_Main.xEmergencia OR NOT GVL_Main.xPortaProtecao THEN
+    GVL_Main.xParadaSegura := TRUE;
+    GVL_Main.udiCodigoAlarme := 9001;
+    GVL_Main.xAlarmeAtivo := TRUE;
+    iEstadoPrincipal := 999;  (* Estado de falha *)
+    
+    (* Desliga todas as saídas *)
+    GVL_Main.xMotorEntrada := FALSE;
+    GVL_Main.xMotorMontagem := FALSE;
+    GVL_Main.xMotorSaida := FALSE;
+    GVL_Main.xValvulaCilindro := FALSE;
+    GVL_Main.xValvulaVacuo := FALSE;
+END_IF;
+
+(* ============================================ *)
+(* 2. HEARTBEAT DA IHM *)
+(* ============================================ *)
+fbHeartbeat(dwHeartbeatIHM := GVL_Main.dwHeartbeatIHM, tTimeout := T#3S);
+
+IF fbHeartbeat.xTimeout THEN
+    iEstadoPrincipal := 999;
+END_IF;
+
+(* ============================================ *)
+(* 3. GESTÃO DE ALARMES *)
+(* ============================================ *)
+fbAlarme(xReconhecer := GVL_Main.xAlarmeReconhecido,
+         xReset := GVL_Main.xResetAlarmes);
+
+IF fbAlarme.xAlarmeAtivo THEN
+    iEstadoPrincipal := 999;
+END_IF;
+
+(* ============================================ *)
+(* 4. MÁQUINA DE ESTADOS PRINCIPAL *)
+(* ============================================ *)
+CASE iEstadoPrincipal OF
+    0: (* INICIALIZAÇÃO *)
+        GVL_Main.xCicloAutomatico := FALSE;
+        GVL_Main.xHomingConcluido := FALSE;
+        
+        (* Habilita eixos *)
+        (* (MC_Power deve ser chamado antes - omitido para brevidade) *)
+        
+        IF GVL_Main.xReceitaCarregada AND GVL_Main.xIHMComOK 
+           AND NOT GVL_Main.xParadaSegura THEN
+            xHomingSolicitado := TRUE;
+            iEstadoPrincipal := 10;
+        END_IF;
+        
+    10: (* HOMING DOS EIXOS *)
+        fbHomingX(xExecute := xHomingSolicitado, xReferencia := GVL_Main.xAxisX_Ref);
+        fbHomingY(xExecute := xHomingSolicitado, xReferencia := GVL_Main.xAxisY_Ref);
+        fbHomingZ(xExecute := xHomingSolicitado, xReferencia := GVL_Main.xAxisZ_Ref);
+        fbHomingTheta(xExecute := xHomingSolicitado, xReferencia := GVL_Main.xAxisTheta_Ref);
+        
+        IF fbHomingX.xDone AND fbHomingY.xDone 
+           AND fbHomingZ.xDone AND fbHomingTheta.xDone THEN
+            GVL_Main.xHomingConcluido := TRUE;
+            xHomingSolicitado := FALSE;
+            iEstadoPrincipal := 20;
+        ELSIF fbHomingX.xError OR fbHomingY.xError 
+              OR fbHomingZ.xError OR fbHomingTheta.xError THEN
+            GVL_Main.udiCodigoAlarme := 4003;
+            GVL_Main.xAlarmeAtivo := TRUE;
+            iEstadoPrincipal := 999;
+        END_IF;
+        
+    20: (* AGUARDANDO PLACA NA ZONA DE MONTAGEM *)
+        GVL_Main.xCicloAutomatico := TRUE;
+        
+        fbZonaEntrada(xSensorPlaca := GVL_Main.xSensorEntrada,
+                      xHabilitar := TRUE);
+        fbZonaMontagem(xSensorPlaca := GVL_Main.xSensorMontagem,
+                       xHabilitar := FALSE);  (* Para quando placa presente *)
+        fbZonaSaida(xSensorPlaca := GVL_Main.xSensorSaida,
+                    xHabilitar := GVL_Main.xSensorSaida);  (* Avança se placa presente *)
+        
+        IF GVL_Main.xSensorMontagem THEN
+            iComponenteAtual := 1;
+            iEstadoPrincipal := 30;
+        END_IF;
+        
+    30: (* CICLO DE PICK-AND-PLACE *)
+        fbPickPlace(xIniciar := TRUE,
+                    stPosicao := GVL_Main.aPosicoes[iComponenteAtual],
+                    xReferenciaX := GVL_Main.xAxisX_Ref,
+                    xReferenciaY := GVL_Main.xAxisY_Ref,
+                    xReferenciaZ := GVL_Main.xAxisZ_Ref,
+                    xReferenciaTheta := GVL_Main.xAxisTheta_Ref);
+        
+        IF fbPickPlace.xCicloCompleto THEN
+            iComponenteAtual := iComponenteAtual + 1;
+            fbPickPlace(xIniciar := FALSE, 
+                        stPosicao := GVL_Main.aPosicoes[1],
+                        xReferenciaX := GVL_Main.xAxisX_Ref,
+                        xReferenciaY := GVL_Main.xAxisY_Ref,
+                        xReferenciaZ := GVL_Main.xAxisZ_Ref,
+                        xReferenciaTheta := GVL_Main.xAxisTheta_Ref);
+            
+            IF iComponenteAtual &gt; GVL_Main.iQtdComponentes THEN
+                iEstadoPrincipal := 40;
+            END_IF;
+        ELSIF fbPickPlace.xErro THEN
+            GVL_Main.udiCodigoAlarme := 7001;
+            GVL_Main.xAlarmeAtivo := TRUE;
+            iEstadoPrincipal := 999;
+        END_IF;
+        
+    40: (* INSPEÇÃO AOI *)
+        fbAOI(xIniciarInspecao := TRUE,
+              xResultadoInspecao := TRUE);  (* Simulado: sempre aprova *)
+        
+        IF fbAOI.xInspecaoCompleta THEN
+            IF fbAOI.xAprovado THEN
+                GVL_Main.udiPlacasProduzidas := GVL_Main.udiPlacasProduzidas + 1;
+            END_IF;
+            (* Se rejeitado, contador já foi incrementado no FB *)
+            iEstadoPrincipal := 50;
+        END_IF;
+        
+    50: (* TRANSFERIR PLACA PARA SAÍDA *)
+        fbZonaMontagem(xSensorPlaca := GVL_Main.xSensorMontagem,
+                       xHabilitar := TRUE);  (* Avança para saída *)
+        
+        fbSMEMASaida(xBoardAvailableIn := GVL_Main.xSMEMA_BoardAvailIn,
+                     xMachineReadyIn := GVL_Main.xSMEMA_MachineReadyIn,
+                     xPlacaDisponivel := GVL_Main.xSensorSaida,
+                     xProntoParaReceber := NOT GVL_Main.xSensorSaida);
+        
+        GVL_Main.xSMEMA_BoardAvailToDownstream := fbSMEMASaida.xBoardAvailableOut;
+        GVL_Main.xSMEMA_MachineReadyToUpstream := fbSMEMASaida.xMachineReadyOut;
+        
+        IF NOT GVL_Main.xSensorMontagem THEN
+            iEstadoPrincipal := 60;
+        END_IF;
+        
+    60: (* AGUARDAR SAÍDA DA PLACA *)
+        IF NOT GVL_Main.xSensorSaida THEN
+            (* Placa saiu - reset para próximo ciclo *)
+            fbAOI(xIniciarInspecao := FALSE, xResultadoInspecao := FALSE);
+            iEstadoPrincipal := 20;
+        END_IF;
+        
+    999: (* ESTADO DE FALHA *)
+        (* Desliga todas as saídas *)
+        GVL_Main.xMotorEntrada := FALSE;
+        GVL_Main.xMotorMontagem := FALSE;
+        GVL_Main.xMotorSaida := FALSE;
+        GVL_Main.xValvulaCilindro := FALSE;
+        GVL_Main.xValvulaVacuo := FALSE;
+        GVL_Main.xCicloAutomatico := FALSE;
+        
+        (* Reset *)
+        IF GVL_Main.xResetAlarmes AND NOT GVL_Main.xAlarmeAtivo 
+           AND NOT GVL_Main.xParadaSegura THEN
+            iEstadoPrincipal := 0;
+        END_IF;
+END_CASE;
+
+(* ============================================ *)
+(* 5. ATUALIZAÇÃO DE SAÍDAS FÍSICAS *)
+(* ============================================ *)
+GVL_Main.xMotorEntrada := fbZonaEntrada.xMotor;
+GVL_Main.xMotorMontagem := fbZonaMontagem.xMotor;
+GVL_Main.xMotorSaida := fbZonaSaida.xMotor;
+
+(* ============================================ *)
+(* 6. GERENCIAMENTO DE RECEITAS (apenas com máquina parada) *)
+(* ============================================ *)
+fbReceita(iNovaReceita := GVL_Main.iReceitaSelecionada,
+          xCarregar := xReceitaSelecionada,
+          xMaquinaParada := NOT GVL_Main.xCicloAutomatico);
+
+xReceitaSelecionada := FALSE;  (* Reset após uso *)</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>c27e9266-d304-44e1-a74c-b0cfb2507fbc</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_ConveyorZone" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xSensorPlaca">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sensor de presença </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xHabilitar">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Habilita movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSentido">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = avança, FALSE = recua </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tVelocidade">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> 0 = velocidade nominal </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xMotor">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xPlacaPresente">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xErro">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="tonDebounce">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Debounce do sensor *)
+tonDebounce(IN := xSensorPlaca, PT := T#100MS);
+xPlacaPresente := tonDebounce.Q;
+
+(* Controle do motor *)
+xMotor := xHabilitar AND NOT GVL_Main.xParadaSegura;
+
+(* Diagnóstico simples *)
+xErro := FALSE;
+
+IF xHabilitar AND NOT xSensorPlaca AND NOT xMotor THEN
+    (* Zona habilitada mas sem placa - estado normal *)
+    xErro := FALSE;
+END_IF;
+
+(* Nota: sentido e velocidade dependem de hardware específico (VFD ou relé) *)</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>36344bc1-c8b8-4ab4-9470-280914c55848</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+            <Libraries>
+              <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+              <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+              <Library Name="#CAA Device Diagnosis" Namespace="DED" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CAA Device Diagnosis, 3.5.20.0 (CAA Technical Workgroup)" />
+              <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+              <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
+              <Library Name="#SM3_Basic" Namespace="SM3_Basic" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="SM3_Basic, * (3S - Smart Software Solutions GmbH)" />
+              <PlaceholderRedirections>
+                <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+              </PlaceholderRedirections>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>a5bbcb57-92c9-44d1-9ac4-e2028d840041</ObjectId>
+                </data>
+              </addData>
+            </Libraries>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>65e5b423-d0c4-4687-b2ee-ea6c9da51fad</ObjectId>
+          </data>
+        </addData>
+      </resource>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Application" ObjectId="65e5b423-d0c4-4687-b2ee-ea6c9da51fad">
+          <Object Name="Gestor de biblioteca" ObjectId="a5bbcb57-92c9-44d1-9ac4-e2028d840041" />
+          <Object Name="MainTask" ObjectId="fe829c7c-7030-481e-9c84-c28a35e67d74" />
+          <Object Name="GVL_Main" ObjectId="35e434c1-8dea-4f50-b22b-487f926a2c8d" />
+          <Object Name="FB_SMEMA" ObjectId="f43ae7fa-8f54-4218-8c8b-88cdf981b3d5" />
+          <Object Name="FB_PneumaticActuator" ObjectId="549fdfa4-fd3c-4ab7-a24d-c9356924547d" />
+          <Object Name="FB_VacuumGripper" ObjectId="034a78cb-eec2-43f4-8a7d-6e6fadaa942e" />
+          <Object Name="FB_AxisHoming" ObjectId="7aeee605-98a8-4704-8b41-7fcafa4596da" />
+          <Object Name="ST_PosicaoComponente" ObjectId="1d690c0d-8762-4c36-a011-3a5b3fc06947" />
+          <Object Name="FB_AxisMove" ObjectId="1b7eba78-35f3-4cc6-a099-acc74bdc36b5" />
+          <Object Name="FB_PickPlaceCycle" ObjectId="d028d217-5b0d-47f5-b621-84251beb297a" />
+          <Object Name="FB_AOI_Inspection" ObjectId="bf2b3f70-26bf-45af-bea1-924831685dae" />
+          <Object Name="FB_RecipeManager" ObjectId="123276d9-76a4-4869-a3db-888ab2e844d2" />
+          <Object Name="FB_AlarmManager" ObjectId="c052ab97-5c58-4429-baab-6300032ff095" />
+          <Object Name="FB_HeartbeatMonitor" ObjectId="a8973b42-2fe7-44cf-898a-0260e520327e" />
+          <Object Name="PRG_Main" ObjectId="c27e9266-d304-44e1-a74c-b0cfb2507fbc" />
+          <Object Name="FB_ConveyorZone" ObjectId="36344bc1-c8b8-4ab4-9470-280914c55848" />
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

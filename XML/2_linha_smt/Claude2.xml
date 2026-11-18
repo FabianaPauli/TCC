@@ -1,0 +1,4984 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2026-10-26T14:12:36.8389124" />
+  <contentHeader name="Claude2.project" modificationDateTime="2026-10-26T14:11:59.3278775">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+      <resource name="Application">
+        <task name="MainTask" interval="PT0.02S" priority="1">
+          <pouInstance name="PRG_Safety" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PRG_Motion" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PRG_PickPlace" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PRG_Main" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PRG_Conveyor" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PRG_AOI" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PRG_Alarms" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+              <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+              </TaskSettings>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>a09872ec-fc7f-4ead-9a6a-0a9073d2f331</ObjectId>
+            </data>
+          </addData>
+        </task>
+        <globalVars name="GVL_Main" constant="true">
+          <variable name="c_NUM_RECIPES">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="3" />
+            </initialValue>
+          </variable>
+          <variable name="c_MAX_COMP">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="50" />
+            </initialValue>
+          </variable>
+          <variable name="c_NUM_ALARMS">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="15" />
+            </initialValue>
+          </variable>
+          <variable name="c_AOI_MAX_RETRY">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="2" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Novas tentativas após a 1a falha </xhtml>
+            </documentation>
+          </variable>
+          <variable name="c_AX_X">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="1" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Índices dos eixos </xhtml>
+            </documentation>
+          </variable>
+          <variable name="c_AX_Y">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="2" />
+            </initialValue>
+          </variable>
+          <variable name="c_AX_Z">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="3" />
+            </initialValue>
+          </variable>
+          <variable name="c_AX_T">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="4" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_ESTOP">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="1" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Índices dos alarmes </xhtml>
+            </documentation>
+          </variable>
+          <variable name="c_ALM_DOOR">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="2" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_HMI">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="3" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_CONVEYOR">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="4" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_AXIS_X">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="5" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_AXIS_Y">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="6" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_AXIS_Z">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="7" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_AXIS_T">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="8" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_CLAMP">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="9" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_STOPPER">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="10" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_PICK_FAIL">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="11" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_VAC_LOSS">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="12" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_AOI_TIMEOUT">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="13" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_RECIPE">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="14" />
+            </initialValue>
+          </variable>
+          <variable name="c_ALM_Z_INTERLOCK">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="15" />
+            </initialValue>
+          </variable>
+          <variable name="xEStopOk">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = circuito de emergência íntegro (NF) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xDoorClosed">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = porta de proteção fechada (NF) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSensZ1">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença de placa: zona de entrada </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSensZ2">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença de placa: zona de montagem </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSensZ3">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença de placa: zona de saída/AOI </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xClampExtended">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Grampo da zona 2: fim de curso avançado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xClampRetracted">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Grampo da zona 2: fim de curso recuado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xStopExtended">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Batente da zona 3: fim de curso avançado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xStopRetracted">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Batente da zona 3: fim de curso recuado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xVacuumOk">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pressostato de vácuo </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAoiDone">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> AOI: resultado disponível </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAoiPass">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> AOI: TRUE = aprovada </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSmemaUpAvail">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a montante: placa disponível </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSmemaDownReady">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a jusante: máquina pronta </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAxisDriveReady">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAxisDriveFault">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAxisHomeDone">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="rAxisActPos">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição real [mm | graus] </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xMotor1">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Motor esteira zona 1 </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xMotor2">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Motor esteira zona 2 </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xMotor3">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Motor esteira zona 3 </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xClampValve">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Válvula do grampo (mola de retorno) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xStopValve">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Válvula do batente (mola de retorno) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xVacValve">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Vácuo do cabeçote </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xBlowValve">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sopro de liberação </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAoiTrigger">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Disparo da inspeção </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSmemaUpReady">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a montante: máquina pronta </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xSmemaDownAvail">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a jusante: placa disponível </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xBoardRejectedOut">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa em saída foi rejeitada </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAxisPower">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAxisHome">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAxisExecute">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="rAxisSetpoint">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="rAxisMin">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+            <initialValue>
+              <arrayValue>
+                <value>
+                  <simpleValue value="0.0" />
+                </value>
+                <value>
+                  <simpleValue value="0.0" />
+                </value>
+                <value>
+                  <simpleValue value="0.0" />
+                </value>
+                <value>
+                  <simpleValue value="-180.0" />
+                </value>
+              </arrayValue>
+            </initialValue>
+          </variable>
+          <variable name="rAxisMax">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+            <initialValue>
+              <arrayValue>
+                <value>
+                  <simpleValue value="300.0" />
+                </value>
+                <value>
+                  <simpleValue value="250.0" />
+                </value>
+                <value>
+                  <simpleValue value="50.0" />
+                </value>
+                <value>
+                  <simpleValue value="180.0" />
+                </value>
+              </arrayValue>
+            </initialValue>
+          </variable>
+          <variable name="rZSafe">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="40.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Altura segura para deslocamento XY </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rZPick">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="5.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Altura de coleta </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rZPlace">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="8.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Altura de montagem </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rZTol">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="1.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tolerância da altura segura </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rParkX">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="0.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição de repouso </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rParkY">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="0.0" />
+            </initialValue>
+          </variable>
+          <variable name="rParkT">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="0.0" />
+            </initialValue>
+          </variable>
+          <variable name="tCylTimeout">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#2s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo de movimento dos cilindros </xhtml>
+            </documentation>
+          </variable>
+          <variable name="tConvTimeout">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#15s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo de transferência de placa </xhtml>
+            </documentation>
+          </variable>
+          <variable name="tVacConfirm">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#1s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo para confirmar a pega </xhtml>
+            </documentation>
+          </variable>
+          <variable name="tHmiTimeout">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#3s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo sem heartbeat da IHM </xhtml>
+            </documentation>
+          </variable>
+          <variable name="tAoiTimeout">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#10s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo de resposta da AOI </xhtml>
+            </documentation>
+          </variable>
+          <variable name="iHmiHeartbeat">
+            <type>
+              <UINT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> IHM incrementa/alterna periodicamente </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xCmdStart">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCmdStop">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCmdHome">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCmdAck">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCmdReset">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCmdClearZones">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ressincroniza zonas pelos sensores (máquina parada) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xCmdResetCounters">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xCmdRecipeSel">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Borda de subida: seleciona receita </xhtml>
+            </documentation>
+          </variable>
+          <variable name="iRecipeReq">
+            <type>
+              <INT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Receita pedida (1..3) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="iRecipeActive">
+            <type>
+              <INT />
+            </type>
+          </variable>
+          <variable name="xRecipeValid">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xRecipeRejected">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Troca recusada: máquina em operação </xhtml>
+            </documentation>
+          </variable>
+          <variable name="eMachineState">
+            <type>
+              <derived name="E_MachineState" />
+            </type>
+            <initialValue>
+              <simpleValue value="E_MachineState.INIT" />
+            </initialValue>
+          </variable>
+          <variable name="xAlarmActive">
+            <type>
+              <array>
+                <dimension lower="1" upper="15" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAlarmAcked">
+            <type>
+              <array>
+                <dimension lower="1" upper="15" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xAnyAlarm">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xAnyUnacked">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xSafetyOk">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Emergência e porta OK (com atraso de rearme) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xHmiOk">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xDrivesEnable">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xAutoEnable">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ciclo automático liberado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xMotionRun">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Serviços de movimento liberados </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xResetPulse">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pulso de reset para os dispositivos </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xStartRefusedRecipe">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pulso: partida recusada, receita inválida </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xHomeReq">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Serviços de movimento </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xHomeSeqDone">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xAllHomed">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xMoveXYTReq">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xXYTDone">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xMoveZReq">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xZDone">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="rTgtX">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="rTgtY">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="rTgtZ">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="rTgtT">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="xAxisFault">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="xMotionFault">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xZInterlockFault">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xBoardInAsm">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa posicionada na zona de montagem </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xAsmDone">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Montagem concluída: libera a placa </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xBoardInInsp">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa posicionada na zona de inspeção </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xInspDone">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Inspeção concluída: libera a placa </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xCurBoardRejected">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xConveyorFault">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xClampFault">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pneumática, vácuo e AOI </xhtml>
+            </documentation>
+          </variable>
+          <variable name="xStopperFault">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xPickFail">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xGripLoss">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="xAoiTimeout">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="aRecipes">
+            <type>
+              <array>
+                <dimension lower="1" upper="3" />
+                <baseType>
+                  <derived name="ST_Recipe" />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="diBoardsProduced">
+            <type>
+              <DINT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placas que concluíram o ciclo (aprovadas + rejeitadas) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="diBoardsRejected">
+            <type>
+              <DINT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placas rejeitadas (subconjunto das produzidas) </xhtml>
+            </documentation>
+          </variable>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>68f0f236-32e3-4fa9-aaea-1fe6d5873f87</ObjectId>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/mixedattrsvarlist" handleUnknown="implementation">
+              <MixedAttrsVarList>
+                <globalVars name="GVL_Main" constant="true">
+                  <variable name="c_NUM_RECIPES">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="3" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_MAX_COMP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="50" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_NUM_ALARMS">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="15" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_AOI_MAX_RETRY">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="2" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Novas tentativas após a 1a falha </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="c_AX_X">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Índices dos eixos </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="c_AX_Y">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="2" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_AX_Z">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="3" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_AX_T">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="4" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_ESTOP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Índices dos alarmes </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="c_ALM_DOOR">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="2" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_HMI">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="3" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_CONVEYOR">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="4" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_AXIS_X">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="5" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_AXIS_Y">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="6" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_AXIS_Z">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="7" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_AXIS_T">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="8" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_CLAMP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="9" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_STOPPER">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="10" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_PICK_FAIL">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="11" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_VAC_LOSS">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="12" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_AOI_TIMEOUT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="13" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_RECIPE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="14" />
+                    </initialValue>
+                  </variable>
+                  <variable name="c_ALM_Z_INTERLOCK">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="15" />
+                    </initialValue>
+                  </variable>
+                </globalVars>
+                <globalVars name="GVL_Main">
+                  <variable name="xEStopOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = circuito de emergência íntegro (NF) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xDoorClosed">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = porta de proteção fechada (NF) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensZ1">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença de placa: zona de entrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensZ2">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença de placa: zona de montagem </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensZ3">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença de placa: zona de saída/AOI </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xClampExtended">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Grampo da zona 2: fim de curso avançado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xClampRetracted">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Grampo da zona 2: fim de curso recuado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xStopExtended">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Batente da zona 3: fim de curso avançado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xStopRetracted">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Batente da zona 3: fim de curso recuado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xVacuumOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pressostato de vácuo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAoiDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> AOI: resultado disponível </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAoiPass">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> AOI: TRUE = aprovada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSmemaUpAvail">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a montante: placa disponível </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSmemaDownReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a jusante: máquina pronta </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAxisDriveReady">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xAxisDriveFault">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xAxisHomeDone">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="rAxisActPos">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição real [mm | graus] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMotor1">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Motor esteira zona 1 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMotor2">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Motor esteira zona 2 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMotor3">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Motor esteira zona 3 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xClampValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Válvula do grampo (mola de retorno) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xStopValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Válvula do batente (mola de retorno) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xVacValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Vácuo do cabeçote </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xBlowValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sopro de liberação </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAoiTrigger">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Disparo da inspeção </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSmemaUpReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a montante: máquina pronta </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSmemaDownAvail">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a jusante: placa disponível </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xBoardRejectedOut">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa em saída foi rejeitada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAxisPower">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xAxisHome">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xAxisExecute">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="rAxisSetpoint">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="rAxisMin">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <initialValue>
+                      <arrayValue>
+                        <value>
+                          <simpleValue value="0.0" />
+                        </value>
+                        <value>
+                          <simpleValue value="0.0" />
+                        </value>
+                        <value>
+                          <simpleValue value="0.0" />
+                        </value>
+                        <value>
+                          <simpleValue value="-180.0" />
+                        </value>
+                      </arrayValue>
+                    </initialValue>
+                  </variable>
+                  <variable name="rAxisMax">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <initialValue>
+                      <arrayValue>
+                        <value>
+                          <simpleValue value="300.0" />
+                        </value>
+                        <value>
+                          <simpleValue value="250.0" />
+                        </value>
+                        <value>
+                          <simpleValue value="50.0" />
+                        </value>
+                        <value>
+                          <simpleValue value="180.0" />
+                        </value>
+                      </arrayValue>
+                    </initialValue>
+                  </variable>
+                  <variable name="rZSafe">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="40.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Altura segura para deslocamento XY </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rZPick">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="5.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Altura de coleta </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rZPlace">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="8.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Altura de montagem </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rZTol">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tolerância da altura segura </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rParkX">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição de repouso </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rParkY">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rParkT">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tCylTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#2s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo de movimento dos cilindros </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tConvTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#15s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo de transferência de placa </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tVacConfirm">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#1s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo para confirmar a pega </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tHmiTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#3s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo sem heartbeat da IHM </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tAoiTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#10s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo de resposta da AOI </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iHmiHeartbeat">
+                    <type>
+                      <UINT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> IHM incrementa/alterna periodicamente </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xCmdStart">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCmdStop">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCmdHome">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCmdAck">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCmdReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCmdClearZones">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ressincroniza zonas pelos sensores (máquina parada) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xCmdResetCounters">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCmdRecipeSel">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Borda de subida: seleciona receita </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iRecipeReq">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Receita pedida (1..3) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iRecipeActive">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xRecipeValid">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xRecipeRejected">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Troca recusada: máquina em operação </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="eMachineState">
+                    <type>
+                      <derived name="E_MachineState" />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="E_MachineState.INIT" />
+                    </initialValue>
+                  </variable>
+                  <variable name="xAlarmActive">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="15" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xAlarmAcked">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="15" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xAnyAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAnyUnacked">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xSafetyOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Emergência e porta OK (com atraso de rearme) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xHmiOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDrivesEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAutoEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ciclo automático liberado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMotionRun">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Serviços de movimento liberados </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xResetPulse">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pulso de reset para os dispositivos </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xStartRefusedRecipe">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pulso: partida recusada, receita inválida </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xHomeReq">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Serviços de movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xHomeSeqDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAllHomed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xMoveXYTReq">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xXYTDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xMoveZReq">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xZDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="rTgtX">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rTgtY">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rTgtZ">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rTgtT">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="xAxisFault">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xMotionFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xZInterlockFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xBoardInAsm">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa posicionada na zona de montagem </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAsmDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Montagem concluída: libera a placa </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xBoardInInsp">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa posicionada na zona de inspeção </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xInspDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Inspeção concluída: libera a placa </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xCurBoardRejected">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xConveyorFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xClampFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pneumática, vácuo e AOI </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xStopperFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xPickFail">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xGripLoss">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAoiTimeout">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </globalVars>
+                <globalVars name="GVL_Main" retain="true">
+                  <variable name="aRecipes">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="3" />
+                        <baseType>
+                          <derived name="ST_Recipe" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="diBoardsProduced">
+                    <type>
+                      <DINT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placas que concluíram o ciclo (aprovadas + rejeitadas) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="diBoardsRejected">
+                    <type>
+                      <DINT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placas rejeitadas (subconjunto das produzidas) </xhtml>
+                    </documentation>
+                  </variable>
+                </globalVars>
+              </MixedAttrsVarList>
+            </data>
+          </addData>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> ===================== CONSTANTES ===================== </xhtml>
+          </documentation>
+        </globalVars>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="E_MachineState">
+              <baseType>
+                <enum>
+                  <values>
+                    <value name="INIT" value="0" />
+                    <value name="STOPPED" value="10" />
+                    <value name="HOMING" value="20" />
+                    <value name="RUNNING" value="30" />
+                    <value name="ALARM" value="90" />
+                    <value name="ESTOP" value="99" />
+                  </values>
+                </enum>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/enumvaluedocumentation" handleUnknown="implementation">
+                  <EnumValueDocumentation>
+                    <EnumValue>
+                      <Name>INIT</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Inicialização </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>STOPPED</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Parada, sem alarme </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>HOMING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Referenciamento dos eixos </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>RUNNING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ciclo automático </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>ALARM</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Alarme pendente: parada segura </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>ESTOP</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Emergência/porta aberta: sobrepõe tudo </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                  </EnumValueDocumentation>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                  <Attributes>
+                    <Attribute Name="qualified_only" Value="" />
+                    <Attribute Name="strict" Value="" />
+                  </Attributes>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>18d6e6f3-2fe3-4979-b5c9-47cef58baf1e</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="ST_Component">
+              <baseType>
+                <struct>
+                  <variable name="sRef">
+                    <type>
+                      <string length="20" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Designador do componente </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rPickX">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição de coleta (alimentador) X [mm] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rPickY">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição de coleta (alimentador) Y [mm] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rPlaceX">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição de montagem X [mm] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rPlaceY">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Posição de montagem Y [mm] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rPlaceTheta">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ângulo de montagem [graus] </xhtml>
+                    </documentation>
+                  </variable>
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>efac30d4-eb89-4c53-b8bd-72fba24f723f</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="ST_Recipe">
+              <baseType>
+                <struct>
+                  <variable name="sName">
+                    <type>
+                      <string length="30" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nome da receita </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iCount">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Quantidade de componentes </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="aComp">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="c_MAX_COMP" />
+                        <baseType>
+                          <derived name="ST_Component" />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Lista de componentes </xhtml>
+                    </documentation>
+                  </variable>
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>1363e608-7009-4442-ae24-da7195e68ab1</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="F_InRange" pouType="function">
+              <interface>
+                <returnType>
+                  <BOOL />
+                </returnType>
+                <inputVars>
+                  <variable name="rValue">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rMin">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rMax">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                </inputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Verifica se o valor está dentro da faixa [rMin, rMax] *)
+F_InRange := (rValue &gt;= rMin) AND (rValue &lt;= rMax);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>1afccd99-eb35-43b1-bf07-35a95023e0ad</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_PneumaticCyl" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Habilitação (segurança) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Reset de falha </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xCmdExtend">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = avançar; FALSE = recuar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensExtended">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xSensRetracted">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="tMoveTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#2s0ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tSensorConflict">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#300ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xIsExtended">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Avançado confirmado: sensor A ligado e B desligado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xIsRetracted">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Recuado confirmado: sensor B ligado e A desligado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iFaultCode">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> 1 = timeout avanço; 2 = timeout recuo; 3 = sensores em conflito </xhtml>
+                    </documentation>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="tonExt">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonRet">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonBoth">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Dupla confirmação *)
+xIsExtended  := xSensExtended AND NOT xSensRetracted;
+xIsRetracted := xSensRetracted AND NOT xSensExtended;
+
+IF xReset THEN
+    xFault := FALSE;
+    iFaultCode := 0;
+END_IF
+
+(* Supervisão de tempo e de coerência dos sensores *)
+tonExt(IN := xEnable AND xValve AND NOT xIsExtended AND NOT xFault, PT := tMoveTimeout);
+tonRet(IN := xEnable AND NOT xValve AND NOT xIsRetracted AND NOT xFault, PT := tMoveTimeout);
+tonBoth(IN := xEnable AND xSensExtended AND xSensRetracted, PT := tSensorConflict);
+
+IF NOT xFault THEN
+    IF tonExt.Q THEN
+        xFault := TRUE; iFaultCode := 1;
+    ELSIF tonRet.Q THEN
+        xFault := TRUE; iFaultCode := 2;
+    ELSIF tonBoth.Q THEN
+        xFault := TRUE; iFaultCode := 3;
+    END_IF
+END_IF
+
+(* Saída da válvula: em falha ou sem habilitação, retorna por mola *)
+xValve := xEnable AND xCmdExtend AND NOT xFault;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>e4131c68-cb22-487a-a373-0bb7a8d0d070</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_VacuumGripper" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xGrip">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = segurar; FALSE = liberar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xPressostat">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="tConfirm">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#1s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo máximo para confirmar a pega </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tDebounce">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#100ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tBlow">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#300ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xVacValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xBlowValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xGripOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pega confirmada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xReleased">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Liberação confirmada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xPickFail">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pega não confirmada no tempo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xGripLoss">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Perda de vácuo com peça presa </xhtml>
+                    </documentation>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="tonOk">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonConfirm">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonLoss">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonRel">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonBlow">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="ftGrip">
+                    <type>
+                      <derived name="F_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="xBlow">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xCarried">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">xVacValve := xEnable AND xGrip;
+
+(* Janela de sopro após o comando de liberação *)
+ftGrip(CLK := xGrip);
+IF ftGrip.Q THEN
+    xBlow := TRUE;
+END_IF
+tonBlow(IN := xBlow, PT := tBlow);
+IF tonBlow.Q OR xGrip OR NOT xEnable THEN
+    xBlow := FALSE;
+END_IF
+xBlowValve := xBlow AND xEnable;
+
+(* Confirmação da pega *)
+tonOk(IN := xGrip AND xPressostat, PT := tDebounce);
+xGripOk := tonOk.Q;
+
+(* Falha de pega: vácuo não estabelecido no tempo *)
+tonConfirm(IN := xEnable AND xGrip AND NOT xGripOk, PT := tConfirm);
+IF tonConfirm.Q THEN
+    xPickFail := TRUE;
+END_IF
+IF xReset OR NOT xGrip THEN
+    xPickFail := FALSE;
+END_IF
+
+(* Perda de vácuo durante o transporte *)
+IF xGripOk THEN
+    xCarried := TRUE;
+END_IF
+IF NOT xGrip THEN
+    xCarried := FALSE;
+END_IF
+tonLoss(IN := xCarried AND xGrip AND NOT xPressostat, PT := tDebounce);
+xGripLoss := tonLoss.Q;
+
+(* Confirmação da liberação *)
+tonRel(IN := NOT xGrip AND NOT xPressostat, PT := tDebounce);
+xReleased := tonRel.Q;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>56dd1586-40b2-4152-b737-b97f7882c86b</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AxisCtrl" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xHomeCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Borda de subida inicia o homing </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xMoveCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Borda de subida inicia o movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xHalt">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Interrompe o movimento em curso </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rTarget">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rActPos">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rSoftMin">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rSoftMax">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="xDriveReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDriveFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDriveHomeDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="rInPosWindow">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.05" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tSettle">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#100ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tReadyTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#5s0ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tHomeTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#1m0s0ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tMoveTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#15s0ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xDrivePower">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDriveHome">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xDriveExecute">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pulso de um ciclo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rDriveSetpoint">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="xHomed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xInPos">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAccept">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Apto a receber comando de homing/movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="iFaultCode">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> 1 drive não pronto; 2 timeout homing; 3 alvo fora dos limites;
+                                   4 timeout movimento; 5 falha do drive; 6 perda de pronto </xhtml>
+                    </documentation>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iState">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rtHome">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="rtMove">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="tonReady">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonHome">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonMove">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonSettle">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="rLastSetpoint">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rLatchTarget">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="xHaltDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+                <localVars constant="true">
+                  <variable name="AS_OFF">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_WAIT_READY">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_UNHOMED">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="2" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_HOMING">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="3" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_READY">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="4" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_START">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="5" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_MOVING">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="6" />
+                    </initialValue>
+                  </variable>
+                  <variable name="AS_FAULT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="99" />
+                    </initialValue>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">xDriveExecute := FALSE;
+rtHome(CLK := xHomeCmd);
+rtMove(CLK := xMoveCmd);
+
+tonReady(IN := (iState = AS_WAIT_READY), PT := tReadyTimeout);
+tonHome(IN := (iState = AS_HOMING), PT := tHomeTimeout);
+tonMove(IN := (iState = AS_MOVING), PT := tMoveTimeout);
+tonSettle(IN := (iState = AS_MOVING) AND (ABS(rActPos - rLastSetpoint) &lt;= rInPosWindow),
+          PT := tSettle);
+
+(* Supervisão geral *)
+IF iState &lt;&gt; AS_FAULT THEN
+    IF NOT xEnable THEN
+        iState := AS_OFF;
+    ELSIF iState &gt;= AS_WAIT_READY THEN
+        IF xDriveFault THEN
+            iFaultCode := 5; iState := AS_FAULT;
+        ELSIF (iState &gt;= AS_UNHOMED) AND NOT xDriveReady THEN
+            iFaultCode := 6; iState := AS_FAULT;
+        END_IF
+    END_IF
+END_IF
+
+CASE iState OF
+    AS_OFF:
+        xHomed := FALSE;
+        IF xEnable THEN
+            iState := AS_WAIT_READY;
+        END_IF
+
+    AS_WAIT_READY:
+        IF xDriveReady THEN
+            iState := AS_UNHOMED;
+        ELSIF tonReady.Q THEN
+            iFaultCode := 1; iState := AS_FAULT;
+        END_IF
+
+    AS_UNHOMED:
+        IF rtHome.Q THEN
+            iState := AS_HOMING;
+        END_IF
+
+    AS_HOMING:
+        IF xDriveHomeDone THEN
+            xHomed := TRUE;
+            rLastSetpoint := rActPos;
+            iState := AS_READY;
+        ELSIF tonHome.Q THEN
+            iFaultCode := 2; iState := AS_FAULT;
+        END_IF
+
+    AS_READY:
+        IF rtHome.Q THEN
+            xHomed := FALSE;
+            iState := AS_HOMING;
+        ELSIF rtMove.Q THEN
+            IF (rTarget &lt; rSoftMin) OR (rTarget &gt; rSoftMax) THEN
+                iFaultCode := 3; iState := AS_FAULT;
+            ELSE
+                rLatchTarget := rTarget;
+                iState := AS_START;
+            END_IF
+        END_IF
+
+    AS_START:
+        rDriveSetpoint := rLatchTarget;
+        rLastSetpoint := rLatchTarget;
+        xDriveExecute := TRUE;
+        iState := AS_MOVING;
+
+    AS_MOVING:
+        IF xHalt AND NOT xHaltDone THEN
+            (* Parada: novo alvo = posição atual *)
+            rDriveSetpoint := rActPos;
+            rLastSetpoint := rActPos;
+            xDriveExecute := TRUE;
+            xHaltDone := TRUE;
+        END_IF
+        IF tonSettle.Q THEN
+            iState := AS_READY;
+        ELSIF tonMove.Q THEN
+            iFaultCode := 4; iState := AS_FAULT;
+        END_IF
+
+    AS_FAULT:
+        xHomed := FALSE;
+        IF xReset AND NOT xDriveFault THEN
+            iFaultCode := 0;
+            iState := AS_OFF;
+        END_IF
+END_CASE
+
+IF iState &lt;&gt; AS_MOVING THEN
+    xHaltDone := FALSE;
+END_IF
+
+(* Saídas *)
+xDrivePower := (iState &gt;= AS_WAIT_READY) AND (iState &lt;&gt; AS_FAULT);
+xDriveHome  := (iState = AS_HOMING);
+xBusy       := (iState = AS_HOMING) OR (iState = AS_START) OR (iState = AS_MOVING);
+xAccept     := (iState = AS_UNHOMED) OR (iState = AS_READY);
+xInPos      := (iState = AS_READY) AND xHomed AND (ABS(rActPos - rLastSetpoint) &lt;= rInPosWindow);
+xFault      := (iState = AS_FAULT);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>ff78e6b7-ccbf-4a9e-9b56-50b1b4c7572d</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_Conveyor" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ciclo automático liberado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xClearZones">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ressincroniza zonas pelos sensores </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xSensZ1">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xSensZ2">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xSensZ3">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xUpBoardAvail">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a montante: placa disponível </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xDownMachineReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a jusante: máquina pronta </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAsmDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Montagem concluída: libera a zona 2 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xInspDone">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Inspeção concluída: libera a zona 3 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tTransferTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#15s0ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tSensorFilter">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#50ms" />
+                    </initialValue>
+                  </variable>
+                  <variable name="tClearDelay">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#500ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xMotor1">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xMotor2">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xMotor3">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xUpMachineReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a montante: máquina pronta </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xDownBoardAvail">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> SMEMA a jusante: placa disponível </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xBoardInAsm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xBoardInInsp">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="iZ1">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Estado de cada zona </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iZ2">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Estado de cada zona </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iZ3">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Estado de cada zona </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonP1">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonP2">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonP3">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Presença filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonA1">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ausência filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonA2">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ausência filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonA3">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ausência filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonT1">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Timeout de movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonT2">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Timeout de movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tonT3">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Timeout de movimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xP1">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xP2">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xP3">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xA1">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xA2">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xA3">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xActive">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+                <localVars constant="true">
+                  <variable name="ZS_EMPTY">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="ZS_RECV">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Recebendo placa </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="ZS_OCC">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="2" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Placa posicionada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="ZS_SEND">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="3" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Enviando placa </xhtml>
+                    </documentation>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Filtros dos sensores *)
+tonP1(IN := xSensZ1, PT := tSensorFilter);   xP1 := tonP1.Q;
+tonP2(IN := xSensZ2, PT := tSensorFilter);   xP2 := tonP2.Q;
+tonP3(IN := xSensZ3, PT := tSensorFilter);   xP3 := tonP3.Q;
+tonA1(IN := NOT xSensZ1, PT := tClearDelay); xA1 := tonA1.Q;
+tonA2(IN := NOT xSensZ2, PT := tClearDelay); xA2 := tonA2.Q;
+tonA3(IN := NOT xSensZ3, PT := tClearDelay); xA3 := tonA3.Q;
+
+IF xReset THEN
+    xFault := FALSE;
+END_IF
+
+(* Ressincronização: considera placa posicionada onde houver sensor ativo *)
+IF xClearZones THEN
+    IF xSensZ1 THEN iZ1 := ZS_OCC; ELSE iZ1 := ZS_EMPTY; END_IF
+    IF xSensZ2 THEN iZ2 := ZS_OCC; ELSE iZ2 := ZS_EMPTY; END_IF
+    IF xSensZ3 THEN iZ3 := ZS_OCC; ELSE iZ3 := ZS_EMPTY; END_IF
+    xFault := FALSE;
+END_IF
+
+(* Timeout de transferência (motores acionados no ciclo anterior) *)
+tonT1(IN := xMotor1, PT := tTransferTimeout);
+tonT2(IN := xMotor2, PT := tTransferTimeout);
+tonT3(IN := xMotor3, PT := tTransferTimeout);
+IF tonT1.Q OR tonT2.Q OR tonT3.Q THEN
+    xFault := TRUE;
+END_IF
+
+xActive := xEnable AND NOT xFault;
+
+(* ---------- Zona 1: entrada ---------- *)
+CASE iZ1 OF
+    ZS_EMPTY:
+        IF xActive AND xUpBoardAvail THEN
+            iZ1 := ZS_RECV;
+        END_IF
+    ZS_RECV:
+        IF xP1 THEN
+            iZ1 := ZS_OCC;
+        END_IF
+    ZS_OCC:
+        IF xActive AND (iZ2 = ZS_EMPTY) THEN
+            iZ1 := ZS_SEND;
+            iZ2 := ZS_RECV;     (* Transferência 1 -&gt; 2 *)
+        END_IF
+    ZS_SEND:
+        IF (iZ2 = ZS_OCC) AND xA1 THEN
+            iZ1 := ZS_EMPTY;
+        END_IF
+END_CASE
+
+(* ---------- Zona 2: montagem ---------- *)
+CASE iZ2 OF
+    ZS_EMPTY:
+        ;
+    ZS_RECV:
+        IF xP2 THEN
+            iZ2 := ZS_OCC;
+        END_IF
+    ZS_OCC:
+        IF xActive AND xAsmDone AND (iZ3 = ZS_EMPTY) THEN
+            iZ2 := ZS_SEND;
+            iZ3 := ZS_RECV;     (* Transferência 2 -&gt; 3 *)
+        END_IF
+    ZS_SEND:
+        IF (iZ3 = ZS_OCC) AND xA2 THEN
+            iZ2 := ZS_EMPTY;
+        END_IF
+END_CASE
+
+(* ---------- Zona 3: saída / inspeção ---------- *)
+CASE iZ3 OF
+    ZS_EMPTY:
+        ;
+    ZS_RECV:
+        IF xP3 THEN
+            iZ3 := ZS_OCC;
+        END_IF
+    ZS_OCC:
+        IF xActive AND xInspDone THEN
+            iZ3 := ZS_SEND;
+        END_IF
+    ZS_SEND:
+        IF xA3 THEN
+            iZ3 := ZS_EMPTY;
+        END_IF
+END_CASE
+
+(* ---------- Saídas (calculadas após a lógica de estados) ---------- *)
+xMotor1 := xActive AND ((iZ1 = ZS_RECV) OR (iZ1 = ZS_SEND));
+xMotor2 := xActive AND ((iZ2 = ZS_RECV) OR (iZ2 = ZS_SEND));
+xMotor3 := xActive AND ((iZ3 = ZS_RECV) OR ((iZ3 = ZS_SEND) AND xDownMachineReady));
+
+xUpMachineReady := xActive AND ((iZ1 = ZS_EMPTY) OR (iZ1 = ZS_RECV));
+xDownBoardAvail := (iZ3 = ZS_SEND);
+xBoardInAsm     := (iZ2 = ZS_OCC);
+xBoardInInsp    := (iZ3 = ZS_OCC);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>47122902-ecdb-418a-8ff3-e099cc1f2548</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_HmiWatchdog" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="iHeartbeat">
+                    <type>
+                      <UINT />
+                    </type>
+                  </variable>
+                  <variable name="tTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#3s0ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xLost">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="uiLast">
+                    <type>
+                      <UINT />
+                    </type>
+                  </variable>
+                  <variable name="xFirst">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TRUE" />
+                    </initialValue>
+                  </variable>
+                  <variable name="xChanged">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="tonLoss">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">IF xFirst THEN
+    uiLast := iHeartbeat;
+    xFirst := FALSE;
+END_IF
+
+xChanged := (iHeartbeat &lt;&gt; uiLast);
+uiLast := iHeartbeat;
+
+tonLoss(IN := NOT xChanged, PT := tTimeout);
+xLost := tonLoss.Q;
+xOk := NOT tonLoss.Q;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>6fc8c99e-1525-421e-aa4e-760416b5ef9c</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_Alarm" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xCondition">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Condição de alarme (nível ou pulso) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAck">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="xActive">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Alarme retido </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="xAcked">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="rtCond">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="rtAck">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="rtRst">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">rtCond(CLK := xCondition);
+rtAck(CLK := xAck);
+rtRst(CLK := xReset);
+
+IF rtCond.Q THEN
+    xActive := TRUE;
+    xAcked := FALSE;
+END_IF
+
+IF rtAck.Q AND xActive THEN
+    xAcked := TRUE;
+END_IF
+
+(* Reset só é aceito com alarme reconhecido e condição normalizada *)
+IF rtRst.Q AND xActive AND xAcked AND NOT xCondition THEN
+    xActive := FALSE;
+    xAcked := FALSE;
+END_IF</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>9b506d42-7ded-44f9-8d9c-c1b857216319</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_Recipe" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="xRequest">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Borda de subida solicita a troca </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iRequested">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xMachineStopped">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="rXMin">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rXMax">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rYMin">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rYMax">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <inOutVars>
+                  <variable name="aRecipes">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="c_NUM_RECIPES" />
+                        <baseType>
+                          <derived name="ST_Recipe" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                </inOutVars>
+                <outputVars>
+                  <variable name="iActive">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xValid">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xRejected">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="rtReq">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="i">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="stC">
+                    <type>
+                      <derived name="ST_Component" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">rtReq(CLK := xRequest);
+
+IF rtReq.Q THEN
+    IF xMachineStopped AND (iRequested &gt;= 1) AND (iRequested &lt;= c_NUM_RECIPES) THEN
+        iActive := iRequested;
+        xRejected := FALSE;
+    ELSE
+        xRejected := TRUE;
+    END_IF
+END_IF
+IF NOT xRequest THEN
+    xRejected := FALSE;
+END_IF
+
+(* Validação da receita ativa *)
+xOk := (iActive &gt;= 1) AND (iActive &lt;= c_NUM_RECIPES);
+IF xOk THEN
+    xOk := (aRecipes[iActive].iCount &gt;= 1) AND (aRecipes[iActive].iCount &lt;= c_MAX_COMP);
+END_IF
+IF xOk THEN
+    FOR i := 1 TO aRecipes[iActive].iCount DO
+        stC := aRecipes[iActive].aComp[i];
+        IF NOT (F_InRange(stC.rPickX, rXMin, rXMax)
+            AND F_InRange(stC.rPickY, rYMin, rYMax)
+            AND F_InRange(stC.rPlaceX, rXMin, rXMax)
+            AND F_InRange(stC.rPlaceY, rYMin, rYMax)
+            AND F_InRange(stC.rPlaceTheta, -180.0, 180.0)) THEN
+            xOk := FALSE;
+            EXIT;
+        END_IF
+    END_FOR
+END_IF
+xValid := xOk;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>7eafab98-771f-45bc-bac8-3e4474abf044</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Safety" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="tonRearm">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="fbHmi">
+                    <type>
+                      <derived name="FB_HmiWatchdog" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Perda imediata; rearme somente após 500 ms de condição normal *)
+tonRearm(IN := xEStopOk AND xDoorClosed, PT := T#500MS);
+xSafetyOk := tonRearm.Q;
+
+(* Heartbeat da IHM *)
+fbHmi(iHeartbeat := iHmiHeartbeat, tTimeout := tHmiTimeout);
+xHmiOk := fbHmi.xOk;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>0b1fe379-5ac6-4f53-8df0-c2083c3de343</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Alarms" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="fbAlarm">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="15" />
+                        <baseType>
+                          <derived name="FB_Alarm" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="aCond">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="15" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="i">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Condições de alarme *)
+aCond[c_ALM_ESTOP]       := NOT xEStopOk;
+aCond[c_ALM_DOOR]        := NOT xDoorClosed;
+aCond[c_ALM_HMI]         := NOT xHmiOk;
+aCond[c_ALM_CONVEYOR]    := xConveyorFault;
+FOR i := 1 TO 4 DO
+    aCond[c_ALM_AXIS_X + i - 1] := xAxisFault[i];
+END_FOR
+aCond[c_ALM_CLAMP]       := xClampFault;
+aCond[c_ALM_STOPPER]     := xStopperFault;
+aCond[c_ALM_PICK_FAIL]   := xPickFail;
+aCond[c_ALM_VAC_LOSS]    := xGripLoss;
+aCond[c_ALM_AOI_TIMEOUT] := xAoiTimeout;
+aCond[c_ALM_RECIPE]      := xStartRefusedRecipe;
+aCond[c_ALM_Z_INTERLOCK] := xZInterlockFault;
+
+(* Processamento e consolidação *)
+xAnyAlarm := FALSE;
+xAnyUnacked := FALSE;
+FOR i := 1 TO c_NUM_ALARMS DO
+    fbAlarm[i](xCondition := aCond[i], xAck := xCmdAck, xReset := xCmdReset);
+    xAlarmActive[i] := fbAlarm[i].xActive;
+    xAlarmAcked[i]  := fbAlarm[i].xAcked;
+    IF fbAlarm[i].xActive THEN
+        xAnyAlarm := TRUE;
+        IF NOT fbAlarm[i].xAcked THEN
+            xAnyUnacked := TRUE;
+        END_IF
+    END_IF
+END_FOR</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>2575031c-f534-47d3-9ec8-20ba9f54affc</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Main" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="fbRecipe">
+                    <type>
+                      <derived name="FB_Recipe" />
+                    </type>
+                  </variable>
+                  <variable name="rtReset">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="rtStart">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="rtStop">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="rtHome">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="xStopped">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">rtReset(CLK := xCmdReset);
+rtStart(CLK := xCmdStart);
+rtStop(CLK := xCmdStop);
+rtHome(CLK := xCmdHome);
+xResetPulse := rtReset.Q;
+xStartRefusedRecipe := FALSE;
+
+(* Receitas: troca somente com a máquina parada *)
+xStopped := (eMachineState &lt;&gt; E_MachineState.RUNNING) AND (eMachineState &lt;&gt; E_MachineState.HOMING);
+fbRecipe(xRequest := xCmdRecipeSel,
+         iRequested := iRecipeReq,
+         xMachineStopped := xStopped,
+         rXMin := rAxisMin[c_AX_X], rXMax := rAxisMax[c_AX_X],
+         rYMin := rAxisMin[c_AX_Y], rYMax := rAxisMax[c_AX_Y],
+         aRecipes := aRecipes);
+iRecipeActive   := fbRecipe.iActive;
+xRecipeValid    := fbRecipe.xValid;
+xRecipeRejected := fbRecipe.xRejected;
+
+(* Emergência e porta sobrepõem qualquer estado *)
+IF NOT xSafetyOk THEN
+    eMachineState := E_MachineState.ESTOP;
+ELSE
+    CASE eMachineState OF
+        E_MachineState.INIT, E_MachineState.ESTOP:
+            IF xAnyAlarm THEN
+                eMachineState := E_MachineState.ALARM;
+            ELSE
+                eMachineState := E_MachineState.STOPPED;
+            END_IF
+
+        E_MachineState.STOPPED:
+            IF xAnyAlarm THEN
+                eMachineState := E_MachineState.ALARM;
+            ELSIF rtHome.Q THEN
+                eMachineState := E_MachineState.HOMING;
+            ELSIF rtStart.Q THEN
+                IF NOT xAllHomed THEN
+                    ;   (* Partida ignorada: eixos não referenciados *)
+                ELSIF NOT xRecipeValid THEN
+                    xStartRefusedRecipe := TRUE;
+                ELSE
+                    eMachineState := E_MachineState.RUNNING;
+                END_IF
+            END_IF
+
+        E_MachineState.HOMING:
+            IF xAnyAlarm THEN
+                eMachineState := E_MachineState.ALARM;
+            ELSIF xHomeSeqDone THEN
+                eMachineState := E_MachineState.STOPPED;
+            END_IF
+
+        E_MachineState.RUNNING:
+            IF xAnyAlarm THEN
+                eMachineState := E_MachineState.ALARM;
+            ELSIF rtStop.Q THEN
+                eMachineState := E_MachineState.STOPPED;
+            END_IF
+
+        E_MachineState.ALARM:
+            IF NOT xAnyAlarm THEN
+                eMachineState := E_MachineState.STOPPED;
+            END_IF
+    END_CASE
+END_IF
+
+(* Habilitações derivadas do estado *)
+xDrivesEnable := xSafetyOk;
+xAutoEnable   := (eMachineState = E_MachineState.RUNNING);
+xMotionRun    := xAutoEnable OR (eMachineState = E_MachineState.HOMING);
+xHomeReq      := (eMachineState = E_MachineState.HOMING);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>11faddd2-92b1-481e-acc9-74ba98c3a654</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Motion" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="fbAx">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <derived name="FB_AxisCtrl" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xCmdHomeAx">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="xCmdMoveAx">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="rTgt">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="iSvc">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="i">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xZSafe">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xAccXYT">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xInPosXYT">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xHomedXYT">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+                <localVars constant="true">
+                  <variable name="SV_IDLE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_HOME_Z">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="10" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_HOME_Z_W">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="11" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_Z_SAFE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="12" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_Z_SAFE_W">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="13" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_HOME_XYT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="14" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_HOME_XYT_W">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="15" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_PARK">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="16" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_PARK_W">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="17" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_XYT_GO">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="20" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_XYT_W">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="21" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_Z_GO">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="30" />
+                    </initialValue>
+                  </variable>
+                  <variable name="SV_Z_W">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="31" />
+                    </initialValue>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Comandos são pulsos de um ciclo *)
+FOR i := 1 TO 4 DO
+    xCmdHomeAx[i] := FALSE;
+    xCmdMoveAx[i] := FALSE;
+END_FOR
+xZInterlockFault := FALSE;
+
+xZSafe    := rAxisActPos[c_AX_Z] &gt;= (rZSafe - rZTol);
+xAccXYT   := fbAx[c_AX_X].xAccept AND fbAx[c_AX_Y].xAccept AND fbAx[c_AX_T].xAccept;
+xInPosXYT := fbAx[c_AX_X].xInPos  AND fbAx[c_AX_Y].xInPos  AND fbAx[c_AX_T].xInPos;
+xHomedXYT := fbAx[c_AX_X].xHomed  AND fbAx[c_AX_Y].xHomed  AND fbAx[c_AX_T].xHomed;
+
+IF (NOT xMotionRun) OR xMotionFault THEN
+    (* Aborta os serviços *)
+    iSvc := SV_IDLE;
+    xXYTDone := FALSE;
+    xZDone := FALSE;
+    xHomeSeqDone := FALSE;
+ELSE
+    CASE iSvc OF
+        SV_IDLE:
+            xXYTDone     := xXYTDone AND xMoveXYTReq;
+            xZDone       := xZDone AND xMoveZReq;
+            xHomeSeqDone := xHomeSeqDone AND xHomeReq;
+            IF xHomeReq AND NOT xHomeSeqDone THEN
+                iSvc := SV_HOME_Z;
+            ELSIF xMoveXYTReq AND NOT xXYTDone AND xAllHomed THEN
+                IF xZSafe THEN
+                    iSvc := SV_XYT_GO;
+                ELSE
+                    xZInterlockFault := TRUE;   (* XYθ só com Z na altura segura *)
+                END_IF
+            ELSIF xMoveZReq AND NOT xZDone AND xAllHomed THEN
+                iSvc := SV_Z_GO;
+            END_IF
+
+        (* ----- Sequência de homing ----- *)
+        SV_HOME_Z:
+            IF fbAx[c_AX_Z].xAccept THEN
+                xCmdHomeAx[c_AX_Z] := TRUE;
+                iSvc := SV_HOME_Z_W;
+            END_IF
+        SV_HOME_Z_W:
+            IF fbAx[c_AX_Z].xHomed AND fbAx[c_AX_Z].xInPos THEN
+                iSvc := SV_Z_SAFE;
+            END_IF
+        SV_Z_SAFE:
+            rTgt[c_AX_Z] := rZSafe;
+            IF fbAx[c_AX_Z].xAccept THEN
+                xCmdMoveAx[c_AX_Z] := TRUE;
+                iSvc := SV_Z_SAFE_W;
+            END_IF
+        SV_Z_SAFE_W:
+            IF fbAx[c_AX_Z].xInPos THEN
+                iSvc := SV_HOME_XYT;
+            END_IF
+        SV_HOME_XYT:
+            IF xAccXYT THEN
+                xCmdHomeAx[c_AX_X] := TRUE;
+                xCmdHomeAx[c_AX_Y] := TRUE;
+                xCmdHomeAx[c_AX_T] := TRUE;
+                iSvc := SV_HOME_XYT_W;
+            END_IF
+        SV_HOME_XYT_W:
+            IF xHomedXYT AND xInPosXYT THEN
+                iSvc := SV_PARK;
+            END_IF
+        SV_PARK:
+            rTgt[c_AX_X] := rParkX;
+            rTgt[c_AX_Y] := rParkY;
+            rTgt[c_AX_T] := rParkT;
+            IF xAccXYT THEN
+                xCmdMoveAx[c_AX_X] := TRUE;
+                xCmdMoveAx[c_AX_Y] := TRUE;
+                xCmdMoveAx[c_AX_T] := TRUE;
+                iSvc := SV_PARK_W;
+            END_IF
+        SV_PARK_W:
+            IF xInPosXYT THEN
+                xHomeSeqDone := TRUE;
+                iSvc := SV_IDLE;
+            END_IF
+
+        (* ----- Movimento XYθ ----- *)
+        SV_XYT_GO:
+            rTgt[c_AX_X] := rTgtX;
+            rTgt[c_AX_Y] := rTgtY;
+            rTgt[c_AX_T] := rTgtT;
+            IF xAccXYT THEN
+                xCmdMoveAx[c_AX_X] := TRUE;
+                xCmdMoveAx[c_AX_Y] := TRUE;
+                xCmdMoveAx[c_AX_T] := TRUE;
+                iSvc := SV_XYT_W;
+            END_IF
+        SV_XYT_W:
+            IF xInPosXYT THEN
+                xXYTDone := TRUE;
+                iSvc := SV_IDLE;
+            END_IF
+
+        (* ----- Movimento Z ----- *)
+        SV_Z_GO:
+            rTgt[c_AX_Z] := rTgtZ;
+            IF fbAx[c_AX_Z].xAccept THEN
+                xCmdMoveAx[c_AX_Z] := TRUE;
+                iSvc := SV_Z_W;
+            END_IF
+        SV_Z_W:
+            IF fbAx[c_AX_Z].xInPos THEN
+                xZDone := TRUE;
+                iSvc := SV_IDLE;
+            END_IF
+    END_CASE
+END_IF
+
+(* Execução dos eixos *)
+xAllHomed := TRUE;
+xMotionFault := FALSE;
+FOR i := 1 TO 4 DO
+    fbAx[i](xEnable        := xDrivesEnable,
+            xReset         := xResetPulse,
+            xHomeCmd       := xCmdHomeAx[i],
+            xMoveCmd       := xCmdMoveAx[i],
+            xHalt          := (NOT xMotionRun) OR xMotionFault,
+            rTarget        := rTgt[i],
+            rActPos        := rAxisActPos[i],
+            rSoftMin       := rAxisMin[i],
+            rSoftMax       := rAxisMax[i],
+            xDriveReady    := xAxisDriveReady[i],
+            xDriveFault    := xAxisDriveFault[i],
+            xDriveHomeDone := xAxisHomeDone[i]);
+
+    xAxisPower[i]    := fbAx[i].xDrivePower;
+    xAxisHome[i]     := fbAx[i].xDriveHome;
+    xAxisExecute[i]  := fbAx[i].xDriveExecute;
+    rAxisSetpoint[i] := fbAx[i].rDriveSetpoint;
+    xAxisFault[i]    := fbAx[i].xFault;
+
+    xAllHomed := xAllHomed AND fbAx[i].xHomed;
+    IF fbAx[i].xFault THEN
+        xMotionFault := TRUE;
+    END_IF
+END_FOR</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>3ec337db-89bb-4ffc-8d28-532614f99689</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Conveyor" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="fbConv">
+                    <type>
+                      <derived name="FB_Conveyor" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">fbConv(xEnable           := xAutoEnable AND xSafetyOk,
+       xReset            := xResetPulse,
+       xClearZones       := xCmdClearZones AND NOT xAutoEnable,
+       xSensZ1           := xSensZ1,
+       xSensZ2           := xSensZ2,
+       xSensZ3           := xSensZ3,
+       xUpBoardAvail     := xSmemaUpAvail,
+       xDownMachineReady := xSmemaDownReady,
+       xAsmDone          := xAsmDone,
+       xInspDone         := xInspDone,
+       tTransferTimeout  := tConvTimeout);
+
+xMotor1         := fbConv.xMotor1;
+xMotor2         := fbConv.xMotor2;
+xMotor3         := fbConv.xMotor3;
+xSmemaUpReady   := fbConv.xUpMachineReady;
+xSmemaDownAvail := fbConv.xDownBoardAvail;
+xBoardInAsm     := fbConv.xBoardInAsm;
+xBoardInInsp    := fbConv.xBoardInInsp;
+xConveyorFault  := fbConv.xFault;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>d0fea839-aa76-402f-bfee-7de80c9e779a</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_PickPlace" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="iStep">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="iComp">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1" />
+                    </initialValue>
+                  </variable>
+                  <variable name="iCount">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="stCur">
+                    <type>
+                      <derived name="ST_Component" />
+                    </type>
+                  </variable>
+                  <variable name="xGripCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xClampCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="fbClamp">
+                    <type>
+                      <derived name="FB_PneumaticCyl" />
+                    </type>
+                  </variable>
+                  <variable name="fbVac">
+                    <type>
+                      <derived name="FB_VacuumGripper" />
+                    </type>
+                  </variable>
+                  <variable name="rtBoard">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                </localVars>
+                <localVars constant="true">
+                  <variable name="S_IDLE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_CLAMP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="10" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_LIFT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="15" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_PICK_XY">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="20" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_PICK_DOWN">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="30" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_GRIP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="40" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_PICK_UP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="50" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_PLACE_XY">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="60" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_PLACE_DOWN">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="70" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_RELEASE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="80" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_PLACE_UP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="90" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_NEXT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="100" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_UNCLAMP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="110" />
+                    </initialValue>
+                  </variable>
+                  <variable name="S_DONE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="120" />
+                    </initialValue>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Nova placa na zona de montagem: reinicia a lista de componentes *)
+rtBoard(CLK := xBoardInAsm);
+IF rtBoard.Q THEN
+    iComp := 1;
+END_IF
+
+(* Componente corrente da receita ativa *)
+IF xRecipeValid AND (iRecipeActive &gt;= 1) AND (iRecipeActive &lt;= c_NUM_RECIPES) THEN
+    iCount := aRecipes[iRecipeActive].iCount;
+    IF (iComp &gt;= 1) AND (iComp &lt;= iCount) THEN
+        stCur := aRecipes[iRecipeActive].aComp[iComp];
+    END_IF
+ELSE
+    iCount := 0;
+END_IF
+
+IF NOT xAutoEnable THEN
+    (* Aborto seguro: cancela requisições, libera vácuo e grampo *)
+    xMoveXYTReq := FALSE;
+    xMoveZReq   := FALSE;
+    xGripCmd    := FALSE;
+    xClampCmd   := FALSE;
+    iStep       := S_IDLE;
+ELSE
+    CASE iStep OF
+        S_IDLE:
+            IF xAsmDone THEN
+                IF NOT xBoardInAsm THEN
+                    xAsmDone := FALSE;
+                END_IF
+            ELSIF xBoardInAsm AND (iCount &gt; 0) THEN
+                IF iComp &gt; iCount THEN
+                    iStep := S_UNCLAMP;     (* Todos colocados antes do aborto *)
+                ELSE
+                    iStep := S_CLAMP;
+                END_IF
+            END_IF
+
+        S_CLAMP:
+            xClampCmd := TRUE;
+            IF fbClamp.xIsExtended THEN
+                iStep := S_LIFT;
+            END_IF
+
+        S_LIFT:     (* Garante Z seguro antes de qualquer movimento XY *)
+            rTgtZ := rZSafe;
+            xMoveZReq := TRUE;
+            IF xZDone THEN
+                xMoveZReq := FALSE;
+                iStep := S_PICK_XY;
+            END_IF
+
+        S_PICK_XY:
+            rTgtX := stCur.rPickX;
+            rTgtY := stCur.rPickY;
+            rTgtT := 0.0;
+            xMoveXYTReq := TRUE;
+            IF xXYTDone THEN
+                xMoveXYTReq := FALSE;
+                iStep := S_PICK_DOWN;
+            END_IF
+
+        S_PICK_DOWN:
+            rTgtZ := rZPick;
+            xMoveZReq := TRUE;
+            IF xZDone THEN
+                xMoveZReq := FALSE;
+                iStep := S_GRIP;
+            END_IF
+
+        S_GRIP:     (* Confirma a pega pelo pressostato *)
+            xGripCmd := TRUE;
+            IF fbVac.xGripOk THEN
+                iStep := S_PICK_UP;
+            END_IF
+
+        S_PICK_UP:
+            rTgtZ := rZSafe;
+            xMoveZReq := TRUE;
+            IF xZDone THEN
+                xMoveZReq := FALSE;
+                iStep := S_PLACE_XY;
+            END_IF
+
+        S_PLACE_XY:
+            rTgtX := stCur.rPlaceX;
+            rTgtY := stCur.rPlaceY;
+            rTgtT := stCur.rPlaceTheta;
+            xMoveXYTReq := TRUE;
+            IF xXYTDone THEN
+                xMoveXYTReq := FALSE;
+                iStep := S_PLACE_DOWN;
+            END_IF
+
+        S_PLACE_DOWN:
+            rTgtZ := rZPlace;
+            xMoveZReq := TRUE;
+            IF xZDone THEN
+                xMoveZReq := FALSE;
+                iStep := S_RELEASE;
+            END_IF
+
+        S_RELEASE:
+            xGripCmd := FALSE;
+            IF fbVac.xReleased THEN
+                iStep := S_PLACE_UP;
+            END_IF
+
+        S_PLACE_UP:
+            rTgtZ := rZSafe;
+            xMoveZReq := TRUE;
+            IF xZDone THEN
+                xMoveZReq := FALSE;
+                iStep := S_NEXT;
+            END_IF
+
+        S_NEXT:
+            iComp := iComp + 1;
+            IF iComp &gt; iCount THEN
+                iStep := S_UNCLAMP;
+            ELSE
+                iStep := S_PICK_XY;
+            END_IF
+
+        S_UNCLAMP:
+            xClampCmd := FALSE;
+            IF fbClamp.xIsRetracted THEN
+                iStep := S_DONE;
+            END_IF
+
+        S_DONE:     (* Libera a placa para a esteira *)
+            xAsmDone := TRUE;
+            IF NOT xBoardInAsm THEN
+                xAsmDone := FALSE;
+                iStep := S_IDLE;
+            END_IF
+    END_CASE
+END_IF
+
+(* Atuadores *)
+fbClamp(xEnable         := xSafetyOk,
+        xReset          := xResetPulse,
+        xCmdExtend      := xClampCmd,
+        xSensExtended   := xClampExtended,
+        xSensRetracted  := xClampRetracted,
+        tMoveTimeout    := tCylTimeout);
+xClampValve := fbClamp.xValve;
+xClampFault := fbClamp.xFault;
+
+fbVac(xEnable     := xSafetyOk,
+      xReset      := xResetPulse,
+      xGrip       := xGripCmd,
+      xPressostat := xVacuumOk,
+      tConfirm    := tVacConfirm);
+xVacValve  := fbVac.xVacValve;
+xBlowValve := fbVac.xBlowValve;
+xPickFail  := fbVac.xPickFail;
+xGripLoss  := fbVac.xGripLoss;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>6c095264-4ce7-4c60-b992-b12f016dc3c5</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_AOI" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="iStep">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="iFails">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="xPass">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xReject">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="xStopExtend">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="fbStop">
+                    <type>
+                      <derived name="FB_PneumaticCyl" />
+                    </type>
+                  </variable>
+                  <variable name="tonRes">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonRel">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="rtResetCnt">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                </localVars>
+                <localVars constant="true">
+                  <variable name="A_IDLE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="A_WAIT_STOP">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="10" />
+                    </initialValue>
+                  </variable>
+                  <variable name="A_WAIT_RESULT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="20" />
+                    </initialValue>
+                  </variable>
+                  <variable name="A_WAIT_RELEASE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="30" />
+                    </initialValue>
+                  </variable>
+                  <variable name="A_RETRACT">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="40" />
+                    </initialValue>
+                  </variable>
+                  <variable name="A_DONE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="50" />
+                    </initialValue>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Zerar contadores somente com o ciclo automático parado *)
+rtResetCnt(CLK := xCmdResetCounters);
+IF rtResetCnt.Q AND NOT xAutoEnable THEN
+    diBoardsProduced := 0;
+    diBoardsRejected := 0;
+END_IF
+
+(* Supervisão de tempo da AOI *)
+tonRes(IN := (iStep = A_WAIT_RESULT), PT := tAoiTimeout);
+tonRel(IN := (iStep = A_WAIT_RELEASE), PT := tAoiTimeout);
+xAoiTimeout := tonRes.Q OR tonRel.Q;
+
+IF NOT xAutoEnable THEN
+    xAoiTrigger := FALSE;
+    iStep := A_IDLE;
+ELSE
+    CASE iStep OF
+        A_IDLE:
+            IF xInspDone THEN
+                IF NOT xBoardInInsp THEN
+                    xInspDone := FALSE;
+                END_IF
+            ELSIF xBoardInInsp THEN
+                iFails := 0;
+                iStep := A_WAIT_STOP;
+            END_IF
+
+        A_WAIT_STOP:    (* Placa contra o batente avançado *)
+            IF fbStop.xIsExtended THEN
+                iStep := A_WAIT_RESULT;
+            END_IF
+
+        A_WAIT_RESULT:
+            xAoiTrigger := TRUE;
+            IF xAoiDone THEN
+                xPass := xAoiPass;
+                xAoiTrigger := FALSE;
+                iStep := A_WAIT_RELEASE;
+            END_IF
+
+        A_WAIT_RELEASE: (* Aguarda a AOI baixar o resultado antes de decidir *)
+            IF NOT xAoiDone THEN
+                IF xPass THEN
+                    xReject := FALSE;
+                    iStep := A_RETRACT;
+                ELSE
+                    iFails := iFails + 1;
+                    IF iFails &gt; c_AOI_MAX_RETRY THEN
+                        xReject := TRUE;
+                        iStep := A_RETRACT;
+                    ELSE
+                        iStep := A_WAIT_RESULT;     (* Nova tentativa *)
+                    END_IF
+                END_IF
+            END_IF
+
+        A_RETRACT:      (* Recua o batente e então libera a placa *)
+            IF fbStop.xIsRetracted THEN
+                diBoardsProduced := diBoardsProduced + 1;
+                IF xReject THEN
+                    diBoardsRejected := diBoardsRejected + 1;
+                END_IF
+                xCurBoardRejected := xReject;
+                xInspDone := TRUE;
+                iStep := A_DONE;
+            END_IF
+
+        A_DONE:
+            IF NOT xBoardInInsp THEN
+                xInspDone := FALSE;
+                iStep := A_IDLE;
+            END_IF
+    END_CASE
+END_IF
+
+(* Marca de rejeição acompanha a placa até sair da zona de saída *)
+IF NOT xBoardInInsp AND NOT xSmemaDownAvail THEN
+    xCurBoardRejected := FALSE;
+END_IF
+xBoardRejectedOut := xCurBoardRejected;
+
+(* Batente: avançado, exceto durante a liberação da placa *)
+xStopExtend := NOT ((iStep = A_RETRACT) OR xInspDone);
+fbStop(xEnable        := xSafetyOk,
+       xReset         := xResetPulse,
+       xCmdExtend     := xStopExtend,
+       xSensExtended  := xStopExtended,
+       xSensRetracted := xStopRetracted,
+       tMoveTimeout   := tCylTimeout);
+xStopValve    := fbStop.xValve;
+xStopperFault := fbStop.xFault;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>064cb222-e19b-419a-956f-d9424b935a16</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+            <Libraries>
+              <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+              <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+              <Library Name="#CAA Device Diagnosis" Namespace="DED" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CAA Device Diagnosis, 3.5.20.0 (CAA Technical Workgroup)" />
+              <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+              <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
+              <PlaceholderRedirections>
+                <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+              </PlaceholderRedirections>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>eb75a708-2cf1-4e6d-a139-cbde13489fc6</ObjectId>
+                </data>
+              </addData>
+            </Libraries>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>2ff0b4e0-a6ea-492c-b5d0-100b55943aa2</ObjectId>
+          </data>
+        </addData>
+      </resource>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Application" ObjectId="2ff0b4e0-a6ea-492c-b5d0-100b55943aa2">
+          <Object Name="Library Manager" ObjectId="eb75a708-2cf1-4e6d-a139-cbde13489fc6" />
+          <Object Name="MainTask" ObjectId="a09872ec-fc7f-4ead-9a6a-0a9073d2f331" />
+          <Object Name="GVL_Main" ObjectId="68f0f236-32e3-4fa9-aaea-1fe6d5873f87" />
+          <Object Name="E_MachineState" ObjectId="18d6e6f3-2fe3-4979-b5c9-47cef58baf1e" />
+          <Object Name="ST_Component" ObjectId="efac30d4-eb89-4c53-b8bd-72fba24f723f" />
+          <Object Name="ST_Recipe" ObjectId="1363e608-7009-4442-ae24-da7195e68ab1" />
+          <Object Name="F_InRange" ObjectId="1afccd99-eb35-43b1-bf07-35a95023e0ad" />
+          <Object Name="FB_PneumaticCyl" ObjectId="e4131c68-cb22-487a-a373-0bb7a8d0d070" />
+          <Object Name="FB_VacuumGripper" ObjectId="56dd1586-40b2-4152-b737-b97f7882c86b" />
+          <Object Name="FB_AxisCtrl" ObjectId="ff78e6b7-ccbf-4a9e-9b56-50b1b4c7572d" />
+          <Object Name="FB_Conveyor" ObjectId="47122902-ecdb-418a-8ff3-e099cc1f2548" />
+          <Object Name="FB_HmiWatchdog" ObjectId="6fc8c99e-1525-421e-aa4e-760416b5ef9c" />
+          <Object Name="FB_Alarm" ObjectId="9b506d42-7ded-44f9-8d9c-c1b857216319" />
+          <Object Name="FB_Recipe" ObjectId="7eafab98-771f-45bc-bac8-3e4474abf044" />
+          <Object Name="PRG_Safety" ObjectId="0b1fe379-5ac6-4f53-8df0-c2083c3de343" />
+          <Object Name="PRG_Alarms" ObjectId="2575031c-f534-47d3-9ec8-20ba9f54affc" />
+          <Object Name="PRG_Main" ObjectId="11faddd2-92b1-481e-acc9-74ba98c3a654" />
+          <Object Name="PRG_Motion" ObjectId="3ec337db-89bb-4ffc-8d28-532614f99689" />
+          <Object Name="PRG_Conveyor" ObjectId="d0fea839-aa76-402f-bfee-7de80c9e779a" />
+          <Object Name="PRG_PickPlace" ObjectId="6c095264-4ce7-4c60-b992-b12f016dc3c5" />
+          <Object Name="PRG_AOI" ObjectId="064cb222-e19b-419a-956f-d9424b935a16" />
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

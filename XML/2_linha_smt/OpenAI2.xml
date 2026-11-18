@@ -1,0 +1,3110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2026-10-23T14:30:23.9786758" />
+  <contentHeader name="OpenAI2.project" modificationDateTime="2026-10-23T14:30:11.1571195">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+      <resource name="Application">
+        <task name="MainTask" interval="PT0.02S" priority="1">
+          <pouInstance name="PRG_Main" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+              <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+              </TaskSettings>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>7f8ee637-f031-4a21-9455-5d30052c3a2d</ObjectId>
+            </data>
+          </addData>
+        </task>
+        <globalVars name="GVL_Main">
+          <variable name="g_bAutoMode">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ COMANDOS GERAIS
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bStartCycle">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bStopCycle">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bReset">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bEmergencyOK">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ SEGURANCA
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bGuardDoorOK">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bSafetyOK">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bHMIHeartbeat">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ IHM / HEARTBEAT
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bHMIHeartbeatLast">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_tHMIHeartbeatTimeout">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#2s0ms" />
+            </initialValue>
+          </variable>
+          <variable name="g_bHMICommunicationOK">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bSMEMA_In_Available">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ SMEMA - ENTRADA
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bSMEMA_In_Ready">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bSMEMA_In_Transfer">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bSMEMA_Out_Available">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ SMEMA - SAIDA
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bSMEMA_Out_Ready">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bSMEMA_Out_Transfer">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bZone1_BoardPresent">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ SENSORES DAS ZONAS DA ESTEIRA
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bZone2_BoardPresent">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bZone3_BoardPresent">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bZone1_MotorCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bZone2_MotorCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bZone3_MotorCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisX_Homed">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ EIXOS
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bAxisY_Homed">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisZ_Homed">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisT_Homed">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisX_HomeCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisY_HomeCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisZ_HomeCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisT_HomeCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisX_MoveCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisY_MoveCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisZ_MoveCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisT_MoveCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisX_InPosition">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisY_InPosition">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisZ_InPosition">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisT_InPosition">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisX_Busy">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisY_Busy">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisZ_Busy">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisT_Busy">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisX_Error">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisY_Error">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisZ_Error">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAxisT_Error">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_rAxisX_Target">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="g_rAxisY_Target">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="g_rAxisZ_Target">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="g_rAxisT_Target">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="g_bHomingComplete">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ REFERENCIAMENTO
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bHomingRequest">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bPickVacuumCmd">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ PICK AND PLACE
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bPickVacuumOK">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bPlaceReleaseCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bComponentAvailable">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bComponentPicked">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bNozzleDownCmd">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ PNEUMATICA
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bNozzleUpCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bNozzleDownSensor">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bNozzleUpSensor">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bClampCloseCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bClampOpenCmd">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bClampClosedSensor">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bClampOpenSensor">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAOI_Trigger">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ AOI
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bAOI_Busy">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAOI_ResultOK">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAOI_ResultNOK">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAOI_Ready">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_iSelectedRecipe">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="1" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ RECEITAS
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_iActiveRecipe">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="1" />
+            </initialValue>
+          </variable>
+          <variable name="g_bRecipeChangeRequest">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_iRecipe1_ComponentQty">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="5" />
+            </initialValue>
+          </variable>
+          <variable name="g_iRecipe2_ComponentQty">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="8" />
+            </initialValue>
+          </variable>
+          <variable name="g_iRecipe3_ComponentQty">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="10" />
+            </initialValue>
+          </variable>
+          <variable name="g_rRecipe1_X">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe1_Y">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe1_T">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe2_X">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe2_Y">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe2_T">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe3_X">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe3_Y">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_rRecipe3_T">
+            <type>
+              <array>
+                <dimension lower="1" upper="10" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="g_uiBoardsProduced">
+            <type>
+              <UDINT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ PRODUCAO
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_uiBoardsRejected">
+            <type>
+              <UDINT />
+            </type>
+          </variable>
+          <variable name="g_bMachineReady">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ STATUS
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bMachineRunning">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bMachineFault">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bCycleComplete">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bBoardRejected">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bBoardInProcess">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmActive">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ ALARMES
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <variable name="g_bAlarmAcknowledged">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmResetRequest">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmEmergency">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmGuard">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmHMI">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmAxis">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmPneumatic">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmVacuum">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmAOI">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_bAlarmSMEMA">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="g_iAlarmCode">
+            <type>
+              <INT />
+            </type>
+          </variable>
+          <variable name="g_iMachineState">
+            <type>
+              <INT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ============================================================
+ ESTADOS GERAIS
+ ============================================================</xhtml>
+            </documentation>
+          </variable>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>93de5e73-bcf8-4b69-b36e-5608c1202e33</ObjectId>
+            </data>
+          </addData>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: GVL_Main
+    Tipo: Global Variable List
+    ============================================================
+</xhtml>
+          </documentation>
+        </globalVars>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_Heartbeat" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bHeartbeat">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_tTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bCommunicationOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="r_bHeartbeatOld">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="t_Heartbeat">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_Heartbeat
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_Heartbeat
+// ============================================================
+
+IF NOT i_bEnable THEN
+    t_Heartbeat(IN := FALSE);
+    r_bHeartbeatOld := i_bHeartbeat;
+    o_bCommunicationOK := TRUE;
+    o_bFault := FALSE;
+ELSE
+    IF i_bHeartbeat &lt;&gt; r_bHeartbeatOld THEN
+        r_bHeartbeatOld := i_bHeartbeat;
+        t_Heartbeat(IN := FALSE);
+    ELSE
+        t_Heartbeat(IN := TRUE, PT := i_tTimeout);
+    END_IF;
+
+    IF t_Heartbeat.Q THEN
+        o_bCommunicationOK := FALSE;
+        o_bFault := TRUE;
+    ELSE
+        o_bCommunicationOK := TRUE;
+        o_bFault := FALSE;
+    END_IF;
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>91e424fe-2ca8-435e-be56-ac8107eb4599</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AxisManager" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bHomeRequest">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bX_Homed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bY_Homed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZ_Homed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bT_Homed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bX_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bY_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZ_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bT_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bX_Error">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bY_Error">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZ_Error">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bT_Error">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_rX_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rY_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rZ_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rT_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bX_HomeCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bY_HomeCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bZ_HomeCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bT_HomeCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bX_MoveCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bY_MoveCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bZ_MoveCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bT_MoveCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_rX_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_rY_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_rZ_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_rT_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_bHomingComplete">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bAxesReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="i_State">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_AxisManager
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_AxisManager
+// ============================================================
+
+o_bX_HomeCmd := FALSE;
+o_bY_HomeCmd := FALSE;
+o_bZ_HomeCmd := FALSE;
+o_bT_HomeCmd := FALSE;
+
+o_bX_MoveCmd := FALSE;
+o_bY_MoveCmd := FALSE;
+o_bZ_MoveCmd := FALSE;
+o_bT_MoveCmd := FALSE;
+
+o_rX_Target := i_rX_Target;
+o_rY_Target := i_rY_Target;
+o_rZ_Target := i_rZ_Target;
+o_rT_Target := i_rT_Target;
+
+o_bFault := FALSE;
+
+IF NOT i_bEnable THEN
+    i_State := 0;
+    o_bHomingComplete := FALSE;
+    o_bAxesReady := FALSE;
+ELSE
+
+    CASE i_State OF
+
+        0:
+            o_bHomingComplete := FALSE;
+            o_bAxesReady := FALSE;
+
+            IF i_bHomeRequest THEN
+                i_State := 10;
+            END_IF;
+
+        10:
+            o_bX_HomeCmd := TRUE;
+
+            IF i_bX_Homed THEN
+                i_State := 20;
+            END_IF;
+
+        20:
+            o_bY_HomeCmd := TRUE;
+
+            IF i_bY_Homed THEN
+                i_State := 30;
+            END_IF;
+
+        30:
+            o_bZ_HomeCmd := TRUE;
+
+            IF i_bZ_Homed THEN
+                i_State := 40;
+            END_IF;
+
+        40:
+            o_bT_HomeCmd := TRUE;
+
+            IF i_bT_Homed THEN
+                i_State := 50;
+            END_IF;
+
+        50:
+            o_bHomingComplete := TRUE;
+            o_bAxesReady := TRUE;
+
+        ELSE
+            i_State := 0;
+
+    END_CASE;
+
+    IF i_bX_Error OR
+       i_bY_Error OR
+       i_bZ_Error OR
+       i_bT_Error THEN
+
+        o_bFault := TRUE;
+        o_bAxesReady := FALSE;
+    END_IF;
+
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>afd8e207-f880-41cd-9da5-22e566e77ce2</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_Conveyor" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bStart">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bStop">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZone1Present">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZone2Present">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZone3Present">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bSMEMA_InAvailable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bSMEMA_OutReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bZone1Motor">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bZone2Motor">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bZone3Motor">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bSMEMA_InReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bSMEMA_OutAvailable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bBoardAtAssembly">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bBoardAtAOI">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="i_State">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="t_Transfer">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_Conveyor
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_Conveyor
+// ============================================================
+
+o_bZone1Motor := FALSE;
+o_bZone2Motor := FALSE;
+o_bZone3Motor := FALSE;
+
+o_bSMEMA_InReady := FALSE;
+o_bSMEMA_OutAvailable := FALSE;
+o_bFault := FALSE;
+
+o_bBoardAtAssembly := i_bZone2Present;
+o_bBoardAtAOI := i_bZone3Present;
+
+IF NOT i_bEnable OR i_bStop THEN
+
+    i_State := 0;
+    t_Transfer(IN := FALSE);
+
+ELSE
+
+    CASE i_State OF
+
+        0:
+            o_bSMEMA_InReady := TRUE;
+
+            IF i_bStart AND
+               i_bSMEMA_InAvailable AND
+               NOT i_bZone1Present THEN
+
+                i_State := 10;
+            END_IF;
+
+        10:
+            o_bZone1Motor := TRUE;
+
+            IF i_bZone2Present THEN
+                o_bZone1Motor := FALSE;
+                i_State := 20;
+            END_IF;
+
+        20:
+            IF NOT i_bZone2Present THEN
+                i_State := 30;
+            END_IF;
+
+        30:
+            IF i_bZone3Present THEN
+                i_State := 40;
+            ELSE
+                o_bZone2Motor := TRUE;
+
+                IF i_bZone3Present THEN
+                    o_bZone2Motor := FALSE;
+                    i_State := 40;
+                END_IF;
+            END_IF;
+
+        40:
+            o_bSMEMA_OutAvailable := TRUE;
+
+            IF i_bSMEMA_OutReady THEN
+                o_bZone3Motor := TRUE;
+                i_State := 50;
+            END_IF;
+
+        50:
+            o_bZone3Motor := TRUE;
+
+            IF NOT i_bZone3Present THEN
+                o_bZone3Motor := FALSE;
+                i_State := 0;
+            END_IF;
+
+        ELSE
+            i_State := 0;
+
+    END_CASE;
+
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>4baf3fc3-3c9f-4466-b75a-ea346868d8ad</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_PneumaticActuator" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bExtendCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bRetractCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bExtendedSensor">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bRetractedSensor">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_tMaxMovement">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#2s0ms" />
+                    </initialValue>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bExtendOutput">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bRetractOutput">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bExtended">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bRetracted">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="t_Extend">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="t_Retract">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_PneumaticActuator
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_PneumaticActuator
+// ============================================================
+
+o_bExtendOutput := FALSE;
+o_bRetractOutput := FALSE;
+o_bExtended := FALSE;
+o_bRetracted := FALSE;
+o_bFault := FALSE;
+
+t_Extend(IN := FALSE);
+t_Retract(IN := FALSE);
+
+IF NOT i_bEnable THEN
+    RETURN;
+END_IF;
+
+o_bExtended := i_bExtendedSensor;
+o_bRetracted := i_bRetractedSensor;
+
+IF i_bExtendCmd AND NOT i_bRetractCmd THEN
+
+    o_bExtendOutput := TRUE;
+
+    t_Extend(
+        IN := NOT i_bExtendedSensor,
+        PT := i_tMaxMovement
+    );
+
+    IF t_Extend.Q THEN
+        o_bFault := TRUE;
+    END_IF;
+
+ELSIF i_bRetractCmd AND NOT i_bExtendCmd THEN
+
+    o_bRetractOutput := TRUE;
+
+    t_Retract(
+        IN := NOT i_bRetractedSensor,
+        PT := i_tMaxMovement
+    );
+
+    IF t_Retract.Q THEN
+        o_bFault := TRUE;
+    END_IF;
+
+END_IF;
+
+IF i_bExtendedSensor AND i_bRetractedSensor THEN
+    o_bFault := TRUE;
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>ffbcd26d-bfee-4a44-a0bd-ac451d15c93e</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_PickPlace" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bStart">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bStop">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bAxesReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bComponentAvailable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bVacuumOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bX_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bY_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bZ_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bT_InPosition">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bNozzleDown">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bNozzleUp">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_iComponentQty">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_rPickX">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPickY">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPickZ">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPickT">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPlaceX">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPlaceY">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPlaceZ">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_rPlaceT">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bX_Move">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bY_Move">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bZ_Move">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bT_Move">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_rX_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_rY_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_rZ_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_rT_Target">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="o_bVacuum">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bNozzleDown">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bNozzleUp">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bRelease">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_iComponentIndex">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="o_bComplete">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="i_State">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="t_Vacuum">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_PickPlace
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_PickPlace
+// ============================================================
+
+o_bX_Move := FALSE;
+o_bY_Move := FALSE;
+o_bZ_Move := FALSE;
+o_bT_Move := FALSE;
+
+o_bVacuum := FALSE;
+o_bNozzleDown := FALSE;
+o_bNozzleUp := FALSE;
+o_bRelease := FALSE;
+
+o_bComplete := FALSE;
+o_bBusy := FALSE;
+o_bFault := FALSE;
+
+t_Vacuum(IN := FALSE);
+
+IF NOT i_bEnable OR i_bStop THEN
+    i_State := 0;
+    o_iComponentIndex := 1;
+    RETURN;
+END_IF;
+
+CASE i_State OF
+
+    0:
+        o_iComponentIndex := 1;
+
+        IF i_bStart AND
+           i_bAxesReady AND
+           i_bComponentAvailable THEN
+
+            o_bBusy := TRUE;
+            i_State := 10;
+        END_IF;
+
+    10:
+        // ----------------------------------------------------
+        // POSICAO DE COLETA
+        // ----------------------------------------------------
+        o_bX_Move := TRUE;
+        o_bY_Move := TRUE;
+        o_bT_Move := TRUE;
+
+        o_rX_Target := i_rPickX;
+        o_rY_Target := i_rPickY;
+        o_rT_Target := i_rPickT;
+
+        IF i_bX_InPosition AND
+           i_bY_InPosition AND
+           i_bT_InPosition THEN
+
+            i_State := 20;
+        END_IF;
+
+    20:
+        // ----------------------------------------------------
+        // DESCIDA DO BICO
+        // ----------------------------------------------------
+        o_bNozzleDown := TRUE;
+        o_rZ_Target := i_rPickZ;
+
+        IF i_bZ_InPosition AND i_bNozzleDown THEN
+            i_State := 30;
+        END_IF;
+
+    30:
+        // ----------------------------------------------------
+        // APLICACAO DO VACUO
+        // ----------------------------------------------------
+        o_bVacuum := TRUE;
+
+        t_Vacuum(
+            IN := NOT i_bVacuumOK,
+            PT := T#1s
+        );
+
+        IF i_bVacuumOK THEN
+            i_State := 40;
+        ELSIF t_Vacuum.Q THEN
+            o_bFault := TRUE;
+            i_State := 900;
+        END_IF;
+
+    40:
+        // ----------------------------------------------------
+        // SUBIDA DO BICO
+        // ----------------------------------------------------
+        o_bVacuum := TRUE;
+        o_bNozzleUp := TRUE;
+
+        IF i_bZ_InPosition AND i_bNozzleUp THEN
+            i_State := 50;
+        END_IF;
+
+    50:
+        // ----------------------------------------------------
+        // POSICAO DE DEPOSITO
+        // ----------------------------------------------------
+        o_bVacuum := TRUE;
+
+        o_bX_Move := TRUE;
+        o_bY_Move := TRUE;
+        o_bT_Move := TRUE;
+
+        o_rX_Target := i_rPlaceX;
+        o_rY_Target := i_rPlaceY;
+        o_rT_Target := i_rPlaceT;
+
+        IF i_bX_InPosition AND
+           i_bY_InPosition AND
+           i_bT_InPosition THEN
+
+            i_State := 60;
+        END_IF;
+
+    60:
+        // ----------------------------------------------------
+        // DESCIDA PARA DEPOSITO
+        // ----------------------------------------------------
+        o_bVacuum := TRUE;
+        o_bNozzleDown := TRUE;
+        o_rZ_Target := i_rPlaceZ;
+
+        IF i_bZ_InPosition AND i_bNozzleDown THEN
+            i_State := 70;
+        END_IF;
+
+    70:
+        // ----------------------------------------------------
+        // LIBERACAO DO COMPONENTE
+        // ----------------------------------------------------
+        o_bVacuum := FALSE;
+        o_bRelease := TRUE;
+
+        i_State := 80;
+
+    80:
+        // ----------------------------------------------------
+        // RETORNO DO BICO
+        // ----------------------------------------------------
+        o_bNozzleUp := TRUE;
+
+        IF i_bZ_InPosition AND i_bNozzleUp THEN
+
+            IF o_iComponentIndex &lt; i_iComponentQty THEN
+                o_iComponentIndex := o_iComponentIndex + 1;
+                i_State := 10;
+            ELSE
+                i_State := 100;
+            END_IF;
+
+        END_IF;
+
+    100:
+        o_bBusy := FALSE;
+        o_bComplete := TRUE;
+        i_State := 0;
+
+    900:
+        o_bBusy := FALSE;
+        o_bFault := TRUE;
+
+    ELSE
+        i_State := 0;
+
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>6164e4ce-e3e9-4ba3-9d0f-00ade8dd6b7b</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AOI" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bStart">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bBoardPresent">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bAOIReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bAOIBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bResultOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bResultNOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bTrigger">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bComplete">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bRejected">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_iAttempt">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="i_State">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="t_Inspection">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_AOI
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_AOI
+// ============================================================
+
+o_bTrigger := FALSE;
+o_bBusy := FALSE;
+o_bComplete := FALSE;
+o_bRejected := FALSE;
+o_bFault := FALSE;
+
+t_Inspection(IN := FALSE);
+
+IF NOT i_bEnable THEN
+    i_State := 0;
+    o_iAttempt := 0;
+    RETURN;
+END_IF;
+
+CASE i_State OF
+
+    0:
+        o_iAttempt := 0;
+
+        IF i_bStart AND
+           i_bBoardPresent AND
+           i_bAOIReady THEN
+
+            o_iAttempt := 1;
+            o_bBusy := TRUE;
+            i_State := 10;
+        END_IF;
+
+    10:
+        o_bBusy := TRUE;
+        o_bTrigger := TRUE;
+
+        i_State := 20;
+
+    20:
+        o_bBusy := TRUE;
+
+        t_Inspection(
+            IN := i_bAOIBusy,
+            PT := T#5s
+        );
+
+        IF i_bResultOK THEN
+            i_State := 100;
+
+        ELSIF i_bResultNOK THEN
+
+            IF o_iAttempt &lt; 3 THEN
+                o_iAttempt := o_iAttempt + 1;
+                i_State := 10;
+            ELSE
+                i_State := 200;
+            END_IF;
+
+        ELSIF t_Inspection.Q THEN
+            o_bFault := TRUE;
+            i_State := 900;
+        END_IF;
+
+    100:
+        o_bBusy := FALSE;
+        o_bComplete := TRUE;
+        o_bRejected := FALSE;
+        i_State := 0;
+
+    200:
+        o_bBusy := FALSE;
+        o_bComplete := TRUE;
+        o_bRejected := TRUE;
+        i_State := 0;
+
+    900:
+        o_bBusy := FALSE;
+        o_bFault := TRUE;
+
+    ELSE
+        i_State := 0;
+
+END_CASE;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>d0b6557a-8e9d-4940-aec4-33dab7884ced</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_AlarmManager" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bEmergencyOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bGuardOK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bHMI_OK">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bAxisFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bPneumaticFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bVacuumFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bAOIFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bSMEMAFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_bReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_bAlarmActive">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bEmergencyAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bGuardAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bHMIAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bAxisAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bPneumaticAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bVacuumAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bAOIAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_bSMEMAAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="o_iAlarmCode">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_AlarmManager
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_AlarmManager
+// ============================================================
+
+o_bEmergencyAlarm := NOT i_bEmergencyOK;
+o_bGuardAlarm := NOT i_bGuardOK;
+o_bHMIAlarm := NOT i_bHMI_OK;
+
+o_bAxisAlarm := i_bAxisFault;
+o_bPneumaticAlarm := i_bPneumaticFault;
+o_bVacuumAlarm := i_bVacuumFault;
+o_bAOIAlarm := i_bAOIFault;
+o_bSMEMAAlarm := i_bSMEMAFault;
+
+o_iAlarmCode := 0;
+
+IF o_bEmergencyAlarm THEN
+    o_iAlarmCode := 1;
+ELSIF o_bGuardAlarm THEN
+    o_iAlarmCode := 2;
+ELSIF o_bHMIAlarm THEN
+    o_iAlarmCode := 3;
+ELSIF o_bAxisAlarm THEN
+    o_iAlarmCode := 4;
+ELSIF o_bPneumaticAlarm THEN
+    o_iAlarmCode := 5;
+ELSIF o_bVacuumAlarm THEN
+    o_iAlarmCode := 6;
+ELSIF o_bAOIAlarm THEN
+    o_iAlarmCode := 7;
+ELSIF o_bSMEMAAlarm THEN
+    o_iAlarmCode := 8;
+END_IF;
+
+o_bAlarmActive :=
+    o_bEmergencyAlarm OR
+    o_bGuardAlarm OR
+    o_bHMIAlarm OR
+    o_bAxisAlarm OR
+    o_bPneumaticAlarm OR
+    o_bVacuumAlarm OR
+    o_bAOIAlarm OR
+    o_bSMEMAAlarm;
+
+IF i_bReset AND
+   i_bEmergencyOK AND
+   i_bGuardOK AND
+   i_bHMI_OK THEN
+
+    IF NOT i_bAxisFault AND
+       NOT i_bPneumaticFault AND
+       NOT i_bVacuumFault AND
+       NOT i_bAOIFault AND
+       NOT i_bSMEMAFault THEN
+
+        o_bAlarmActive := FALSE;
+        o_iAlarmCode := 0;
+    END_IF;
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>6965b952-b725-443e-b64e-8b9bebfe7f7b</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_RecipeManager" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="i_bMachineStopped">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="i_iSelectedRecipe">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="o_iActiveRecipe">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="o_iComponentQty">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="o_rX">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="10" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="o_rY">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="10" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="o_rT">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="10" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="o_bValid">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: FB_RecipeManager
+    Tipo: FUNCTION_BLOCK
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: FB_RecipeManager
+// ============================================================
+
+o_bValid := FALSE;
+
+IF i_bMachineStopped THEN
+
+    CASE i_iSelectedRecipe OF
+
+        1:
+            o_iActiveRecipe := 1;
+            o_iComponentQty := g_iRecipe1_ComponentQty;
+
+            o_rX[1] := g_rRecipe1_X[1];
+            o_rX[2] := g_rRecipe1_X[2];
+            o_rX[3] := g_rRecipe1_X[3];
+            o_rX[4] := g_rRecipe1_X[4];
+            o_rX[5] := g_rRecipe1_X[5];
+            o_rX[6] := g_rRecipe1_X[6];
+            o_rX[7] := g_rRecipe1_X[7];
+            o_rX[8] := g_rRecipe1_X[8];
+            o_rX[9] := g_rRecipe1_X[9];
+            o_rX[10] := g_rRecipe1_X[10];
+
+            o_rY[1] := g_rRecipe1_Y[1];
+            o_rY[2] := g_rRecipe1_Y[2];
+            o_rY[3] := g_rRecipe1_Y[3];
+            o_rY[4] := g_rRecipe1_Y[4];
+            o_rY[5] := g_rRecipe1_Y[5];
+            o_rY[6] := g_rRecipe1_Y[6];
+            o_rY[7] := g_rRecipe1_Y[7];
+            o_rY[8] := g_rRecipe1_Y[8];
+            o_rY[9] := g_rRecipe1_Y[9];
+            o_rY[10] := g_rRecipe1_Y[10];
+
+            o_rT[1] := g_rRecipe1_T[1];
+            o_rT[2] := g_rRecipe1_T[2];
+            o_rT[3] := g_rRecipe1_T[3];
+            o_rT[4] := g_rRecipe1_T[4];
+            o_rT[5] := g_rRecipe1_T[5];
+            o_rT[6] := g_rRecipe1_T[6];
+            o_rT[7] := g_rRecipe1_T[7];
+            o_rT[8] := g_rRecipe1_T[8];
+            o_rT[9] := g_rRecipe1_T[9];
+            o_rT[10] := g_rRecipe1_T[10];
+
+            o_bValid := TRUE;
+
+        2:
+            o_iActiveRecipe := 2;
+            o_iComponentQty := g_iRecipe2_ComponentQty;
+
+            o_rX[1] := g_rRecipe2_X[1];
+            o_rX[2] := g_rRecipe2_X[2];
+            o_rX[3] := g_rRecipe2_X[3];
+            o_rX[4] := g_rRecipe2_X[4];
+            o_rX[5] := g_rRecipe2_X[5];
+            o_rX[6] := g_rRecipe2_X[6];
+            o_rX[7] := g_rRecipe2_X[7];
+            o_rX[8] := g_rRecipe2_X[8];
+            o_rX[9] := g_rRecipe2_X[9];
+            o_rX[10] := g_rRecipe2_X[10];
+
+            o_rY[1] := g_rRecipe2_Y[1];
+            o_rY[2] := g_rRecipe2_Y[2];
+            o_rY[3] := g_rRecipe2_Y[3];
+            o_rY[4] := g_rRecipe2_Y[4];
+            o_rY[5] := g_rRecipe2_Y[5];
+            o_rY[6] := g_rRecipe2_Y[6];
+            o_rY[7] := g_rRecipe2_Y[7];
+            o_rY[8] := g_rRecipe2_Y[8];
+            o_rY[9] := g_rRecipe2_Y[9];
+            o_rY[10] := g_rRecipe2_Y[10];
+
+            o_rT[1] := g_rRecipe2_T[1];
+            o_rT[2] := g_rRecipe2_T[2];
+            o_rT[3] := g_rRecipe2_T[3];
+            o_rT[4] := g_rRecipe2_T[4];
+            o_rT[5] := g_rRecipe2_T[5];
+            o_rT[6] := g_rRecipe2_T[6];
+            o_rT[7] := g_rRecipe2_T[7];
+            o_rT[8] := g_rRecipe2_T[8];
+            o_rT[9] := g_rRecipe2_T[9];
+            o_rT[10] := g_rRecipe2_T[10];
+
+            o_bValid := TRUE;
+
+        3:
+            o_iActiveRecipe := 3;
+            o_iComponentQty := g_iRecipe3_ComponentQty;
+
+            o_rX[1] := g_rRecipe3_X[1];
+            o_rX[2] := g_rRecipe3_X[2];
+            o_rX[3] := g_rRecipe3_X[3];
+            o_rX[4] := g_rRecipe3_X[4];
+            o_rX[5] := g_rRecipe3_X[5];
+            o_rX[6] := g_rRecipe3_X[6];
+            o_rX[7] := g_rRecipe3_X[7];
+            o_rX[8] := g_rRecipe3_X[8];
+            o_rX[9] := g_rRecipe3_X[9];
+            o_rX[10] := g_rRecipe3_X[10];
+
+            o_rY[1] := g_rRecipe3_Y[1];
+            o_rY[2] := g_rRecipe3_Y[2];
+            o_rY[3] := g_rRecipe3_Y[3];
+            o_rY[4] := g_rRecipe3_Y[4];
+            o_rY[5] := g_rRecipe3_Y[5];
+            o_rY[6] := g_rRecipe3_Y[6];
+            o_rY[7] := g_rRecipe3_Y[7];
+            o_rY[8] := g_rRecipe3_Y[8];
+            o_rY[9] := g_rRecipe3_Y[9];
+            o_rY[10] := g_rRecipe3_Y[10];
+
+            o_rT[1] := g_rRecipe3_T[1];
+            o_rT[2] := g_rRecipe3_T[2];
+            o_rT[3] := g_rRecipe3_T[3];
+            o_rT[4] := g_rRecipe3_T[4];
+            o_rT[5] := g_rRecipe3_T[5];
+            o_rT[6] := g_rRecipe3_T[6];
+            o_rT[7] := g_rRecipe3_T[7];
+            o_rT[8] := g_rRecipe3_T[8];
+            o_rT[9] := g_rRecipe3_T[9];
+            o_rT[10] := g_rRecipe3_T[10];
+
+            o_bValid := TRUE;
+
+        ELSE
+            o_bValid := FALSE;
+
+    END_CASE;
+
+END_IF;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>d524aa8d-e975-4d94-a24b-b0dfe8ef31b6</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Main" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="fbHeartbeat">
+                    <type>
+                      <derived name="FB_Heartbeat" />
+                    </type>
+                  </variable>
+                  <variable name="fbAxes">
+                    <type>
+                      <derived name="FB_AxisManager" />
+                    </type>
+                  </variable>
+                  <variable name="fbConveyor">
+                    <type>
+                      <derived name="FB_Conveyor" />
+                    </type>
+                  </variable>
+                  <variable name="fbNozzle">
+                    <type>
+                      <derived name="FB_PneumaticActuator" />
+                    </type>
+                  </variable>
+                  <variable name="fbClamp">
+                    <type>
+                      <derived name="FB_PneumaticActuator" />
+                    </type>
+                  </variable>
+                  <variable name="fbPickPlace">
+                    <type>
+                      <derived name="FB_PickPlace" />
+                    </type>
+                  </variable>
+                  <variable name="fbAOI">
+                    <type>
+                      <derived name="FB_AOI" />
+                    </type>
+                  </variable>
+                  <variable name="fbAlarms">
+                    <type>
+                      <derived name="FB_AlarmManager" />
+                    </type>
+                  </variable>
+                  <variable name="fbRecipe">
+                    <type>
+                      <derived name="FB_RecipeManager" />
+                    </type>
+                  </variable>
+                  <variable name="i_State">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="bCycleStart">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bProductionComplete">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="rPickX">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rPickY">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rPickZ">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rPickT">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rPlaceX">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rPlaceY">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="rPlaceZ">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rPlaceT">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="iComponentIndex">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="bAxisFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bPneumaticFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bPickPlaceFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bAOIFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bMachineStopped">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+                <documentation>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+    ============================================================
+    POU: PRG_Main
+    Tipo: PROGRAM
+    ============================================================
+</xhtml>
+                </documentation>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// ============================================================
+// IMPLEMENTACAO: PRG_Main
+// ============================================================
+
+// ============================================================
+// SEGURANCA PRINCIPAL
+// ============================================================
+
+g_bSafetyOK :=
+    g_bEmergencyOK AND
+    g_bGuardDoorOK AND
+    g_bHMICommunicationOK;
+
+// ============================================================
+// HEARTBEAT DA IHM
+// ============================================================
+
+fbHeartbeat(
+    i_bHeartbeat := g_bHMIHeartbeat,
+    i_bEnable := TRUE,
+    i_tTimeout := g_tHMIHeartbeatTimeout
+);
+
+g_bHMICommunicationOK := fbHeartbeat.o_bCommunicationOK;
+g_bAlarmHMI := fbHeartbeat.o_bFault;
+
+// ============================================================
+// DETECCAO DE ESTADO PARADO
+// ============================================================
+
+bMachineStopped :=
+    NOT g_bMachineRunning AND
+    (i_State = 0);
+
+// ============================================================
+// GERENCIAMENTO DA RECEITA
+// ============================================================
+
+fbRecipe(
+    i_bMachineStopped := bMachineStopped,
+    i_iSelectedRecipe := g_iSelectedRecipe
+);
+
+IF bMachineStopped AND
+   fbRecipe.o_bValid THEN
+
+    g_iActiveRecipe := fbRecipe.o_iActiveRecipe;
+END_IF;
+
+// ============================================================
+// GERENCIAMENTO DOS EIXOS
+// ============================================================
+
+fbAxes(
+    i_bEnable := g_bSafetyOK,
+    i_bHomeRequest := g_bHomingRequest,
+    i_bX_Homed := g_bAxisX_Homed,
+    i_bY_Homed := g_bAxisY_Homed,
+    i_bZ_Homed := g_bAxisZ_Homed,
+    i_bT_Homed := g_bAxisT_Homed,
+    i_bX_InPosition := g_bAxisX_InPosition,
+    i_bY_InPosition := g_bAxisY_InPosition,
+    i_bZ_InPosition := g_bAxisZ_InPosition,
+    i_bT_InPosition := g_bAxisT_InPosition,
+    i_bX_Error := g_bAxisX_Error,
+    i_bY_Error := g_bAxisY_Error,
+    i_bZ_Error := g_bAxisZ_Error,
+    i_bT_Error := g_bAxisT_Error,
+    i_rX_Target := g_rAxisX_Target,
+    i_rY_Target := g_rAxisY_Target,
+    i_rZ_Target := g_rAxisZ_Target,
+    i_rT_Target := g_rAxisT_Target
+);
+
+g_bAxisX_HomeCmd := fbAxes.o_bX_HomeCmd;
+g_bAxisY_HomeCmd := fbAxes.o_bY_HomeCmd;
+g_bAxisZ_HomeCmd := fbAxes.o_bZ_HomeCmd;
+g_bAxisT_HomeCmd := fbAxes.o_bT_HomeCmd;
+
+g_bAxisX_MoveCmd := fbAxes.o_bX_MoveCmd;
+g_bAxisY_MoveCmd := fbAxes.o_bY_MoveCmd;
+g_bAxisZ_MoveCmd := fbAxes.o_bZ_MoveCmd;
+g_bAxisT_MoveCmd := fbAxes.o_bT_MoveCmd;
+
+g_rAxisX_Target := fbAxes.o_rX_Target;
+g_rAxisY_Target := fbAxes.o_rY_Target;
+g_rAxisZ_Target := fbAxes.o_rZ_Target;
+g_rAxisT_Target := fbAxes.o_rT_Target;
+
+g_bHomingComplete := fbAxes.o_bHomingComplete;
+
+// ============================================================
+// ESTEIRA
+// ============================================================
+
+fbConveyor(
+    i_bEnable := g_bSafetyOK,
+    i_bStart := g_bStartCycle,
+    i_bStop := g_bStopCycle,
+    i_bZone1Present := g_bZone1_BoardPresent,
+    i_bZone2Present := g_bZone2_BoardPresent,
+    i_bZone3Present := g_bZone3_BoardPresent,
+    i_bSMEMA_InAvailable := g_bSMEMA_In_Available,
+    i_bSMEMA_OutReady := g_bSMEMA_Out_Ready
+);
+
+g_bZone1_MotorCmd := fbConveyor.o_bZone1Motor;
+g_bZone2_MotorCmd := fbConveyor.o_bZone2Motor;
+g_bZone3_MotorCmd := fbConveyor.o_bZone3Motor;
+
+g_bSMEMA_In_Ready := fbConveyor.o_bSMEMA_InReady;
+g_bSMEMA_Out_Available := fbConveyor.o_bSMEMA_OutAvailable;
+
+// ============================================================
+// ATUADOR DO BICO
+// ============================================================
+
+fbNozzle(
+    i_bEnable := g_bSafetyOK,
+    i_bExtendCmd := g_bNozzleDownCmd,
+    i_bRetractCmd := g_bNozzleUpCmd,
+    i_bExtendedSensor := g_bNozzleDownSensor,
+    i_bRetractedSensor := g_bNozzleUpSensor,
+    i_tMaxMovement := T#2s
+);
+
+g_bAlarmPneumatic := fbNozzle.o_bFault;
+
+// ============================================================
+// ATUADOR DA FIXACAO DA PLACA
+// ============================================================
+
+fbClamp(
+    i_bEnable := g_bSafetyOK,
+    i_bExtendCmd := g_bClampCloseCmd,
+    i_bRetractCmd := g_bClampOpenCmd,
+    i_bExtendedSensor := g_bClampClosedSensor,
+    i_bRetractedSensor := g_bClampOpenSensor,
+    i_tMaxMovement := T#2s
+);
+
+IF fbClamp.o_bFault THEN
+    g_bAlarmPneumatic := TRUE;
+END_IF;
+
+// ============================================================
+// LOGICA PRINCIPAL DA CELULA
+// ============================================================
+
+IF NOT g_bSafetyOK THEN
+
+    i_State := 0;
+    g_bMachineRunning := FALSE;
+    g_bBoardInProcess := FALSE;
+    g_bPickVacuumCmd := FALSE;
+    g_bPlaceReleaseCmd := FALSE;
+
+ELSE
+
+    CASE i_State OF
+
+        // ====================================================
+        // 0 - PARADA / INICIALIZACAO
+        // ====================================================
+        0:
+            g_bMachineRunning := FALSE;
+            g_bBoardInProcess := FALSE;
+            g_bCycleComplete := FALSE;
+
+            IF g_bReset THEN
+                g_bMachineFault := FALSE;
+            END_IF;
+
+            IF g_bAutoMode AND
+               g_bStartCycle AND
+               g_bHomingComplete AND
+               NOT g_bAlarmActive THEN
+
+                g_bMachineRunning := TRUE;
+                i_State := 10;
+            END_IF;
+
+        // ====================================================
+        // 10 - AGUARDAR PLACA NA ENTRADA
+        // ====================================================
+        10:
+            g_bMachineRunning := TRUE;
+
+            IF g_bZone1_BoardPresent THEN
+                i_State := 20;
+            END_IF;
+
+        // ====================================================
+        // 20 - TRANSFERIR PARA ZONA DE MONTAGEM
+        // ====================================================
+        20:
+            g_bMachineRunning := TRUE;
+
+            IF g_bZone2_BoardPresent THEN
+                g_bBoardInProcess := TRUE;
+                i_State := 30;
+            END_IF;
+
+        // ====================================================
+        // 30 - FIXAR PLACA
+        // ====================================================
+        30:
+            g_bClampCloseCmd := TRUE;
+            g_bClampOpenCmd := FALSE;
+
+            IF g_bClampClosedSensor THEN
+                i_State := 40;
+            END_IF;
+
+        // ====================================================
+        // 40 - PICK AND PLACE
+        // ====================================================
+        40:
+
+            IF fbRecipe.o_bValid AND
+               fbAxes.o_bAxesReady THEN
+
+                iComponentIndex := fbPickPlace.o_iComponentIndex;
+
+                IF iComponentIndex &lt; 1 THEN
+                    iComponentIndex := 1;
+                END_IF;
+
+                IF iComponentIndex &gt; 10 THEN
+                    iComponentIndex := 10;
+                END_IF;
+
+                rPlaceX := fbRecipe.o_rX[iComponentIndex];
+                rPlaceY := fbRecipe.o_rY[iComponentIndex];
+                rPlaceT := fbRecipe.o_rT[iComponentIndex];
+
+                fbPickPlace(
+                    i_bEnable := g_bSafetyOK,
+                    i_bStart := TRUE,
+                    i_bStop := g_bStopCycle,
+                    i_bAxesReady := fbAxes.o_bAxesReady,
+                    i_bComponentAvailable := g_bComponentAvailable,
+                    i_bVacuumOK := g_bPickVacuumOK,
+                    i_bX_InPosition := g_bAxisX_InPosition,
+                    i_bY_InPosition := g_bAxisY_InPosition,
+                    i_bZ_InPosition := g_bAxisZ_InPosition,
+                    i_bT_InPosition := g_bAxisT_InPosition,
+                    i_bNozzleDown := g_bNozzleDownSensor,
+                    i_bNozzleUp := g_bNozzleUpSensor,
+                    i_iComponentQty := fbRecipe.o_iComponentQty,
+                    i_rPickX := rPickX,
+                    i_rPickY := rPickY,
+                    i_rPickZ := rPickZ,
+                    i_rPickT := rPickT,
+                    i_rPlaceX := rPlaceX,
+                    i_rPlaceY := rPlaceY,
+                    i_rPlaceZ := rPlaceZ,
+                    i_rPlaceT := rPlaceT
+                );
+
+                g_bPickVacuumCmd := fbPickPlace.o_bVacuum;
+                g_bNozzleDownCmd := fbPickPlace.o_bNozzleDown;
+                g_bNozzleUpCmd := fbPickPlace.o_bNozzleUp;
+                g_bPlaceReleaseCmd := fbPickPlace.o_bRelease;
+
+                IF fbPickPlace.o_bComplete THEN
+                    i_State := 50;
+                END_IF;
+
+                IF fbPickPlace.o_bFault THEN
+                    g_bMachineFault := TRUE;
+                    i_State := 900;
+                END_IF;
+
+            END_IF;
+
+        // ====================================================
+        // 50 - LIBERAR FIXACAO
+        // ====================================================
+        50:
+            g_bClampCloseCmd := FALSE;
+            g_bClampOpenCmd := TRUE;
+
+            IF g_bClampOpenSensor THEN
+                i_State := 60;
+            END_IF;
+
+        // ====================================================
+        // 60 - TRANSFERIR PARA AOI
+        // ====================================================
+        60:
+            IF g_bZone3_BoardPresent THEN
+                i_State := 70;
+            END_IF;
+
+        // ====================================================
+        // 70 - INSPECAO AOI
+        // ====================================================
+        70:
+
+            fbAOI(
+                i_bEnable := g_bSafetyOK,
+                i_bStart := TRUE,
+                i_bBoardPresent := g_bZone3_BoardPresent,
+                i_bAOIReady := g_bAOI_Ready,
+                i_bAOIBusy := g_bAOI_Busy,
+                i_bResultOK := g_bAOI_ResultOK,
+                i_bResultNOK := g_bAOI_ResultNOK
+            );
+
+            g_bAOI_Trigger := fbAOI.o_bTrigger;
+
+            IF fbAOI.o_bComplete THEN
+
+                IF fbAOI.o_bRejected THEN
+                    g_bBoardRejected := TRUE;
+                    i_State := 80;
+                ELSE
+                    g_bBoardRejected := FALSE;
+                    i_State := 80;
+                END_IF;
+
+            END_IF;
+
+            IF fbAOI.o_bFault THEN
+                g_bMachineFault := TRUE;
+                i_State := 900;
+            END_IF;
+
+        // ====================================================
+        // 80 - CONTAGEM E EXPEDICAO
+        // ====================================================
+        80:
+
+            IF g_bBoardRejected THEN
+                g_uiBoardsRejected := g_uiBoardsRejected + 1;
+            ELSE
+                g_uiBoardsProduced := g_uiBoardsProduced + 1;
+            END_IF;
+
+            g_bCycleComplete := TRUE;
+
+            i_State := 90;
+
+        // ====================================================
+        // 90 - TRANSFERENCIA PARA MAQUINA VIZINHA
+        // ====================================================
+        90:
+
+            IF g_bSMEMA_Out_Ready THEN
+                g_bZone3_MotorCmd := TRUE;
+
+                IF NOT g_bZone3_BoardPresent THEN
+                    g_bBoardInProcess := FALSE;
+                    g_bCycleComplete := FALSE;
+                    g_bBoardRejected := FALSE;
+                    i_State := 10;
+                END_IF;
+            END_IF;
+
+        // ====================================================
+        // 900 - FALHA
+        // ====================================================
+        900:
+            g_bMachineRunning := FALSE;
+            g_bMachineFault := TRUE;
+
+            g_bZone1_MotorCmd := FALSE;
+            g_bZone2_MotorCmd := FALSE;
+            g_bZone3_MotorCmd := FALSE;
+
+            g_bPickVacuumCmd := FALSE;
+            g_bPlaceReleaseCmd := FALSE;
+
+            IF g_bReset AND
+               NOT g_bAlarmActive AND
+               g_bSafetyOK THEN
+
+                g_bMachineFault := FALSE;
+                i_State := 0;
+            END_IF;
+
+        ELSE
+            i_State := 0;
+
+    END_CASE;
+
+END_IF;
+
+// ============================================================
+// ALARMES
+// ============================================================
+
+bAxisFault :=
+    g_bAxisX_Error OR
+    g_bAxisY_Error OR
+    g_bAxisZ_Error OR
+    g_bAxisT_Error;
+
+bPneumaticFault :=
+    fbNozzle.o_bFault OR
+    fbClamp.o_bFault;
+
+bPickPlaceFault :=
+    fbPickPlace.o_bFault;
+
+bAOIFault :=
+    fbAOI.o_bFault;
+
+fbAlarms(
+    i_bEmergencyOK := g_bEmergencyOK,
+    i_bGuardOK := g_bGuardDoorOK,
+    i_bHMI_OK := g_bHMICommunicationOK,
+    i_bAxisFault := bAxisFault,
+    i_bPneumaticFault := bPneumaticFault,
+    i_bVacuumFault := bPickPlaceFault,
+    i_bAOIFault := bAOIFault,
+    i_bSMEMAFault := FALSE,
+    i_bReset := g_bReset
+);
+
+g_bAlarmActive := fbAlarms.o_bAlarmActive;
+g_bAlarmEmergency := fbAlarms.o_bEmergencyAlarm;
+g_bAlarmGuard := fbAlarms.o_bGuardAlarm;
+g_bAlarmHMI := fbAlarms.o_bHMIAlarm;
+g_bAlarmAxis := fbAlarms.o_bAxisAlarm;
+g_bAlarmPneumatic := fbAlarms.o_bPneumaticAlarm;
+g_bAlarmVacuum := fbAlarms.o_bVacuumAlarm;
+g_bAlarmAOI := fbAlarms.o_bAOIAlarm;
+g_bAlarmSMEMA := fbAlarms.o_bSMEMAAlarm;
+g_iAlarmCode := fbAlarms.o_iAlarmCode;
+
+// ============================================================
+// INTERTRAVAMENTO FINAL DE SEGURANCA
+// ============================================================
+
+IF NOT g_bEmergencyOK OR
+   NOT g_bGuardDoorOK OR
+   NOT g_bHMICommunicationOK THEN
+
+    g_bZone1_MotorCmd := FALSE;
+    g_bZone2_MotorCmd := FALSE;
+    g_bZone3_MotorCmd := FALSE;
+
+    g_bPickVacuumCmd := FALSE;
+    g_bPlaceReleaseCmd := FALSE;
+
+    g_bMachineRunning := FALSE;
+    g_bMachineFault := TRUE;
+
+END_IF;
+
+g_iMachineState := i_State;
+g_bMachineReady :=
+    g_bSafetyOK AND
+    g_bHomingComplete AND
+    NOT g_bAlarmActive AND
+    NOT g_bMachineFault;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>b1e6d51f-b3c4-4f9a-b8fa-a3b1f4aa127b</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+            <Libraries>
+              <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+              <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+              <Library Name="#CAA Device Diagnosis" Namespace="DED" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CAA Device Diagnosis, 3.5.20.0 (CAA Technical Workgroup)" />
+              <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+              <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
+              <PlaceholderRedirections>
+                <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+              </PlaceholderRedirections>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>82f7769f-0f0d-4e0a-b609-4d728e0ac73c</ObjectId>
+                </data>
+              </addData>
+            </Libraries>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>5bb274dc-22e6-44d9-8ad0-025cadf1b377</ObjectId>
+          </data>
+        </addData>
+      </resource>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Application" ObjectId="5bb274dc-22e6-44d9-8ad0-025cadf1b377">
+          <Object Name="Gestor de biblioteca" ObjectId="82f7769f-0f0d-4e0a-b609-4d728e0ac73c" />
+          <Object Name="MainTask" ObjectId="7f8ee637-f031-4a21-9455-5d30052c3a2d" />
+          <Object Name="GVL_Main" ObjectId="93de5e73-bcf8-4b69-b36e-5608c1202e33" />
+          <Object Name="FB_Heartbeat" ObjectId="91e424fe-2ca8-435e-be56-ac8107eb4599" />
+          <Object Name="FB_AxisManager" ObjectId="afd8e207-f880-41cd-9da5-22e566e77ce2" />
+          <Object Name="FB_Conveyor" ObjectId="4baf3fc3-3c9f-4466-b75a-ea346868d8ad" />
+          <Object Name="FB_PneumaticActuator" ObjectId="ffbcd26d-bfee-4a44-a0bd-ac451d15c93e" />
+          <Object Name="FB_PickPlace" ObjectId="6164e4ce-e3e9-4ba3-9d0f-00ade8dd6b7b" />
+          <Object Name="FB_AOI" ObjectId="d0b6557a-8e9d-4940-aec4-33dab7884ced" />
+          <Object Name="FB_AlarmManager" ObjectId="6965b952-b725-443e-b64e-8b9bebfe7f7b" />
+          <Object Name="FB_RecipeManager" ObjectId="d524aa8d-e975-4d94-a24b-b0dfe8ef31b6" />
+          <Object Name="PRG_Main" ObjectId="b1e6d51f-b3c4-4f9a-b8fa-a3b1f4aa127b" />
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

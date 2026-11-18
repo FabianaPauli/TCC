@@ -1,0 +1,2282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2026-10-23T09:23:11.8560198" />
+  <contentHeader name="Claude3.project" modificationDateTime="2026-10-23T09:22:48.4769723">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+      <resource name="Application">
+        <task name="MainTask" interval="PT0.02S" priority="1">
+          <pouInstance name="PRG_Main" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <pouInstance name="PLC_PRG" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+              <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+              </TaskSettings>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>bd2cf80f-5dc7-4be3-b894-26f22c0436e2</ObjectId>
+            </data>
+          </addData>
+        </task>
+        <globalVars name="GVL_Main" constant="true">
+          <variable name="C_NUM_LINES">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="4" />
+            </initialValue>
+          </variable>
+          <variable name="C_FILTER_SIZE">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="10" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Amostras da media movel </xhtml>
+            </documentation>
+          </variable>
+          <variable name="C_RAW_MIN">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="0" />
+            </initialValue>
+          </variable>
+          <variable name="C_RAW_MAX">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="27648" />
+            </initialValue>
+          </variable>
+          <variable name="C_T_CYL_TIMEOUT">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#2s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo maximo de movimento do cilindro </xhtml>
+            </documentation>
+          </variable>
+          <variable name="C_T_BOTTLE_DEB">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#300ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Filtro da garrafa removida </xhtml>
+            </documentation>
+          </variable>
+          <variable name="C_T_TARE">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#1s0ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Estabilizacao antes da tara </xhtml>
+            </documentation>
+          </variable>
+          <variable name="C_T_SETTLE">
+            <type>
+              <TIME />
+            </type>
+            <initialValue>
+              <simpleValue value="TIME#500ms" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Acomodacao do lote </xhtml>
+            </documentation>
+          </variable>
+          <variable name="aiLoadCellRaw" address="%IW0">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <INT />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Celulas de carga 1..4 </xhtml>
+            </documentation>
+          </variable>
+          <variable name="iTankLevelRaw" address="%IW8">
+            <type>
+              <INT />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nivel do tanque </xhtml>
+            </documentation>
+          </variable>
+          <variable name="abBottlePresent" address="%IX0.0">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sensor de garrafa </xhtml>
+            </documentation>
+          </variable>
+          <variable name="abClampClosed" address="%IX1.0">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro recuado/travado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="abClampOpen" address="%IX2.0">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro liberado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bEStopOk" address="%IX3.0">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = emergencia rearmada (NF) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bGuardClosed" address="%IX3.1">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = porta fechada (NF) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bLotInPos" address="%IX3.2">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Lote posicionado </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bStartPB" address="%IX3.3">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botao liga (NA) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bStopPB" address="%IX3.4">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botao desliga (NA) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bResetPB" address="%IX3.5">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botao reset de falhas (NA) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="abClampCmd" address="%QX0.0">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = travar garrafa </xhtml>
+            </documentation>
+          </variable>
+          <variable name="abFillValve" address="%QX1.0">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = valvula aberta </xhtml>
+            </documentation>
+          </variable>
+          <variable name="qConveyor" address="%QX2.0">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="qTankInletValve" address="%QX2.1">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="qAlarmLamp" address="%QX2.2">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="rLoadCellFullScale_g">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="1000.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Massa correspondente a 27648 [g] </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rTankLevelMax_pct">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="100.0" />
+            </initialValue>
+          </variable>
+          <variable name="rTankLowOn_pct">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="30.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Liga reposicao </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rTankHighOff_pct">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="80.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Desliga reposicao </xhtml>
+            </documentation>
+          </variable>
+          <variable name="rTankMinOperate_pct">
+            <type>
+              <REAL />
+            </type>
+            <initialValue>
+              <simpleValue value="15.0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Minimo para iniciar enchimento </xhtml>
+            </documentation>
+          </variable>
+          <variable name="abLineEnable">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <BOOL />
+                </baseType>
+              </array>
+            </type>
+            <initialValue>
+              <arrayValue>
+                <value repetitionValue="4">
+                  <simpleValue value="TRUE" />
+                </value>
+              </arrayValue>
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ---- Interface com IHM ---- </xhtml>
+            </documentation>
+          </variable>
+          <variable name="aRecipes">
+            <type>
+              <array>
+                <dimension lower="1" upper="3" />
+                <baseType>
+                  <derived name="ST_Recipe" />
+                </baseType>
+              </array>
+            </type>
+            <initialValue>
+              <arrayValue>
+                <value>
+                  <structValue>
+                    <value member="sName">
+                      <simpleValue value="'Receita 1'" />
+                    </value>
+                    <value member="rTargetMass_g">
+                      <simpleValue value="250.0" />
+                    </value>
+                    <value member="rPreAct_g">
+                      <simpleValue value="4.0" />
+                    </value>
+                    <value member="rTolerance_g">
+                      <simpleValue value="3.0" />
+                    </value>
+                    <value member="tFillTimeout">
+                      <simpleValue value="TIME#10s0ms" />
+                    </value>
+                    <value member="tDrip">
+                      <simpleValue value="TIME#1s0ms" />
+                    </value>
+                  </structValue>
+                </value>
+                <value>
+                  <structValue>
+                    <value member="sName">
+                      <simpleValue value="'Receita 2'" />
+                    </value>
+                    <value member="rTargetMass_g">
+                      <simpleValue value="500.0" />
+                    </value>
+                    <value member="rPreAct_g">
+                      <simpleValue value="6.0" />
+                    </value>
+                    <value member="rTolerance_g">
+                      <simpleValue value="4.0" />
+                    </value>
+                    <value member="tFillTimeout">
+                      <simpleValue value="TIME#15s0ms" />
+                    </value>
+                    <value member="tDrip">
+                      <simpleValue value="TIME#1s500ms" />
+                    </value>
+                  </structValue>
+                </value>
+                <value>
+                  <structValue>
+                    <value member="sName">
+                      <simpleValue value="'Receita 3'" />
+                    </value>
+                    <value member="rTargetMass_g">
+                      <simpleValue value="750.0" />
+                    </value>
+                    <value member="rPreAct_g">
+                      <simpleValue value="8.0" />
+                    </value>
+                    <value member="rTolerance_g">
+                      <simpleValue value="5.0" />
+                    </value>
+                    <value member="tFillTimeout">
+                      <simpleValue value="TIME#20s0ms" />
+                    </value>
+                    <value member="tDrip">
+                      <simpleValue value="TIME#2s0ms" />
+                    </value>
+                  </structValue>
+                </value>
+              </arrayValue>
+            </initialValue>
+          </variable>
+          <variable name="iRecipeReq">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="1" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Receita solicitada (1..3) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="iRecipeActive">
+            <type>
+              <INT />
+            </type>
+            <initialValue>
+              <simpleValue value="0" />
+            </initialValue>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Receita em uso </xhtml>
+            </documentation>
+          </variable>
+          <variable name="stActiveRecipe">
+            <type>
+              <derived name="ST_Recipe" />
+            </type>
+          </variable>
+          <variable name="bRecipeLocked">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = troca de receita bloqueada </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bClearCounters">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> Zera contadores (pulso) </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bRunning">
+            <type>
+              <BOOL />
+            </type>
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml"> ---- Estado e diagnostico ---- </xhtml>
+            </documentation>
+          </variable>
+          <variable name="bAlarmAny">
+            <type>
+              <BOOL />
+            </type>
+          </variable>
+          <variable name="rTankLevel_pct">
+            <type>
+              <REAL />
+            </type>
+          </variable>
+          <variable name="arMassGross_g">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="arMassNet_g">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <REAL />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="aeLineState">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <derived name="E_LineState" />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="aeLineFault">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <derived name="E_Fault" />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="adiFilled">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <DINT />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="adiRejected">
+            <type>
+              <array>
+                <dimension lower="1" upper="4" />
+                <baseType>
+                  <DINT />
+                </baseType>
+              </array>
+            </type>
+          </variable>
+          <variable name="diTotalFilled">
+            <type>
+              <DINT />
+            </type>
+          </variable>
+          <variable name="diTotalRejected">
+            <type>
+              <DINT />
+            </type>
+          </variable>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+              <Attributes>
+                <Attribute Name="qualified_only" Value="" />
+              </Attributes>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>78caea86-da93-45ec-afa2-ae43378e4b55</ObjectId>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/mixedattrsvarlist" handleUnknown="implementation">
+              <MixedAttrsVarList>
+                <globalVars name="GVL_Main" constant="true">
+                  <variable name="C_NUM_LINES">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="4" />
+                    </initialValue>
+                  </variable>
+                  <variable name="C_FILTER_SIZE">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="10" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Amostras da media movel </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="C_RAW_MIN">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="C_RAW_MAX">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="27648" />
+                    </initialValue>
+                  </variable>
+                  <variable name="C_T_CYL_TIMEOUT">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#2s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo maximo de movimento do cilindro </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="C_T_BOTTLE_DEB">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#300ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Filtro da garrafa removida </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="C_T_TARE">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#1s0ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Estabilizacao antes da tara </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="C_T_SETTLE">
+                    <type>
+                      <TIME />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="TIME#500ms" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Acomodacao do lote </xhtml>
+                    </documentation>
+                  </variable>
+                </globalVars>
+                <globalVars name="GVL_Main">
+                  <variable name="aiLoadCellRaw" address="%IW0">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <INT />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Celulas de carga 1..4 </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iTankLevelRaw" address="%IW8">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nivel do tanque </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="abBottlePresent" address="%IX0.0">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Sensor de garrafa </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="abClampClosed" address="%IX1.0">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro recuado/travado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="abClampOpen" address="%IX2.0">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro liberado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bEStopOk" address="%IX3.0">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = emergencia rearmada (NF) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bGuardClosed" address="%IX3.1">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = porta fechada (NF) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bLotInPos" address="%IX3.2">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Lote posicionado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bStartPB" address="%IX3.3">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botao liga (NA) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bStopPB" address="%IX3.4">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botao desliga (NA) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bResetPB" address="%IX3.5">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Botao reset de falhas (NA) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="abClampCmd" address="%QX0.0">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = travar garrafa </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="abFillValve" address="%QX1.0">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = valvula aberta </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="qConveyor" address="%QX2.0">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="qTankInletValve" address="%QX2.1">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="qAlarmLamp" address="%QX2.2">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="rLoadCellFullScale_g">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1000.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Massa correspondente a 27648 [g] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rTankLevelMax_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="100.0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rTankLowOn_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="30.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Liga reposicao </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rTankHighOff_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="80.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Desliga reposicao </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rTankMinOperate_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="15.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Minimo para iniciar enchimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="abLineEnable">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <BOOL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <initialValue>
+                      <arrayValue>
+                        <value repetitionValue="4">
+                          <simpleValue value="TRUE" />
+                        </value>
+                      </arrayValue>
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> ---- Interface com IHM ---- </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="aRecipes">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="3" />
+                        <baseType>
+                          <derived name="ST_Recipe" />
+                        </baseType>
+                      </array>
+                    </type>
+                    <initialValue>
+                      <arrayValue>
+                        <value>
+                          <structValue>
+                            <value member="sName">
+                              <simpleValue value="'Receita 1'" />
+                            </value>
+                            <value member="rTargetMass_g">
+                              <simpleValue value="250.0" />
+                            </value>
+                            <value member="rPreAct_g">
+                              <simpleValue value="4.0" />
+                            </value>
+                            <value member="rTolerance_g">
+                              <simpleValue value="3.0" />
+                            </value>
+                            <value member="tFillTimeout">
+                              <simpleValue value="TIME#10s0ms" />
+                            </value>
+                            <value member="tDrip">
+                              <simpleValue value="TIME#1s0ms" />
+                            </value>
+                          </structValue>
+                        </value>
+                        <value>
+                          <structValue>
+                            <value member="sName">
+                              <simpleValue value="'Receita 2'" />
+                            </value>
+                            <value member="rTargetMass_g">
+                              <simpleValue value="500.0" />
+                            </value>
+                            <value member="rPreAct_g">
+                              <simpleValue value="6.0" />
+                            </value>
+                            <value member="rTolerance_g">
+                              <simpleValue value="4.0" />
+                            </value>
+                            <value member="tFillTimeout">
+                              <simpleValue value="TIME#15s0ms" />
+                            </value>
+                            <value member="tDrip">
+                              <simpleValue value="TIME#1s500ms" />
+                            </value>
+                          </structValue>
+                        </value>
+                        <value>
+                          <structValue>
+                            <value member="sName">
+                              <simpleValue value="'Receita 3'" />
+                            </value>
+                            <value member="rTargetMass_g">
+                              <simpleValue value="750.0" />
+                            </value>
+                            <value member="rPreAct_g">
+                              <simpleValue value="8.0" />
+                            </value>
+                            <value member="rTolerance_g">
+                              <simpleValue value="5.0" />
+                            </value>
+                            <value member="tFillTimeout">
+                              <simpleValue value="TIME#20s0ms" />
+                            </value>
+                            <value member="tDrip">
+                              <simpleValue value="TIME#2s0ms" />
+                            </value>
+                          </structValue>
+                        </value>
+                      </arrayValue>
+                    </initialValue>
+                  </variable>
+                  <variable name="iRecipeReq">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="1" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Receita solicitada (1..3) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iRecipeActive">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Receita em uso </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="stActiveRecipe">
+                    <type>
+                      <derived name="ST_Recipe" />
+                    </type>
+                  </variable>
+                  <variable name="bRecipeLocked">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE = troca de receita bloqueada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bClearCounters">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Zera contadores (pulso) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bRunning">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> ---- Estado e diagnostico ---- </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bAlarmAny">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="rTankLevel_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="arMassGross_g">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="arMassNet_g">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="aeLineState">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <derived name="E_LineState" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="aeLineFault">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <derived name="E_Fault" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="adiFilled">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <DINT />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="adiRejected">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="4" />
+                        <baseType>
+                          <DINT />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="diTotalFilled">
+                    <type>
+                      <DINT />
+                    </type>
+                  </variable>
+                  <variable name="diTotalRejected">
+                    <type>
+                      <DINT />
+                    </type>
+                  </variable>
+                </globalVars>
+              </MixedAttrsVarList>
+            </data>
+          </addData>
+        </globalVars>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="E_LineState">
+              <baseType>
+                <enum>
+                  <values>
+                    <value name="DISABLED" value="0" />
+                    <value name="WAIT_BOTTLE" value="1" />
+                    <value name="CLAMPING" value="2" />
+                    <value name="FILLING" value="3" />
+                    <value name="DRIPPING" value="4" />
+                    <value name="UNCLAMPING" value="5" />
+                    <value name="DONE" value="6" />
+                    <value name="FAULT" value="7" />
+                  </values>
+                </enum>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/enumvaluedocumentation" handleUnknown="implementation">
+                  <EnumValueDocumentation>
+                    <EnumValue>
+                      <Name>DISABLED</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Linha desabilitada </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>WAIT_BOTTLE</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Aguardando lote / garrafa </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>CLAMPING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro travando a garrafa + tara </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>FILLING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Enchendo </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>DRIPPING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Gotejamento, válvula fechada </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>UNCLAMPING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro liberando a garrafa </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>DONE</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ciclo concluído, aguarda avanço da esteira </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>FAULT</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Falha travada, requer reset </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                  </EnumValueDocumentation>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                  <Attributes>
+                    <Attribute Name="qualified_only" Value="" />
+                    <Attribute Name="strict" Value="" />
+                  </Attributes>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>c7bf65c4-7d14-4629-8e74-6520c9cbc160</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="E_Fault">
+              <baseType>
+                <enum>
+                  <values>
+                    <value name="NONE" value="0" />
+                    <value name="FILL_TIMEOUT" value="1" />
+                    <value name="CLAMP_TIMEOUT" value="2" />
+                    <value name="UNCLAMP_TIMEOUT" value="3" />
+                    <value name="BOTTLE_REMOVED" value="4" />
+                    <value name="SAFETY" value="5" />
+                  </values>
+                </enum>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/enumvaluedocumentation" handleUnknown="implementation">
+                  <EnumValueDocumentation>
+                    <EnumValue>
+                      <Name>FILL_TIMEOUT</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo de enchimento excedido </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>CLAMP_TIMEOUT</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro nao fechou no tempo </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>UNCLAMP_TIMEOUT</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cilindro nao abriu no tempo </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>BOTTLE_REMOVED</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Garrafa removida durante o ciclo </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>SAFETY</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Emergencia ou porta aberta </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                  </EnumValueDocumentation>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                  <Attributes>
+                    <Attribute Name="qualified_only" Value="" />
+                    <Attribute Name="strict" Value="" />
+                  </Attributes>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>778b5401-fdb0-4908-a258-b751df23f94a</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="E_ConvState">
+              <baseType>
+                <enum>
+                  <values>
+                    <value name="ADVANCE" value="0" />
+                    <value name="SETTLE" value="1" />
+                    <value name="PROCESSING" value="2" />
+                  </values>
+                </enum>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/enumvaluedocumentation" handleUnknown="implementation">
+                  <EnumValueDocumentation>
+                    <EnumValue>
+                      <Name>ADVANCE</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Esteira avancando ate o proximo lote </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>SETTLE</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Lote posicionado, tempo de acomodacao </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                    <EnumValue>
+                      <Name>PROCESSING</Name>
+                      <Documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml"> Linhas enchendo </xhtml>
+                      </Documentation>
+                    </EnumValue>
+                  </EnumValueDocumentation>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                  <Attributes>
+                    <Attribute Name="qualified_only" Value="" />
+                    <Attribute Name="strict" Value="" />
+                  </Attributes>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>905be313-029a-4cd6-addf-b22ae09c6c9c</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="ST_Recipe">
+              <baseType>
+                <struct>
+                  <variable name="sName">
+                    <type>
+                      <string length="20" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nome da receita </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rTargetMass_g">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Massa liquida alvo [g] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rPreAct_g">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Pre-atuacao: fecha a valvula antes do alvo [g] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rTolerance_g">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tolerancia +/- para aprovar a garrafa [g] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tFillTimeout">
+                    <type>
+                      <TIME />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo maximo de enchimento </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="tDrip">
+                    <type>
+                      <TIME />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Tempo de gotejamento </xhtml>
+                    </documentation>
+                  </variable>
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>9e13953d-a349-43c1-b127-d81004aa2d39</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_MovingAvg" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="rIn">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Amostra atual </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="rOut">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Media das ultimas C_FILTER_SIZE amostras </xhtml>
+                    </documentation>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="aBuf">
+                    <type>
+                      <array>
+                        <dimension lower="0" upper="(GVL_Main.C_FILTER_SIZE - 1)" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="iIdx">
+                    <type>
+                      <INT />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="0" />
+                    </initialValue>
+                  </variable>
+                  <variable name="bInit">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="FALSE" />
+                    </initialValue>
+                  </variable>
+                  <variable name="i">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="rSum">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Na primeira chamada, preenche o buffer para evitar transitorio *)
+IF NOT bInit THEN
+    FOR i := 0 TO GVL_Main.C_FILTER_SIZE - 1 DO
+        aBuf[i] := rIn;
+    END_FOR;
+    bInit := TRUE;
+END_IF;
+
+(* Buffer circular *)
+aBuf[iIdx] := rIn;
+iIdx := iIdx + 1;
+IF iIdx &gt; GVL_Main.C_FILTER_SIZE - 1 THEN
+    iIdx := 0;
+END_IF;
+
+(* Soma e media *)
+rSum := 0.0;
+FOR i := 0 TO GVL_Main.C_FILTER_SIZE - 1 DO
+    rSum := rSum + aBuf[i];
+END_FOR;
+rOut := rSum / INT_TO_REAL(GVL_Main.C_FILTER_SIZE);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>6c19f04a-0714-45d0-946b-8a0258d9bde9</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_LevelControl" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> FALSE = fecha a valvula (seguranca) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rLevel_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nivel atual [%] </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rLowOn_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="30.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Abre a valvula abaixo deste nivel </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rHighOff_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="80.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Fecha a valvula acima deste nivel </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rMinOperate_pct">
+                    <type>
+                      <REAL />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="15.0" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Minimo para liberar o enchimento </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="bFillValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Valvula de entrada do tanque </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bTankOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nivel suficiente para envasar </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bLowLevelAlarm">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Histerese: a saida mantem o ultimo estado entre os limites *)
+IF NOT bEnable THEN
+    bFillValve := FALSE;
+ELSIF rLevel_pct &lt;= rLowOn_pct THEN
+    bFillValve := TRUE;
+ELSIF rLevel_pct &gt;= rHighOff_pct THEN
+    bFillValve := FALSE;
+END_IF;
+
+(* Permissivo de envase e alarme de nivel baixo *)
+bTankOk        := rLevel_pct &gt;= rMinOperate_pct;
+bLowLevelAlarm := NOT bTankOk;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>bef0d6b1-c4bf-4c15-ac66-64930be4bee7</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_FillLine" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="bEnable">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Linha habilitada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bSafetyOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Emergencia e porta OK </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bRun">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Maquina em producao (permite iniciar garrafa) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bLotReady">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Lote posicionado e acomodado </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bTankOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Nivel do tanque suficiente </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bBottlePresent">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bClampClosed">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bClampOpen">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bReset">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Reset de falha (borda de subida) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rMass_g">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Massa bruta filtrada </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="stRecipe">
+                    <type>
+                      <derived name="ST_Recipe" />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="bClampCmd">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bFillValve">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bFinished">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Desabilitada ou concluida no lote atual </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Garrafa em processo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="eState">
+                    <type>
+                      <derived name="E_LineState" />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="E_LineState.DISABLED" />
+                    </initialValue>
+                  </variable>
+                  <variable name="eFault">
+                    <type>
+                      <derived name="E_Fault" />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="E_Fault.NONE" />
+                    </initialValue>
+                  </variable>
+                  <variable name="rNetMass_g">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="diFilled">
+                    <type>
+                      <DINT />
+                    </type>
+                  </variable>
+                  <variable name="diRejected">
+                    <type>
+                      <DINT />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="trigReset">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="tonClamp">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonUnclamp">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonTare">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonFill">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonDrip">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="tonBottle">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="rTare_g">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="bInProcess">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Ha garrafa em processo nesta linha </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bFaultMidCycle">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Falha ocorreu com garrafa em processo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bWatchBottle">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="eFaultNew">
+                    <type>
+                      <derived name="E_Fault" />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* ---- 1. Temporizadores e deteccao de borda ---- *)
+bWatchBottle := (eState = E_LineState.CLAMPING) OR (eState = E_LineState.FILLING)
+                OR (eState = E_LineState.DRIPPING);
+
+trigReset(CLK := bReset);
+tonClamp  (IN := (eState = E_LineState.CLAMPING)   AND NOT bClampClosed, PT := GVL_Main.C_T_CYL_TIMEOUT);
+tonTare   (IN := (eState = E_LineState.CLAMPING)   AND bClampClosed,     PT := GVL_Main.C_T_TARE);
+tonUnclamp(IN := (eState = E_LineState.UNCLAMPING) AND NOT bClampOpen,   PT := GVL_Main.C_T_CYL_TIMEOUT);
+tonFill   (IN := (eState = E_LineState.FILLING),                         PT := stRecipe.tFillTimeout);
+tonDrip   (IN := (eState = E_LineState.DRIPPING),                        PT := stRecipe.tDrip);
+tonBottle (IN := bWatchBottle AND NOT bBottlePresent,                    PT := GVL_Main.C_T_BOTTLE_DEB);
+
+(* ---- 2. Deteccao de falhas (seguranca tem a maior prioridade) ---- *)
+eFaultNew := E_Fault.NONE;
+IF NOT bSafetyOk THEN
+    eFaultNew := E_Fault.SAFETY;
+ELSIF tonClamp.Q THEN
+    eFaultNew := E_Fault.CLAMP_TIMEOUT;
+ELSIF tonUnclamp.Q THEN
+    eFaultNew := E_Fault.UNCLAMP_TIMEOUT;
+ELSIF tonFill.Q THEN
+    eFaultNew := E_Fault.FILL_TIMEOUT;
+ELSIF tonBottle.Q THEN
+    eFaultNew := E_Fault.BOTTLE_REMOVED;
+END_IF;
+
+IF (eFaultNew &lt;&gt; E_Fault.NONE) AND (eState &lt;&gt; E_LineState.FAULT)
+   AND (eState &lt;&gt; E_LineState.DISABLED) THEN
+    IF bInProcess THEN
+        diRejected     := diRejected + 1;     (* Garrafa abortada = rejeitada *)
+        bInProcess     := FALSE;
+        bFaultMidCycle := TRUE;
+    ELSE
+        bFaultMidCycle := FALSE;
+    END_IF;
+    eFault := eFaultNew;
+    eState := E_LineState.FAULT;
+END_IF;
+
+(* ---- 3. Massa liquida ---- *)
+IF (eState = E_LineState.FILLING) OR (eState = E_LineState.DRIPPING) THEN
+    rNetMass_g := rMass_g - rTare_g;
+ELSIF eState = E_LineState.WAIT_BOTTLE THEN
+    rNetMass_g := 0.0;
+END_IF;
+
+(* ---- 4. Maquina de estados ---- *)
+CASE eState OF
+
+    E_LineState.DISABLED:
+        bClampCmd  := FALSE;
+        bFillValve := FALSE;
+        IF bEnable THEN
+            eState := E_LineState.WAIT_BOTTLE;
+        END_IF;
+
+    E_LineState.WAIT_BOTTLE:
+        bClampCmd  := FALSE;
+        bFillValve := FALSE;
+        IF NOT bEnable THEN
+            eState := E_LineState.DISABLED;
+        ELSIF bLotReady AND NOT bBottlePresent THEN
+            eState := E_LineState.DONE;                  (* Posicao vazia: nada a envasar *)
+        ELSIF bRun AND bLotReady AND bBottlePresent AND bTankOk THEN
+            bInProcess := TRUE;
+            eState     := E_LineState.CLAMPING;
+        END_IF;
+
+    E_LineState.CLAMPING:
+        bClampCmd  := TRUE;
+        bFillValve := FALSE;
+        IF tonTare.Q THEN                                (* Cilindro fechado e massa estavel *)
+            rTare_g := rMass_g;
+            eState  := E_LineState.FILLING;
+        END_IF;
+
+    E_LineState.FILLING:
+        bClampCmd := TRUE;
+        IF rNetMass_g &gt;= (stRecipe.rTargetMass_g - stRecipe.rPreAct_g) THEN
+            bFillValve := FALSE;
+            eState     := E_LineState.DRIPPING;
+        ELSE
+            bFillValve := TRUE;
+        END_IF;
+
+    E_LineState.DRIPPING:
+        bClampCmd  := TRUE;
+        bFillValve := FALSE;
+        IF tonDrip.Q THEN
+            IF ABS(rNetMass_g - stRecipe.rTargetMass_g) &lt;= stRecipe.rTolerance_g THEN
+                diFilled   := diFilled + 1;
+            ELSE
+                diRejected := diRejected + 1;
+            END_IF;
+            bInProcess := FALSE;
+            eState     := E_LineState.UNCLAMPING;
+        END_IF;
+
+    E_LineState.UNCLAMPING:
+        bClampCmd  := FALSE;
+        bFillValve := FALSE;
+        IF bClampOpen THEN
+            eState := E_LineState.DONE;
+        END_IF;
+
+    E_LineState.DONE:
+        bClampCmd  := FALSE;
+        bFillValve := FALSE;
+        IF NOT bLotReady THEN                            (* Lote saiu: prepara o proximo *)
+            IF bEnable THEN
+                eState := E_LineState.WAIT_BOTTLE;
+            ELSE
+                eState := E_LineState.DISABLED;
+            END_IF;
+        END_IF;
+
+    E_LineState.FAULT:
+        bClampCmd  := FALSE;                             (* Valvula fechada e garrafa liberada *)
+        bFillValve := FALSE;
+        IF trigReset.Q AND bSafetyOk THEN
+            eFault := E_Fault.NONE;
+            IF bFaultMidCycle THEN
+                eState := E_LineState.DONE;              (* Garrafa ja contabilizada como rejeitada *)
+            ELSE
+                eState := E_LineState.WAIT_BOTTLE;
+            END_IF;
+            bFaultMidCycle := FALSE;
+        END_IF;
+
+END_CASE;
+
+(* ---- 5. Saidas de status ---- *)
+bFault    := (eState = E_LineState.FAULT);
+bFinished := (eState = E_LineState.DISABLED) OR (eState = E_LineState.DONE);
+bBusy     := (eState = E_LineState.CLAMPING) OR (eState = E_LineState.FILLING)
+             OR (eState = E_LineState.DRIPPING) OR (eState = E_LineState.UNCLAMPING);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+                  <Method name="M_ClearCounters" ObjectId="2a7d4a82-bccd-4731-812b-6809d1a1432f">
+                    <interface>
+                      <returnType>
+                        <BOOL />
+                      </returnType>
+                    </interface>
+                    <body>
+                      <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Zera os contadores de garrafas envasadas e rejeitadas da linha *)
+diFilled   := 0;
+diRejected := 0;</xhtml>
+                      </ST>
+                    </body>
+                    <addData />
+                  </Method>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>c0299c7e-638c-4f32-8f0e-a5a03e007c92</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="PRG_Main" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="aLoadAvg">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="GVL_Main.C_NUM_LINES" />
+                        <baseType>
+                          <derived name="FB_MovingAvg" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="aLine">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="GVL_Main.C_NUM_LINES" />
+                        <baseType>
+                          <derived name="FB_FillLine" />
+                        </baseType>
+                      </array>
+                    </type>
+                  </variable>
+                  <variable name="fbTank">
+                    <type>
+                      <derived name="FB_LevelControl" />
+                    </type>
+                  </variable>
+                  <variable name="eConv">
+                    <type>
+                      <derived name="E_ConvState" />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="E_ConvState.ADVANCE" />
+                    </initialValue>
+                  </variable>
+                  <variable name="trigStart">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="trigLot">
+                    <type>
+                      <derived name="R_TRIG" />
+                    </type>
+                  </variable>
+                  <variable name="tonSettle">
+                    <type>
+                      <derived name="TON" />
+                    </type>
+                  </variable>
+                  <variable name="bSafetyOk">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Cadeia de seguranca lida pelo CLP; a protecao fisica deve ser independente </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bAllFinished">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bAnyFault">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bAnyBusy">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bConvStarted">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Esteira ja se moveu desde a partida </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="diSumFilled">
+                    <type>
+                      <DINT />
+                    </type>
+                  </variable>
+                  <variable name="diSumRejected">
+                    <type>
+                      <DINT />
+                    </type>
+                  </variable>
+                  <variable name="i">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* ---- 1. Seguranca: emergencia e porta (contatos NF) ---- *)
+bSafetyOk := GVL_Main.bEStopOk AND GVL_Main.bGuardClosed;
+
+(* ---- 2. Tanque pulmao com histerese ---- *)
+GVL_Main.rTankLevel_pct := FC_Scale(iRaw    := GVL_Main.iTankLevelRaw,
+                                    iRawMin := GVL_Main.C_RAW_MIN,
+                                    iRawMax := GVL_Main.C_RAW_MAX,
+                                    rEngMin := 0.0,
+                                    rEngMax := GVL_Main.rTankLevelMax_pct);
+fbTank(bEnable         := bSafetyOk,
+       rLevel_pct      := GVL_Main.rTankLevel_pct,
+       rLowOn_pct      := GVL_Main.rTankLowOn_pct,
+       rHighOff_pct    := GVL_Main.rTankHighOff_pct,
+       rMinOperate_pct := GVL_Main.rTankMinOperate_pct);
+GVL_Main.qTankInletValve := fbTank.bFillValve;
+
+(* ---- 3. Selecao de receita: somente com a maquina parada e sem garrafa em processo ---- *)
+GVL_Main.bRecipeLocked := GVL_Main.bRunning OR bAnyBusy;
+IF NOT GVL_Main.bRecipeLocked
+   AND (GVL_Main.iRecipeReq &gt;= 1) AND (GVL_Main.iRecipeReq &lt;= 3)
+   AND (GVL_Main.iRecipeReq &lt;&gt; GVL_Main.iRecipeActive) THEN
+    GVL_Main.stActiveRecipe := GVL_Main.aRecipes[GVL_Main.iRecipeReq];
+    GVL_Main.iRecipeActive  := GVL_Main.iRecipeReq;
+END_IF;
+
+(* ---- 4. Linhas de enchimento ---- *)
+bAllFinished  := TRUE;
+bAnyFault     := FALSE;
+bAnyBusy      := FALSE;
+diSumFilled   := 0;
+diSumRejected := 0;
+
+FOR i := 1 TO GVL_Main.C_NUM_LINES DO
+
+    (* Escalonamento e media movel da celula de carga *)
+    aLoadAvg[i](rIn := FC_Scale(iRaw    := GVL_Main.aiLoadCellRaw[i],
+                                iRawMin := GVL_Main.C_RAW_MIN,
+                                iRawMax := GVL_Main.C_RAW_MAX,
+                                rEngMin := 0.0,
+                                rEngMax := GVL_Main.rLoadCellFullScale_g));
+    GVL_Main.arMassGross_g[i] := aLoadAvg[i].rOut;
+
+    (* Ciclo da linha *)
+    aLine[i](bEnable        := GVL_Main.abLineEnable[i],
+             bSafetyOk      := bSafetyOk,
+             bRun           := GVL_Main.bRunning,
+             bLotReady      := (eConv = E_ConvState.PROCESSING),
+             bTankOk        := fbTank.bTankOk,
+             bBottlePresent := GVL_Main.abBottlePresent[i],
+             bClampClosed   := GVL_Main.abClampClosed[i],
+             bClampOpen     := GVL_Main.abClampOpen[i],
+             bReset         := GVL_Main.bResetPB,
+             rMass_g        := aLoadAvg[i].rOut,
+             stRecipe       := GVL_Main.stActiveRecipe);
+
+    (* Zeragem de contadores (pulso) *)
+    IF GVL_Main.bClearCounters THEN
+        aLine[i].M_ClearCounters();
+    END_IF;
+
+    (* Saidas fisicas e diagnostico *)
+    GVL_Main.abClampCmd[i]  := aLine[i].bClampCmd;
+    GVL_Main.abFillValve[i] := aLine[i].bFillValve;
+    GVL_Main.arMassNet_g[i] := aLine[i].rNetMass_g;
+    GVL_Main.aeLineState[i] := aLine[i].eState;
+    GVL_Main.aeLineFault[i] := aLine[i].eFault;
+    GVL_Main.adiFilled[i]   := aLine[i].diFilled;
+    GVL_Main.adiRejected[i] := aLine[i].diRejected;
+
+    (* Agregacao *)
+    IF NOT aLine[i].bFinished THEN
+        bAllFinished := FALSE;
+    END_IF;
+    IF aLine[i].bFault THEN
+        bAnyFault := TRUE;
+    END_IF;
+    IF aLine[i].bBusy THEN
+        bAnyBusy := TRUE;
+    END_IF;
+    diSumFilled   := diSumFilled   + aLine[i].diFilled;
+    diSumRejected := diSumRejected + aLine[i].diRejected;
+
+END_FOR;
+
+GVL_Main.bClearCounters   := FALSE;
+GVL_Main.diTotalFilled    := diSumFilled;
+GVL_Main.diTotalRejected  := diSumRejected;
+
+(* ---- 5. Liga/desliga da maquina ---- *)
+trigStart(CLK := GVL_Main.bStartPB);
+IF (NOT bSafetyOk) OR bAnyFault OR GVL_Main.bStopPB THEN
+    GVL_Main.bRunning := FALSE;                          (* Emergencia/porta/falha/parada *)
+ELSIF trigStart.Q AND (GVL_Main.iRecipeActive &gt;= 1) THEN
+    GVL_Main.bRunning := TRUE;
+END_IF;
+
+(* ---- 6. Sequenciamento da esteira ---- *)
+trigLot(CLK := GVL_Main.bLotInPos);
+tonSettle(IN := (eConv = E_ConvState.SETTLE) AND GVL_Main.bRunning,
+          PT := GVL_Main.C_T_SETTLE);
+
+CASE eConv OF
+
+    E_ConvState.ADVANCE:
+        (* Borda de subida do sensor = novo lote; na 1a partida aceita lote ja posicionado *)
+        IF trigLot.Q
+           OR (GVL_Main.bLotInPos AND NOT bConvStarted AND GVL_Main.bRunning) THEN
+            eConv := E_ConvState.SETTLE;
+        END_IF;
+
+    E_ConvState.SETTLE:
+        IF tonSettle.Q THEN
+            eConv := E_ConvState.PROCESSING;
+        END_IF;
+
+    E_ConvState.PROCESSING:
+        (* Todas as linhas habilitadas concluidas: avanca o proximo lote *)
+        IF bAllFinished AND GVL_Main.bRunning THEN
+            bConvStarted := TRUE;
+            eConv        := E_ConvState.ADVANCE;
+        END_IF;
+
+END_CASE;
+
+GVL_Main.qConveyor := GVL_Main.bRunning AND bSafetyOk AND (eConv = E_ConvState.ADVANCE);
+
+(* ---- 7. Alarmes ---- *)
+GVL_Main.bAlarmAny  := bAnyFault OR fbTank.bLowLevelAlarm;
+GVL_Main.qAlarmLamp := GVL_Main.bAlarmAny;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>adfadd25-99a0-4454-9e5a-2cb872e6ddc2</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FC_Scale" pouType="function">
+              <interface>
+                <returnType>
+                  <REAL />
+                </returnType>
+                <inputVars>
+                  <variable name="iRaw">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Valor bruto do canal analogico </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iRawMin">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Bruto minimo (0) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="iRawMax">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Bruto maximo (27648) </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rEngMin">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Engenharia no bruto minimo </xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="rEngMax">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Engenharia no bruto maximo </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+                <localVars>
+                  <variable name="rX">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">(* Protecao contra divisao por zero *)
+IF iRawMax = iRawMin THEN
+    FC_Scale := rEngMin;
+    RETURN;
+END_IF;
+
+(* Limita o bruto a faixa valida *)
+rX := LIMIT(INT_TO_REAL(iRawMin), INT_TO_REAL(iRaw), INT_TO_REAL(iRawMax));
+
+(* Interpolacao linear *)
+FC_Scale := rEngMin + (rX - INT_TO_REAL(iRawMin)) * (rEngMax - rEngMin)
+            / (INT_TO_REAL(iRawMax) - INT_TO_REAL(iRawMin));</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>a99dd290-32ec-49d7-811f-59253f1fc7e1</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+            <Libraries>
+              <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+              <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+              <Library Name="#CAA Device Diagnosis" Namespace="DED" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CAA Device Diagnosis, 3.5.20.0 (CAA Technical Workgroup)" />
+              <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+              <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
+              <PlaceholderRedirections>
+                <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+              </PlaceholderRedirections>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>7bb425a8-8d5b-4fa0-8608-abfd7a8231f7</ObjectId>
+                </data>
+              </addData>
+            </Libraries>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>609a3dc4-8057-4bd3-8e1a-07a4185dfa09</ObjectId>
+          </data>
+        </addData>
+      </resource>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Application" ObjectId="609a3dc4-8057-4bd3-8e1a-07a4185dfa09">
+          <Object Name="Library Manager" ObjectId="7bb425a8-8d5b-4fa0-8608-abfd7a8231f7" />
+          <Object Name="MainTask" ObjectId="bd2cf80f-5dc7-4be3-b894-26f22c0436e2" />
+          <Object Name="E_LineState" ObjectId="c7bf65c4-7d14-4629-8e74-6520c9cbc160" />
+          <Object Name="E_Fault" ObjectId="778b5401-fdb0-4908-a258-b751df23f94a" />
+          <Object Name="E_ConvState" ObjectId="905be313-029a-4cd6-addf-b22ae09c6c9c" />
+          <Object Name="ST_Recipe" ObjectId="9e13953d-a349-43c1-b127-d81004aa2d39" />
+          <Object Name="GVL_Main" ObjectId="78caea86-da93-45ec-afa2-ae43378e4b55" />
+          <Object Name="FB_MovingAvg" ObjectId="6c19f04a-0714-45d0-946b-8a0258d9bde9" />
+          <Object Name="FB_LevelControl" ObjectId="bef0d6b1-c4bf-4c15-ac66-64930be4bee7" />
+          <Object Name="FB_FillLine" ObjectId="c0299c7e-638c-4f32-8f0e-a5a03e007c92">
+            <Object Name="M_ClearCounters" ObjectId="2a7d4a82-bccd-4731-812b-6809d1a1432f" />
+          </Object>
+          <Object Name="PRG_Main" ObjectId="adfadd25-99a0-4454-9e5a-2cb872e6ddc2" />
+          <Object Name="FC_Scale" ObjectId="a99dd290-32ec-49d7-811f-59253f1fc7e1" />
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

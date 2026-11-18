@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2026-10-15T18:40:57.5469645" />
+  <contentHeader name="OpenAI1.project" modificationDateTime="2026-10-15T18:40:25.3898363">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Device">
+        <resource name="Application">
+          <task name="MainTask" interval="PT0.02S" priority="1">
+            <pouInstance name="PLC_PRG" typeName="">
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </documentation>
+            </pouInstance>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+                </TaskSettings>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>2890c483-7ee5-4273-b13b-3daafcc0b9ba</ObjectId>
+              </data>
+            </addData>
+          </task>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PLC_PRG" pouType="program">
+                <interface>
+                  <inputVars>
+                    <variable name="i_bStart">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bStop">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_wTempSensor">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="o_bHeater">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="o_bMixer">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="o_rAvgTemp">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                  <localVars>
+                    <variable name="a_rTempHistory">
+                      <type>
+                        <array>
+                          <dimension lower="0" upper="4" />
+                          <baseType>
+                            <REAL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="fbMixTimer">
+                      <type>
+                        <derived name="TON" />
+                      </type>
+                    </variable>
+                    <variable name="i_State">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
+                    </variable>
+                    <variable name="i_Index">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="r_Temp">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="r_Sum">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </localVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">r_Temp := (INT_TO_REAL(i_wTempSensor) * 150.0) / 27648.0;
+
+FOR i_Index := 4 TO 1 BY -1 DO
+    a_rTempHistory[i_Index] := a_rTempHistory[i_Index - 1];
+END_FOR;
+
+a_rTempHistory[0] := r_Temp;
+
+r_Sum := 0.0;
+
+FOR i_Index := 0 TO 4 DO
+    r_Sum := r_Sum + a_rTempHistory[i_Index];
+END_FOR;
+
+o_rAvgTemp := r_Sum / 5.0;
+
+IF NOT i_bStop THEN
+    i_State := 0;
+    o_bHeater := FALSE;
+    o_bMixer := FALSE;
+    fbMixTimer(IN := FALSE, PT := T#10s);
+ELSE
+    fbMixTimer(IN := (i_State = 2), PT := T#10s);
+
+    CASE i_State OF
+
+        0:
+            o_bHeater := FALSE;
+            o_bMixer := FALSE;
+
+            IF i_bStart THEN
+                i_State := 1;
+            END_IF;
+
+        1:
+            o_bHeater := TRUE;
+            o_bMixer := FALSE;
+
+            IF o_rAvgTemp &gt; 80.0 THEN
+                o_bHeater := FALSE;
+                o_bMixer := TRUE;
+                i_State := 2;
+            END_IF;
+
+        2:
+            o_bHeater := FALSE;
+            o_bMixer := TRUE;
+
+            IF fbMixTimer.Q THEN
+                o_bMixer := FALSE;
+                i_State := 0;
+            END_IF;
+
+        ELSE
+            i_State := 0;
+            o_bHeater := FALSE;
+            o_bMixer := FALSE;
+
+    END_CASE;
+END_IF;</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>65c1f8c4-8ebc-4837-adaa-798f7eb176fb</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+              <Libraries>
+                <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
+                <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+                <Library Name="#CAA Device Diagnosis" Namespace="DED" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CAA Device Diagnosis, 3.5.20.0 (CAA Technical Workgroup)" />
+                <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+                <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
+                <PlaceholderRedirections>
+                  <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+                </PlaceholderRedirections>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>b35a2606-f9c2-4b6b-93be-d39b90625e72</ObjectId>
+                  </data>
+                </addData>
+              </Libraries>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>eac9d5f0-e98c-40a3-8638-a8f5b61309aa</ObjectId>
+            </data>
+          </addData>
+        </resource>
+        <addData>
+          <data name="Device" handleUnknown="discard">
+            <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+              <DeviceType>
+                <DeviceIdentification>
+                  <Type>4096</Type>
+                  <Id>0000 0004</Id>
+                  <Version>3.5.20.0</Version>
+                </DeviceIdentification>
+                <Connector moduleType="256" interface="Common.PCI" connectorId="0">
+                  <HostParameterSet />
+                </Connector>
+                <Connector moduleType="769" interface="SafetyInterface" connectorId="1">
+                  <HostParameterSet />
+                </Connector>
+                <DeviceParameterSet />
+              </DeviceType>
+            </Device>
+          </data>
+          <data name="configurations" handleUnknown="discard">
+            <configurations />
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>c8719d94-b9ca-483c-bf6b-682aa5c0503f</ObjectId>
+          </data>
+        </addData>
+      </configuration>
+    </configurations>
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Device" ObjectId="c8719d94-b9ca-483c-bf6b-682aa5c0503f">
+          <Object Name="Application" ObjectId="eac9d5f0-e98c-40a3-8638-a8f5b61309aa">
+            <Object Name="Library Manager" ObjectId="b35a2606-f9c2-4b6b-93be-d39b90625e72" />
+            <Object Name="PLC_PRG" ObjectId="65c1f8c4-8ebc-4837-adaa-798f7eb176fb" />
+            <Object Name="MainTask" ObjectId="2890c483-7ee5-4273-b13b-3daafcc0b9ba" />
+          </Object>
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

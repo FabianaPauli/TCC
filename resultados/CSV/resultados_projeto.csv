@@ -1,0 +1,10 @@
+﻿arquivo;unidades;pous;sloc_total;sloc_medio_por_pou;mod_adequada;mod_atencao;mod_desfavoravel;fbs;metodos_adequada;metodos_atencao;fbs_metodos_desfavoravel;globais_distintas_usadas;globais_compartilhadas;acoplamento_medio;acoplamento_maximo;densidade_media;reu_adequada;reu_atencao;reu_desfavoravel;perc_parametrizaveis;perc_autocontidas;fbs_instanciados;fbs_reutilizados;funcoes;funcoes_reutilizadas;linhas_duplicadas;perc_duplicacao;duplicacao
+Claude1.xml;1;1;55;55,00;0;0;1;0;0;0;0;0;0;0,00;0;14,08;0;1;0;0,00;100,00;0;0;0;0;0;0,00;Adequada
+DeepSeek1.xml;1;1;49;49,00;0;0;1;0;0;0;0;0;0;0,00;0;0,00;0;0;1;0,00;100,00;0;0;0;0;0;0,00;Adequada
+OpenAI1.xml;1;1;45;45,00;0;0;1;0;0;0;0;0;0;0,00;0;0,00;0;0;1;0,00;100,00;0;0;0;0;0;0,00;Adequada
+Claude2.xml;15;15;727;48,47;4;5;6;7;7;0;0;120;53;12,53;36;10,31;1;3;11;53,33;33,33;7;3;1;1;0;0,00;Adequada
+DeepSeek2.xml;12;12;493;41,08;3;3;6;11;11;0;0;38;9;5,42;33;14,86;4;3;5;91,67;0,00;11;4;0;0;0;0,00;Adequada
+OpenAI2.xml;9;9;789;87,67;0;1;8;8;8;0;0;96;0;10,67;84;7,45;0;3;6;88,89;77,78;8;1;0;0;0;0,00;Adequada
+Claude3.xml;6;5;245;49,00;3;1;2;3;3;0;0;47;0;9,40;43;18,17;2;3;1;80,00;40,00;3;2;1;1;0;0,00;Adequada
+Deepseek3.xml;6;6;276;46,00;3;1;2;5;5;0;0;46;4;8,33;44;15,38;0;5;1;83,33;66,67;5;3;0;0;0;0,00;Adequada
+OpenAI3.xml;2;2;392;196,00;0;0;2;1;1;0;0;65;0;32,50;52;11,36;0;1;1;50,00;0,00;1;1;0;0;0;0,00;Adequada
